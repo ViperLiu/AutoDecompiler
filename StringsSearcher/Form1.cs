@@ -10,6 +10,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Management;
+using System.Web;
 
 
 namespace StringsSearcher
@@ -215,6 +216,23 @@ namespace StringsSearcher
             {
                 MessageBox.Show(e.Error.ToString());
             }
+        }
+
+        private void btn_encode_Click(object sender, EventArgs e)
+        {
+            string input = tb_converterInput.Text;
+            string output = "";
+            byte[] input_bytes = System.Text.Encoding.UTF8.GetBytes(input);
+            output = Convert.ToBase64String(input_bytes);
+            tb_converterOutput.Text = output;
+        }
+
+        private void btn_decode_Click(object sender, EventArgs e)
+        {
+            string input = tb_converterInput.Text;
+            string output = "";
+            output = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(input));
+            tb_converterOutput.Text = output;
         }
 
         

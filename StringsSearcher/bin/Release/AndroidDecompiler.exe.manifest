@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AndroidDecompiler.exe" size="1139200">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AndroidDecompiler.exe" size="1141760">
       <assemblyIdentity name="AndroidDecompiler" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>vUOUJLotsRK+YXO+saAE7hmZe/g=</dsig:DigestValue>
+        <dsig:DigestValue>JdKmc7NPoh5OBJCMM0IYNHyLUhs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
