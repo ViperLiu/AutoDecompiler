@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="AndroidDecompiler.exe" version="1.0.0.8" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
+  <description asmv2:iconFile="Android Studio.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="AndroidDecompiler" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+    <commandLine file="AndroidDecompiler.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="LocalIntranet" Description="Default rights given to applications on the local intranet" Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- UAC 資訊清單選項
+            如果您要變更 Windows 使用者帳戶控制層級，請將 
+            requestedExecutionLevel 節點取代為下列其中一項。
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            指定 requestedExecutionLevel 節點會停用檔案和登錄虛擬化。
+            如果您要針對回溯相容性使用檔案及登錄虛擬化，
+            請刪除 requestedExecutionLevel 節點。
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AndroidDecompiler.exe" size="1139200">
+      <assemblyIdentity name="AndroidDecompiler" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>vUOUJLotsRK+YXO+saAE7hmZe/g=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Android Studio.ico" size="560526">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>QlBjOJA/8N6lFpWaWSf0d4XMr40=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\apktool-2.3.0\aapt.exe" size="854016">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>5znIBCSpc93tiufViuJgyGGrCII=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\apktool-2.3.0\apktool.bat" size="181">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>eBrK9NWW/6He041x9Ti7sOsIi1E=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\apktool-2.3.0\apktool.jar" size="5882586">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>K18WcpV5KC1iTfj/RlXSI1n7yQA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\decompiler.bat" size="186">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>NT6jU33o3KZfjOlR+eeKJqObapU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j_invoke.bat" size="326">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>Sij8yt+BWqL9eAxujwai5gPjvZ8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j_invoke.sh" size="1321">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>oa6NCBIYZ7wllzq7Fj7cIZ+2loc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-baksmali.bat" size="834">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>0feTPFyJLHdcYd5bd827i6INRws=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-baksmali.sh" size="1086">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>YyHvu03xw8lhXtxd9n7TR9HKK/Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-dex2jar.bat" size="837">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>YwLRpe7QjLLbKQL1B8rtTOcWdPY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-dex2jar.sh" size="1089">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>dmMpsl6RuaZteYf2S5coV4zdBgk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-dex2smali.bat" size="834">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>0feTPFyJLHdcYd5bd827i6INRws=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-dex2smali.sh" size="1086">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>YyHvu03xw8lhXtxd9n7TR9HKK/Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-dex-recompute-checksum.bat" size="847">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>HUMk3/2DkvpVIZ6LsgPunP9WeWU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-dex-recompute-checksum.sh" size="1099">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>HQuNPqIlpTNQbD8xEDdEsBQeHK0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-jar2dex.bat" size="834">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>2jPauBWnZVorLMUEgI8cecdvaxE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-jar2dex.sh" size="1086">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>2fIeoLeZ040fOg9zQ7MOp38PScQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-jar2jasmin.bat" size="837">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>dcxjFB9CbUhoHqgEzqxDm+e7OjQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-jar2jasmin.sh" size="1089">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>guDgfCzs7sLZ2+uB1IZpYAk5BA0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-jasmin2jar.bat" size="837">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>1DR+Wday+ovskAVdOy11iIZkIWI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-jasmin2jar.sh" size="1089">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>9pfJsIGqKpLSNHpRCWNNmGvBOhI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-smali.bat" size="831">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>CVYO3yEMVTccZY7aPYZd69Dq3BY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-smali.sh" size="1083">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>OFWmvIIbK8PxmXNAV6E6aOqf1Z4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-std-apk.bat" size="836">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>p5/C3O1z4tnfqFCy9UMvf+bM/1E=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\d2j-std-apk.sh" size="1088">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>le6jTXMWWTMuPZY8FO9745fz/HE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\antlr-runtime-3.5.jar" size="167735">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>C6qCv/GQWUAekOG5ACC+ucljBdc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\asm-debug-all-4.1.jar" size="342664">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>3Wulw5LUECRYSU4p9U9wrFNOwqI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\d2j-base-cmd-2.0.jar" size="14073">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>ZFwngCGMCaMnVuTIuGyeLcOb3sc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\d2j-jasmin-2.0.jar" size="158801">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>5S5ZZNvJbyyF7611m/2cwRHqqqY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\d2j-smali-2.0.jar" size="183663">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>xprpQEEAaIqK/fLXBVCCetM5/PU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\dex-ir-2.0.jar" size="213276">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>lJ7JUP4nWYvDwZc/oHeeM5Uyr1A=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\dex-reader-2.0.jar" size="65020">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>6gbUBP/zxMcBo2beDaaDkkr9Tl8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\dex-reader-api-2.0.jar" size="60550">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>nEKSlpNxoFbo1bfPVpK4gftjA08=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\dex-tools-2.0.jar" size="177089">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>S/LnlRufJIi4xZjmL5KgZfAfThI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\dex-translator-2.0.jar" size="78909">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>s1JIMRZXQe3d2xsfn58FTkteDgw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\dex-writer-2.0.jar" size="101289">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>DXLkZMos7GOX4xGnT6H/6lDj4u8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\dex2jar-2.0\lib\dx-1.7.jar" size="981817">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>cOq0oA2ffKiEnpYKh/W2c2qk7BE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\jd-cli-0.9.2-dist\jd-cli" size="92">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>tYebn6wJwy7LD2CxX8VxCy+VnDc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\jd-cli-0.9.2-dist\jd-cli.bat" size="940">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>dUMLyuJJrL5ZCzMA6yHZ1seqQ4Q=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\jd-cli-0.9.2-dist\jd-cli.jar" size="1453735">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>vGzVcxMYgbdN5dXTGwB0pU6ebUI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tools\jd-cli-0.9.2-dist\LICENSE.txt" size="35141">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>EtgfUHZ9TgmqeHfaB3rZ0bkV11s=</dsig:DigestValue>
+    </hash>
+  </file>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- 可配合此應用程式使用的所有 Windows 版本的清單。Windows 會自動選取最相容的環境。-->
+      <!-- 如果您的應用程式是設計成配合 Windows 7 運作，請取消註解下列 supportedOS 節點-->
+      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>-->
+    </application>
+  </compatibility>
+</asmv1:assembly>
