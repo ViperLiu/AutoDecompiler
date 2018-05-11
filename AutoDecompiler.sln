@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringsSearcher", "StringsSearcher\StringsSearcher.csproj", "{F8243F00-5A6C-4A86-83D5-31E812DEA8AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDecompiler", "StringsSearcher\AutoDecompiler.csproj", "{F8243F00-5A6C-4A86-83D5-31E812DEA8AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
