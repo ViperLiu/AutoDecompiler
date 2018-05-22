@@ -18,14 +18,42 @@ namespace StringsSearcher
     public partial class Form1 : Form
     {
         Process process;
+        Process mobsf;
         ProcessStartInfo startInfo = new ProcessStartInfo();
         public Form1()
         {
             InitializeComponent();
             this.textBox1.DragEnter += new DragEventHandler(txtFolderPath_DragEnter);
             this.textBox1.DragDrop += new DragEventHandler(txtFolderPath_DragDrop);
+            loadSettings();
         }
 
+
+        public void loadSettings()
+        {
+            try
+            { // Create an instance of StreamReader to read from a file.
+                // The using statement also closes the StreamReader.
+                using (StreamReader sr = new StreamReader("settings\\setting.conf"))     //小寫TXT
+                {
+                    String line;
+                    // Read and display lines from the file until the end of 
+                    // the file is reached.
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] tmpArr = line.Split('=');
+                        if (tmpArr[0] == "MobSFPath")
+                            this.tb_MobSFPath.Text = tmpArr[1];
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
 
         public string getSHA1()
         {
@@ -61,13 +89,13 @@ namespace StringsSearcher
             if (extension == ".ipa")
             {
                 tbOutput.AppendText("ipa無法反組譯\r\n");
-                button4.Enabled = false;
+                btn_decompile.Enabled = false;
                 this.tbOutputDir.Enabled = false;
                 this.tbOutputDir.Text = "";
             }
             else if (extension == ".apk")
             {
-                button4.Enabled = true;
+                btn_decompile.Enabled = true;
                 this.tbOutputDir.Enabled = true;
             }
             this.textBox1.Text = file[0];
@@ -92,7 +120,7 @@ namespace StringsSearcher
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_selectAPK_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
             String file = openFileDialog1.FileName;
@@ -104,7 +132,7 @@ namespace StringsSearcher
                 {
                     this.textBox1.Text = openFileDialog1.FileName;
                     this.tbOutputDir.Text = dir;
-                    button4.Enabled = true;
+                    btn_decompile.Enabled = true;
                     this.tbOutputDir.Enabled = true;
                     tbSHA1.Text = getSHA1();
                     tbMD5.Text = getMD5();
@@ -112,7 +140,7 @@ namespace StringsSearcher
                 else if (extension == ".ipa")
                 {
                     tbOutput.AppendText("ipa無法反組譯\r\n");
-                    button4.Enabled = false;
+                    btn_decompile.Enabled = false;
                     this.textBox1.Text = openFileDialog1.FileName;
                     this.tbOutputDir.Enabled = false;
                     this.tbOutputDir.Text = "";
@@ -126,7 +154,7 @@ namespace StringsSearcher
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btn_selectOutputDir_Click(object sender, EventArgs e)
         {
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -158,7 +186,7 @@ namespace StringsSearcher
             });
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void decompileWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             string args1 = textBox1.Text;
             string args3 = textBox1.Text + ".jar";
@@ -192,25 +220,25 @@ namespace StringsSearcher
             process.WaitForExit();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btn_decompile_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "" || tbOutputDir.Text == "")
             {
                 MessageBox.Show("請先選擇檔案與輸出資料夾");
                 return;
             }
-            this.button1.Enabled = false;
-            this.button2.Enabled = false;
-            this.button4.Enabled = false;
+            this.btn_selectAPK.Enabled = false;
+            this.btn_selectOutputDir.Enabled = false;
+            this.btn_decompile.Enabled = false;
             this.progressBar1.Visible = true;
-            backgroundWorker1.RunWorkerAsync();
+            decompileWorker.RunWorkerAsync();
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void decompileWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.button1.Enabled = true;
-            this.button2.Enabled = true;
-            this.button4.Enabled = true;
+            this.btn_selectAPK.Enabled = true;
+            this.btn_selectOutputDir.Enabled = true;
+            this.btn_decompile.Enabled = true;
             this.progressBar1.Visible = false;
             if (e.Error != null)
             {
@@ -235,6 +263,86 @@ namespace StringsSearcher
             tb_converterOutput.Text = output;
         }
 
+        private void MobSFWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string args1 = tb_MobSFPath.Text + "\\manage.py";
+            string args2 = "runserver";
+
+            this.mobsf = new Process();
+
+
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "python2.exe";
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.Arguments = string.Format("\"{0}\" \"{1}\"", args1, args2);
+
+            //tbOutput.Text = startInfo.Arguments;
+            startInfo.CreateNoWindow = true;
+            mobsf.StartInfo = startInfo;
+            mobsf.SynchronizingObject = this;
+
+            mobsf.Start();
+            mobsf.ErrorDataReceived += proc_mobsf_OutputDataReceived;
+            mobsf.OutputDataReceived += proc_mobsf_OutputDataReceived;
+            mobsf.EnableRaisingEvents = true;
+            mobsf.Exited += new EventHandler(proc_mobsf_Exited);
+            mobsf.BeginOutputReadLine();
+            mobsf.BeginErrorReadLine();
+            mobsf.WaitForExit();
+        }
+
+        void proc_mobsf_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            this.tbOutput.Invoke((MethodInvoker)delegate
+            {
+                tb_MobSFOutput.AppendText(e.Data + "\r\n");
+            });
+        }
+        void proc_mobsf_Exited(object sender, EventArgs e)
+        {
+            MessageBox.Show("MobSF已關閉");
+        }
+
+        private void btn_startMobSF_Click(object sender, EventArgs e)
+        {
+            btn_startMobSF.Enabled = false;
+            btn_stopMobSF.Enabled = true;
+            this.tb_MobSFOutput.Text = "";
+            MobSFWorker.RunWorkerAsync();
+        }
+
+        private void MobSFWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            btn_startMobSF.Enabled = true;
+            btn_stopMobSF.Enabled = false;
+        }
+
+        private void btn_stopMobSF_Click(object sender, EventArgs e)
+        {
+            Process[] localByName = Process.GetProcessesByName("python2");
+            try
+            {
+                for (int i = 0; i < localByName.Length; i++)
+                    localByName[i].Kill();
+            }
+            catch { }
+        }
+
+        private void btn_MobSFPath_Click(object sender, EventArgs e)
+        {
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                tb_MobSFPath.Text = folderBrowserDialog1.SelectedPath;
+                using (StreamWriter sw = new StreamWriter("settings\\setting.conf"))
+                {
+                    // Add some text to the file.
+                    sw.Write("MobSFPath=" + tb_MobSFPath.Text);
+                }
+            }
+        }
         
     }
 }
