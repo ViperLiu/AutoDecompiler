@@ -52,3 +52,4 @@ D:\AutoDecompiler\StringsSearcher\obj\x86\Debug\AndroidDecompiler.exe
 D:\AutoDecompiler\StringsSearcher\obj\x86\Debug\AndroidDecompiler.pdb
 D:\AutoDecompiler\StringsSearcher\obj\x86\Debug\AutoDecompiler.csprojResolveAssemblyReference.cache
 D:\AutoDecompiler\StringsSearcher\bin\Debug\settings\程式設定值
+D:\AutoDecompiler\StringsSearcher\bin\Debug\AndroidDecompiler.exe.config

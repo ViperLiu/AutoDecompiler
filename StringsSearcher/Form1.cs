@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Management;
 using System.Web;
+using AndroidDecompiler;
 
 
 namespace StringsSearcher
@@ -25,34 +26,6 @@ namespace StringsSearcher
             InitializeComponent();
             this.textBox1.DragEnter += new DragEventHandler(txtFolderPath_DragEnter);
             this.textBox1.DragDrop += new DragEventHandler(txtFolderPath_DragDrop);
-            loadSettings();
-        }
-
-
-        public void loadSettings()
-        {
-            try
-            { // Create an instance of StreamReader to read from a file.
-                // The using statement also closes the StreamReader.
-                using (StreamReader sr = new StreamReader("settings\\setting.conf"))     //小寫TXT
-                {
-                    String line;
-                    // Read and display lines from the file until the end of 
-                    // the file is reached.
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        string[] tmpArr = line.Split('=');
-                        if (tmpArr[0] == "MobSFPath")
-                            this.tb_MobSFPath.Text = tmpArr[1];
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                // Let the user know what went wrong.
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
-            }
         }
 
         public string getSHA1()
@@ -272,7 +245,7 @@ namespace StringsSearcher
 
 
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "python2.exe";
+            startInfo.FileName = "python.exe";
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
             startInfo.RedirectStandardError = true;
@@ -283,7 +256,14 @@ namespace StringsSearcher
             mobsf.StartInfo = startInfo;
             mobsf.SynchronizingObject = this;
 
-            mobsf.Start();
+            try
+            {
+                mobsf.Start();
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("找不到python.exe，請確定python.exe的路徑是否有加入至系統路徑中");
+            }
             mobsf.ErrorDataReceived += proc_mobsf_OutputDataReceived;
             mobsf.OutputDataReceived += proc_mobsf_OutputDataReceived;
             mobsf.EnableRaisingEvents = true;
@@ -295,10 +275,25 @@ namespace StringsSearcher
 
         void proc_mobsf_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
+            if (e.Data == null)
+                return;
             this.tbOutput.Invoke((MethodInvoker)delegate
             {
                 tb_MobSFOutput.AppendText(e.Data + "\r\n");
             });
+            if (e.Data.StartsWith("REST"))
+            {
+                MobSF.APIKey = e.Data.Split(':')[1];
+                AndroidDecompiler.Properties.MobSF.Default.APIKey = e.Data.Split(':')[1];
+                AndroidDecompiler.Properties.MobSF.Default.Save();
+            }
+            if (e.Data.StartsWith("[WARN] A new version") || e.Data.StartsWith("[INFO] No updates available."))
+            {
+                this.tbOutput.Invoke((MethodInvoker)delegate
+                {
+                    tb_MobSFOutput.AppendText("Ready!!\r\n");
+                });
+            }
         }
         void proc_mobsf_Exited(object sender, EventArgs e)
         {
@@ -307,9 +302,37 @@ namespace StringsSearcher
 
         private void btn_startMobSF_Click(object sender, EventArgs e)
         {
+            this.tb_MobSFOutput.Text = "";
+            if (!File.Exists(this.tb_MobSFPath.Text + "\\manage.py"))
+            {
+                MessageBox.Show("路徑下沒有發現manage.py，請選取manage.py所在的資料夾");
+                return;
+            }
+
+            if (AndroidDecompiler.Properties.MobSF.Default.IsFirstRun)
+            {
+                this.tb_MobSFOutput.AppendText("正在準備MobSF...\r\n");
+                try
+                {
+                    this.tb_MobSFOutput.AppendText("正在備份utils.py到" + this.tb_MobSFPath.Text + "\\backup\\...\r\n");
+                    MobSF.BackupFile();
+                    this.tb_MobSFOutput.AppendText("正在修改utils.py...\r\n");
+                    MobSF.Patch();
+                }
+                catch (Exception error)
+                {
+                    this.tb_MobSFOutput.AppendText(error.Message);
+                    return;
+                }
+                AndroidDecompiler.Properties.MobSF.Default.IsFirstRun = false;
+                AndroidDecompiler.Properties.MobSF.Default.IsMobSFPatched = true;
+                AndroidDecompiler.Properties.MobSF.Default.Save();
+            }
+
+
             btn_startMobSF.Enabled = false;
             btn_stopMobSF.Enabled = true;
-            this.tb_MobSFOutput.Text = "";
+            
             MobSFWorker.RunWorkerAsync();
         }
 
@@ -321,11 +344,15 @@ namespace StringsSearcher
 
         private void btn_stopMobSF_Click(object sender, EventArgs e)
         {
-            Process[] localByName = Process.GetProcessesByName("python2");
+            var result = MessageBox.Show("此動作將會結束\"所有\"的python程式，請確認沒有任何重要的python程式在運行", "即將關閉所有python程式", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (result == System.Windows.Forms.DialogResult.Cancel)
+                return;
+            Process[] localByName = Process.GetProcessesByName("python");
             try
             {
                 for (int i = 0; i < localByName.Length; i++)
                     localByName[i].Kill();
+                tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
             }
             catch { }
         }
@@ -336,13 +363,31 @@ namespace StringsSearcher
             if (result == DialogResult.OK)
             {
                 tb_MobSFPath.Text = folderBrowserDialog1.SelectedPath;
-                using (StreamWriter sw = new StreamWriter("settings\\setting.conf"))
-                {
-                    // Add some text to the file.
-                    sw.Write("MobSFPath=" + tb_MobSFPath.Text);
-                }
+                AndroidDecompiler.Properties.MobSF.Default.MobSFPath = folderBrowserDialog1.SelectedPath;
+                AndroidDecompiler.Properties.MobSF.Default.Save();
             }
         }
+
+
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            TabControl tmp = (TabControl)sender;
+            if (tmp.SelectedTab == tmp.TabPages["tab_MobSF"])
+            {
+                this.loadSettings();
+            }
+        }
+
+        public void loadSettings()
+        {
+            this.tb_MobSFPath.Text = AndroidDecompiler.Properties.MobSF.Default.MobSFPath;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AndroidDecompiler.Properties.MobSF.Default.Reset();
+        }
+
         
     }
 }

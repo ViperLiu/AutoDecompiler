@@ -63,16 +63,17 @@
             this.tb_converterOutput = new System.Windows.Forms.TextBox();
             this.tb_converterInput = new System.Windows.Forms.TextBox();
             this.tab_MobSF = new System.Windows.Forms.TabPage();
+            this.btn_stopMobSF = new System.Windows.Forms.Button();
+            this.tb_MobSFOutput = new System.Windows.Forms.TextBox();
+            this.btn_startMobSF = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.btn_MobSFPath = new System.Windows.Forms.Button();
             this.tb_MobSFPath = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.btn_startMobSF = new System.Windows.Forms.Button();
             this.MobSFWorker = new System.ComponentModel.BackgroundWorker();
-            this.tb_MobSFOutput = new System.Windows.Forms.TextBox();
-            this.btn_stopMobSF = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -318,6 +319,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(927, 425);
             this.tabControl1.TabIndex = 17;
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tabPage1
             // 
@@ -419,6 +421,7 @@
             // 
             // tab_MobSF
             // 
+            this.tab_MobSF.Controls.Add(this.button1);
             this.tab_MobSF.Controls.Add(this.btn_stopMobSF);
             this.tab_MobSF.Controls.Add(this.tb_MobSFOutput);
             this.tab_MobSF.Controls.Add(this.btn_startMobSF);
@@ -435,6 +438,36 @@
             this.tab_MobSF.TabIndex = 2;
             this.tab_MobSF.Text = "MobSF";
             this.tab_MobSF.UseVisualStyleBackColor = true;
+            // 
+            // btn_stopMobSF
+            // 
+            this.btn_stopMobSF.Location = new System.Drawing.Point(90, 94);
+            this.btn_stopMobSF.Name = "btn_stopMobSF";
+            this.btn_stopMobSF.Size = new System.Drawing.Size(76, 39);
+            this.btn_stopMobSF.TabIndex = 17;
+            this.btn_stopMobSF.Text = "停止MobSF";
+            this.btn_stopMobSF.UseVisualStyleBackColor = true;
+            this.btn_stopMobSF.Click += new System.EventHandler(this.btn_stopMobSF_Click);
+            // 
+            // tb_MobSFOutput
+            // 
+            this.tb_MobSFOutput.Location = new System.Drawing.Point(390, 6);
+            this.tb_MobSFOutput.Multiline = true;
+            this.tb_MobSFOutput.Name = "tb_MobSFOutput";
+            this.tb_MobSFOutput.ReadOnly = true;
+            this.tb_MobSFOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tb_MobSFOutput.Size = new System.Drawing.Size(528, 392);
+            this.tb_MobSFOutput.TabIndex = 16;
+            // 
+            // btn_startMobSF
+            // 
+            this.btn_startMobSF.Location = new System.Drawing.Point(8, 94);
+            this.btn_startMobSF.Name = "btn_startMobSF";
+            this.btn_startMobSF.Size = new System.Drawing.Size(76, 39);
+            this.btn_startMobSF.TabIndex = 15;
+            this.btn_startMobSF.Text = "啟動MobSF";
+            this.btn_startMobSF.UseVisualStyleBackColor = true;
+            this.btn_startMobSF.Click += new System.EventHandler(this.btn_startMobSF_Click);
             // 
             // button3
             // 
@@ -493,40 +526,22 @@
             this.label9.TabIndex = 9;
             this.label9.Text = "MobSF資料夾：";
             // 
-            // btn_startMobSF
-            // 
-            this.btn_startMobSF.Location = new System.Drawing.Point(8, 94);
-            this.btn_startMobSF.Name = "btn_startMobSF";
-            this.btn_startMobSF.Size = new System.Drawing.Size(76, 39);
-            this.btn_startMobSF.TabIndex = 15;
-            this.btn_startMobSF.Text = "啟動MobSF";
-            this.btn_startMobSF.UseVisualStyleBackColor = true;
-            this.btn_startMobSF.Click += new System.EventHandler(this.btn_startMobSF_Click);
-            // 
             // MobSFWorker
             // 
             this.MobSFWorker.WorkerSupportsCancellation = true;
             this.MobSFWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.MobSFWorker_DoWork);
             this.MobSFWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.MobSFWorker_RunWorkerCompleted);
             // 
-            // tb_MobSFOutput
+            // button1
             // 
-            this.tb_MobSFOutput.Location = new System.Drawing.Point(390, 6);
-            this.tb_MobSFOutput.Multiline = true;
-            this.tb_MobSFOutput.Name = "tb_MobSFOutput";
-            this.tb_MobSFOutput.ReadOnly = true;
-            this.tb_MobSFOutput.Size = new System.Drawing.Size(528, 392);
-            this.tb_MobSFOutput.TabIndex = 16;
-            // 
-            // btn_stopMobSF
-            // 
-            this.btn_stopMobSF.Location = new System.Drawing.Point(90, 94);
-            this.btn_stopMobSF.Name = "btn_stopMobSF";
-            this.btn_stopMobSF.Size = new System.Drawing.Size(76, 39);
-            this.btn_stopMobSF.TabIndex = 17;
-            this.btn_stopMobSF.Text = "停止MobSF";
-            this.btn_stopMobSF.UseVisualStyleBackColor = true;
-            this.btn_stopMobSF.Click += new System.EventHandler(this.btn_stopMobSF_Click);
+            this.button1.Location = new System.Drawing.Point(172, 94);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(76, 39);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "清除設定檔";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -601,6 +616,7 @@
         private System.ComponentModel.BackgroundWorker MobSFWorker;
         private System.Windows.Forms.TextBox tb_MobSFOutput;
         private System.Windows.Forms.Button btn_stopMobSF;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AndroidDecompiler.exe" size="1147392">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AndroidDecompiler.exe" size="1151488">
       <assemblyIdentity name="AndroidDecompiler" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>krVq8bAYiwpJmg7TYQzdgsFSJ84=</dsig:DigestValue>
+        <dsig:DigestValue>v1n94EooZtrqWxoBvJytXCGPG9Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,6 +61,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>QlBjOJA/8N6lFpWaWSf0d4XMr40=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="AndroidDecompiler.exe.config" size="1955">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>NxuJRAUXiQR+7r6x5RIBG6JdEhQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Properties\MobSF.settings" size="797">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>Ay5T0DkKkdlp2MTlTg6XEZS83xs=</dsig:DigestValue>
     </hash>
   </file>
   <file name="settings\程式設定值" size="0">
