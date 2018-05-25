@@ -1,2 +1,2 @@
-# AutoDecompiler
-A handy tool for MAS test
+# MASToolBox
+A bunch of handy tools for MAS test
