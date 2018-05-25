@@ -11,22 +11,25 @@ using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Management;
 using System.Web;
-using AndroidDecompiler;
+using MASToolBox;
 
 
-namespace StringsSearcher
+namespace MASToolBox
 {
     public partial class Form1 : Form
     {
         Process process;
         Process mobsf;
         ProcessStartInfo startInfo = new ProcessStartInfo();
+        private static MASToolBox.Properties.MobSF MobSFSettings = MASToolBox.Properties.MobSF.Default;
         public Form1()
         {
             InitializeComponent();
             this.textBox1.DragEnter += new DragEventHandler(txtFolderPath_DragEnter);
             this.textBox1.DragDrop += new DragEventHandler(txtFolderPath_DragDrop);
         }
+
+        #region decompiler
 
         public string getSHA1()
         {
@@ -219,175 +222,10 @@ namespace StringsSearcher
             }
         }
 
-        private void btn_encode_Click(object sender, EventArgs e)
-        {
-            string input = tb_converterInput.Text;
-            string output = "";
-            byte[] input_bytes = System.Text.Encoding.UTF8.GetBytes(input);
-            output = Convert.ToBase64String(input_bytes);
-            tb_converterOutput.Text = output;
-        }
-
-        private void btn_decode_Click(object sender, EventArgs e)
-        {
-            string input = tb_converterInput.Text;
-            string output = "";
-            output = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(input));
-            tb_converterOutput.Text = output;
-        }
-
-        private void MobSFWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            string args1 = tb_MobSFPath.Text + "\\manage.py";
-            string args2 = "runserver";
-
-            this.mobsf = new Process();
-
-
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "python.exe";
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.Arguments = string.Format("\"{0}\" \"{1}\"", args1, args2);
-
-            //tbOutput.Text = startInfo.Arguments;
-            startInfo.CreateNoWindow = true;
-            mobsf.StartInfo = startInfo;
-            mobsf.SynchronizingObject = this;
-
-            try
-            {
-                mobsf.Start();
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("找不到python.exe，請確定python.exe的路徑是否有加入至系統路徑中");
-            }
-            mobsf.ErrorDataReceived += proc_mobsf_OutputDataReceived;
-            mobsf.OutputDataReceived += proc_mobsf_OutputDataReceived;
-            mobsf.EnableRaisingEvents = true;
-            mobsf.Exited += new EventHandler(proc_mobsf_Exited);
-            mobsf.BeginOutputReadLine();
-            mobsf.BeginErrorReadLine();
-            mobsf.WaitForExit();
-        }
-
-        void proc_mobsf_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data == null)
-                return;
-            this.tbOutput.Invoke((MethodInvoker)delegate
-            {
-                tb_MobSFOutput.AppendText(e.Data + "\r\n");
-            });
-            if (e.Data.StartsWith("REST"))
-            {
-                MobSF.APIKey = e.Data.Split(':')[1];
-                AndroidDecompiler.Properties.MobSF.Default.APIKey = e.Data.Split(':')[1];
-                AndroidDecompiler.Properties.MobSF.Default.Save();
-            }
-            if (e.Data.StartsWith("[WARN] A new version") || e.Data.StartsWith("[INFO] No updates available."))
-            {
-                this.tbOutput.Invoke((MethodInvoker)delegate
-                {
-                    tb_MobSFOutput.AppendText("Ready!!\r\n");
-                });
-            }
-        }
-        void proc_mobsf_Exited(object sender, EventArgs e)
-        {
-            MessageBox.Show("MobSF已關閉");
-        }
-
-        private void btn_startMobSF_Click(object sender, EventArgs e)
-        {
-            this.tb_MobSFOutput.Text = "";
-            if (!File.Exists(this.tb_MobSFPath.Text + "\\manage.py"))
-            {
-                MessageBox.Show("路徑下沒有發現manage.py，請選取manage.py所在的資料夾");
-                return;
-            }
-
-            if (AndroidDecompiler.Properties.MobSF.Default.IsFirstRun)
-            {
-                this.tb_MobSFOutput.AppendText("正在準備MobSF...\r\n");
-                try
-                {
-                    this.tb_MobSFOutput.AppendText("正在備份utils.py到" + this.tb_MobSFPath.Text + "\\backup\\...\r\n");
-                    MobSF.BackupFile();
-                    this.tb_MobSFOutput.AppendText("正在修改utils.py...\r\n");
-                    MobSF.Patch();
-                }
-                catch (Exception error)
-                {
-                    this.tb_MobSFOutput.AppendText(error.Message);
-                    return;
-                }
-                AndroidDecompiler.Properties.MobSF.Default.IsFirstRun = false;
-                AndroidDecompiler.Properties.MobSF.Default.IsMobSFPatched = true;
-                AndroidDecompiler.Properties.MobSF.Default.Save();
-            }
-
-
-            btn_startMobSF.Enabled = false;
-            btn_stopMobSF.Enabled = true;
-            
-            MobSFWorker.RunWorkerAsync();
-        }
-
-        private void MobSFWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            btn_startMobSF.Enabled = true;
-            btn_stopMobSF.Enabled = false;
-        }
-
-        private void btn_stopMobSF_Click(object sender, EventArgs e)
-        {
-            var result = MessageBox.Show("此動作將會結束\"所有\"的python程式，請確認沒有任何重要的python程式在運行", "即將關閉所有python程式", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            if (result == System.Windows.Forms.DialogResult.Cancel)
-                return;
-            Process[] localByName = Process.GetProcessesByName("python");
-            try
-            {
-                for (int i = 0; i < localByName.Length; i++)
-                    localByName[i].Kill();
-                tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
-            }
-            catch { }
-        }
-
-        private void btn_MobSFPath_Click(object sender, EventArgs e)
-        {
-            DialogResult result = folderBrowserDialog1.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                tb_MobSFPath.Text = folderBrowserDialog1.SelectedPath;
-                AndroidDecompiler.Properties.MobSF.Default.MobSFPath = folderBrowserDialog1.SelectedPath;
-                AndroidDecompiler.Properties.MobSF.Default.Save();
-            }
-        }
-
-
-        private void tabControl1_Selected(object sender, TabControlEventArgs e)
-        {
-            TabControl tmp = (TabControl)sender;
-            if (tmp.SelectedTab == tmp.TabPages["tab_MobSF"])
-            {
-                this.loadSettings();
-            }
-        }
-
-        public void loadSettings()
-        {
-            this.tb_MobSFPath.Text = AndroidDecompiler.Properties.MobSF.Default.MobSFPath;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AndroidDecompiler.Properties.MobSF.Default.Reset();
-        }
+        #endregion
 
         
+
+
     }
 }
