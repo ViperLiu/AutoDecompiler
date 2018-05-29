@@ -12,11 +12,34 @@ using System.Diagnostics;
 using System.Management;
 using System.Web;
 using MASToolBox;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace MASToolBox
 {
     public partial class Form1
     {
+        Process mobsf;
+        JObject responseJson;
+        private static MASToolBox.Properties.MobSF MobSFSettings = MASToolBox.Properties.MobSF.Default;
+
+        private void RequestWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+            var response = MobSF.UploadScan("http://127.0.0.1:8000/api/v1/upload", tb_APKFile.Text);
+            responseJson = JObject.Parse(response);
+        }
+
+        private void RequestWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            toolStrip.Visible = false;
+            toolStripProgressBar1.Visible = false;
+            btn_uploadAPK.Enabled = true;
+            tb_MobSFOutput.AppendText(responseJson["manifest"][0]["title"] + "\r\n");
+            MessageBox.Show((responseJson["manifest"][0]["title"]).ToString());
+        }
+
         private void MobSFWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             string args1 = MobSFSettings.MobSFPath + "\\manage.py";
@@ -73,6 +96,7 @@ namespace MASToolBox
             //當MobSF輸出這些字時，代表已啟動完成
             if (e.Data.StartsWith("[WARN] A new version") || e.Data.StartsWith("[INFO] No updates available."))
             {
+                btn_uploadAPK.Enabled = true;
                 this.tbOutput.Invoke((MethodInvoker)delegate
                 {
                     tb_MobSFOutput.AppendText("Ready!!\r\n");
@@ -85,6 +109,8 @@ namespace MASToolBox
             btn_startMobSF.Enabled = true;
             btn_stopMobSF.Enabled = false;
             btn_resetMobSF.Enabled = true;
+            btn_uploadAPK.Enabled = false;
+            btn_MobSFPath.Enabled = false;
             tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
             MessageBox.Show("MobSF已關閉");
         }
@@ -107,6 +133,7 @@ namespace MASToolBox
             btn_startMobSF.Enabled = false;
             btn_stopMobSF.Enabled = true;
             btn_resetMobSF.Enabled = false;
+            btn_MobSFPath.Enabled = false;
 
             MobSFWorker.RunWorkerAsync();
         }
@@ -247,6 +274,22 @@ namespace MASToolBox
                 // Process already exited.
                 MessageBox.Show("停止MobSF時發生錯誤");
             }
+        }
+
+        private void btn_uploadAPK_Click(object sender, EventArgs e)
+        {
+            /*var result = MobSF.UploadScan("http://127.0.0.1:8000/api/v1/upload", tb_APKFile.Text);
+
+            JObject json = JObject.Parse(result);
+
+            tb_MobSFOutput.AppendText(json["manifest"][0]["title"] + "\r\n");*/
+
+            RequestWorker.RunWorkerAsync();
+            lb_status.Text = "掃描中...";
+            lb_status.Visible = true;
+            toolStripProgressBar1.Visible = true;
+            btn_uploadAPK.Enabled = false;
+            
         }
     }
 }

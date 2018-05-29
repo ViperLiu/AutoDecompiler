@@ -33,7 +33,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_selectAPK = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label2 = new System.Windows.Forms.Label();
             this.btn_selectOutputDir = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tbOutputDir = new System.Windows.Forms.TextBox();
@@ -52,9 +51,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.decompileWorker = new System.ComponentModel.BackgroundWorker();
             this.btn_decompile = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_sendToMobSF = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -63,23 +62,29 @@
             this.tb_converterOutput = new System.Windows.Forms.TextBox();
             this.tb_converterInput = new System.Windows.Forms.TextBox();
             this.tab_MobSF = new System.Windows.Forms.TabPage();
+            this.btn_uploadAPK = new System.Windows.Forms.Button();
             this.btn_resetMobSF = new System.Windows.Forms.Button();
             this.btn_stopMobSF = new System.Windows.Forms.Button();
             this.tb_MobSFOutput = new System.Windows.Forms.TextBox();
             this.btn_startMobSF = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.tb_APKFile = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.btn_MobSFPath = new System.Windows.Forms.Button();
             this.tb_MobSFPath = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.MobSFWorker = new System.ComponentModel.BackgroundWorker();
+            this.RequestWorker = new System.ComponentModel.BackgroundWorker();
+            this.toolStrip = new System.Windows.Forms.StatusStrip();
+            this.lb_status = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tab_MobSF.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -90,6 +95,8 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(284, 22);
             this.textBox1.TabIndex = 0;
+            this.textBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
+            this.textBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
             // 
             // label1
             // 
@@ -115,16 +122,6 @@
             // 
             this.folderBrowserDialog1.SelectedPath = "C:\\Users\\劉建毅\\Desktop";
             this.folderBrowserDialog1.ShowNewFolderButton = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("新細明體", 12F);
-            this.label2.Location = new System.Drawing.Point(394, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 16);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "INFO：";
             // 
             // btn_selectOutputDir
             // 
@@ -153,10 +150,6 @@
             this.tbOutputDir.Name = "tbOutputDir";
             this.tbOutputDir.Size = new System.Drawing.Size(284, 22);
             this.tbOutputDir.TabIndex = 5;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // label5
             // 
@@ -264,13 +257,13 @@
             // tbOutput
             // 
             this.tbOutput.AllowDrop = true;
-            this.tbOutput.Font = new System.Drawing.Font("新細明體", 11F);
-            this.tbOutput.Location = new System.Drawing.Point(397, 23);
+            this.tbOutput.Font = new System.Drawing.Font("Consolas", 12F);
+            this.tbOutput.Location = new System.Drawing.Point(397, 6);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOutput.Size = new System.Drawing.Size(512, 367);
+            this.tbOutput.Size = new System.Drawing.Size(516, 389);
             this.tbOutput.TabIndex = 13;
             this.tbOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
             this.tbOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
@@ -279,7 +272,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("新細明體", 12F);
-            this.label4.Location = new System.Drawing.Point(3, 215);
+            this.label4.Location = new System.Drawing.Point(0, 215);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(168, 16);
             this.label4.TabIndex = 14;
@@ -292,7 +285,8 @@
             // 
             // btn_decompile
             // 
-            this.btn_decompile.Location = new System.Drawing.Point(6, 234);
+            this.btn_decompile.Enabled = false;
+            this.btn_decompile.Location = new System.Drawing.Point(3, 234);
             this.btn_decompile.Name = "btn_decompile";
             this.btn_decompile.Size = new System.Drawing.Size(76, 39);
             this.btn_decompile.TabIndex = 15;
@@ -300,35 +294,30 @@
             this.btn_decompile.UseVisualStyleBackColor = true;
             this.btn_decompile.Click += new System.EventHandler(this.btn_decompile_Click);
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(459, 4);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(215, 13);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 16;
-            this.progressBar1.Visible = false;
-            // 
             // tabControl1
             // 
+            this.tabControl1.AllowDrop = true;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tab_MobSF);
+            this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(927, 425);
+            this.tabControl1.Size = new System.Drawing.Size(927, 421);
             this.tabControl1.TabIndex = 17;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
+            this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
+            this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
             // 
             // tabPage1
             // 
+            this.tabPage1.AllowDrop = true;
+            this.tabPage1.Controls.Add(this.btn_sendToMobSF);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Controls.Add(this.tbOutput);
             this.tabPage1.Controls.Add(this.btn_decompile);
-            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.btn_selectOutputDir);
             this.tabPage1.Controls.Add(this.tbOutputDir);
             this.tabPage1.Controls.Add(this.label4);
@@ -338,10 +327,23 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(919, 399);
+            this.tabPage1.Size = new System.Drawing.Size(919, 395);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Decompiler";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
+            this.tabPage1.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
+            // 
+            // btn_sendToMobSF
+            // 
+            this.btn_sendToMobSF.Enabled = false;
+            this.btn_sendToMobSF.Location = new System.Drawing.Point(85, 234);
+            this.btn_sendToMobSF.Name = "btn_sendToMobSF";
+            this.btn_sendToMobSF.Size = new System.Drawing.Size(76, 39);
+            this.btn_sendToMobSF.TabIndex = 16;
+            this.btn_sendToMobSF.Text = "傳送到MobSF";
+            this.btn_sendToMobSF.UseVisualStyleBackColor = true;
+            this.btn_sendToMobSF.Click += new System.EventHandler(this.btn_sendToMobSF_Click);
             // 
             // tabPage2
             // 
@@ -354,7 +356,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(919, 399);
+            this.tabPage2.Size = new System.Drawing.Size(919, 395);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Base64 converter";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -407,7 +409,7 @@
             this.tb_converterOutput.Name = "tb_converterOutput";
             this.tb_converterOutput.ReadOnly = true;
             this.tb_converterOutput.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tb_converterOutput.Size = new System.Drawing.Size(394, 371);
+            this.tb_converterOutput.Size = new System.Drawing.Size(394, 373);
             this.tb_converterOutput.TabIndex = 1;
             // 
             // tb_converterInput
@@ -416,17 +418,18 @@
             this.tb_converterInput.Location = new System.Drawing.Point(18, 22);
             this.tb_converterInput.Multiline = true;
             this.tb_converterInput.Name = "tb_converterInput";
-            this.tb_converterInput.Size = new System.Drawing.Size(394, 371);
+            this.tb_converterInput.Size = new System.Drawing.Size(394, 373);
             this.tb_converterInput.TabIndex = 0;
             // 
             // tab_MobSF
             // 
+            this.tab_MobSF.Controls.Add(this.btn_uploadAPK);
             this.tab_MobSF.Controls.Add(this.btn_resetMobSF);
             this.tab_MobSF.Controls.Add(this.btn_stopMobSF);
             this.tab_MobSF.Controls.Add(this.tb_MobSFOutput);
             this.tab_MobSF.Controls.Add(this.btn_startMobSF);
             this.tab_MobSF.Controls.Add(this.button3);
-            this.tab_MobSF.Controls.Add(this.textBox4);
+            this.tab_MobSF.Controls.Add(this.tb_APKFile);
             this.tab_MobSF.Controls.Add(this.label12);
             this.tab_MobSF.Controls.Add(this.btn_MobSFPath);
             this.tab_MobSF.Controls.Add(this.tb_MobSFPath);
@@ -434,14 +437,25 @@
             this.tab_MobSF.Location = new System.Drawing.Point(4, 22);
             this.tab_MobSF.Name = "tab_MobSF";
             this.tab_MobSF.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_MobSF.Size = new System.Drawing.Size(919, 399);
+            this.tab_MobSF.Size = new System.Drawing.Size(919, 395);
             this.tab_MobSF.TabIndex = 2;
             this.tab_MobSF.Text = "MobSF";
             this.tab_MobSF.UseVisualStyleBackColor = true;
             // 
+            // btn_uploadAPK
+            // 
+            this.btn_uploadAPK.Enabled = false;
+            this.btn_uploadAPK.Location = new System.Drawing.Point(180, 94);
+            this.btn_uploadAPK.Name = "btn_uploadAPK";
+            this.btn_uploadAPK.Size = new System.Drawing.Size(76, 39);
+            this.btn_uploadAPK.TabIndex = 19;
+            this.btn_uploadAPK.Text = "上傳APK";
+            this.btn_uploadAPK.UseVisualStyleBackColor = true;
+            this.btn_uploadAPK.Click += new System.EventHandler(this.btn_uploadAPK_Click);
+            // 
             // btn_resetMobSF
             // 
-            this.btn_resetMobSF.Location = new System.Drawing.Point(172, 94);
+            this.btn_resetMobSF.Location = new System.Drawing.Point(262, 94);
             this.btn_resetMobSF.Name = "btn_resetMobSF";
             this.btn_resetMobSF.Size = new System.Drawing.Size(76, 39);
             this.btn_resetMobSF.TabIndex = 18;
@@ -452,7 +466,7 @@
             // btn_stopMobSF
             // 
             this.btn_stopMobSF.Enabled = false;
-            this.btn_stopMobSF.Location = new System.Drawing.Point(90, 94);
+            this.btn_stopMobSF.Location = new System.Drawing.Point(98, 94);
             this.btn_stopMobSF.Name = "btn_stopMobSF";
             this.btn_stopMobSF.Size = new System.Drawing.Size(76, 39);
             this.btn_stopMobSF.TabIndex = 17;
@@ -462,17 +476,18 @@
             // 
             // tb_MobSFOutput
             // 
-            this.tb_MobSFOutput.Location = new System.Drawing.Point(390, 6);
+            this.tb_MobSFOutput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tb_MobSFOutput.Location = new System.Drawing.Point(380, 6);
             this.tb_MobSFOutput.Multiline = true;
             this.tb_MobSFOutput.Name = "tb_MobSFOutput";
             this.tb_MobSFOutput.ReadOnly = true;
             this.tb_MobSFOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tb_MobSFOutput.Size = new System.Drawing.Size(528, 392);
+            this.tb_MobSFOutput.Size = new System.Drawing.Size(532, 389);
             this.tb_MobSFOutput.TabIndex = 16;
             // 
             // btn_startMobSF
             // 
-            this.btn_startMobSF.Location = new System.Drawing.Point(8, 94);
+            this.btn_startMobSF.Location = new System.Drawing.Point(16, 94);
             this.btn_startMobSF.Name = "btn_startMobSF";
             this.btn_startMobSF.Size = new System.Drawing.Size(76, 39);
             this.btn_startMobSF.TabIndex = 15;
@@ -489,14 +504,14 @@
             this.button3.Text = "選擇APK檔";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // tb_APKFile
             // 
-            this.textBox4.AllowDrop = true;
-            this.textBox4.Location = new System.Drawing.Point(8, 66);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(284, 22);
-            this.textBox4.TabIndex = 12;
+            this.tb_APKFile.AllowDrop = true;
+            this.tb_APKFile.Location = new System.Drawing.Point(8, 66);
+            this.tb_APKFile.Name = "tb_APKFile";
+            this.tb_APKFile.ReadOnly = true;
+            this.tb_APKFile.Size = new System.Drawing.Size(284, 22);
+            this.tb_APKFile.TabIndex = 12;
             // 
             // label12
             // 
@@ -543,16 +558,48 @@
             this.MobSFWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.MobSFWorker_DoWork);
             this.MobSFWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.MobSFWorker_RunWorkerCompleted);
             // 
+            // RequestWorker
+            // 
+            this.RequestWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RequestWorker_DoWork);
+            this.RequestWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.RequestWorker_RunWorkerCompleted);
+            // 
+            // toolStrip
+            // 
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lb_status,
+            this.toolStripProgressBar1});
+            this.toolStrip.Location = new System.Drawing.Point(0, 427);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(930, 22);
+            this.toolStrip.TabIndex = 18;
+            this.toolStrip.Text = "statusStrip1";
+            // 
+            // lb_status
+            // 
+            this.lb_status.Name = "lb_status";
+            this.lb_status.Size = new System.Drawing.Size(128, 17);
+            this.lb_status.Text = "toolStripStatusLabel1";
+            this.lb_status.Visible = false;
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.toolStripProgressBar1.Visible = false;
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 449);
+            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "AutoDecompiler";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
             this.groupBox1.ResumeLayout(false);
@@ -566,7 +613,10 @@
             this.tabPage2.PerformLayout();
             this.tab_MobSF.ResumeLayout(false);
             this.tab_MobSF.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -576,7 +626,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_selectAPK;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_selectOutputDir;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbOutputDir;
@@ -590,7 +639,6 @@
         private System.Windows.Forms.Label label4;
         private System.ComponentModel.BackgroundWorker decompileWorker;
         private System.Windows.Forms.Button btn_decompile;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -610,13 +658,19 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tb_APKFile;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btn_startMobSF;
         private System.ComponentModel.BackgroundWorker MobSFWorker;
         private System.Windows.Forms.TextBox tb_MobSFOutput;
         private System.Windows.Forms.Button btn_stopMobSF;
         private System.Windows.Forms.Button btn_resetMobSF;
+        private System.Windows.Forms.Button btn_uploadAPK;
+        private System.ComponentModel.BackgroundWorker RequestWorker;
+        private System.Windows.Forms.StatusStrip toolStrip;
+        private System.Windows.Forms.ToolStripStatusLabel lb_status;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.Button btn_sendToMobSF;
     }
 }
 

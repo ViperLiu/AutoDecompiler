@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Threading.Tasks;
+using System.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using EasyHttp;
+using EasyHttp.Http;
+
+
 
 namespace MASToolBox
 {
@@ -14,6 +22,7 @@ namespace MASToolBox
         //public static string UploadUrl = "";
         //public static string ScanUrl = "";
         public static string[] filesToProcess = {"utils.py", "settings.py"};
+        //public static HttpClient client = new HttpClient();
 
         public static void BackupFile(string fileToBackup)
         {
@@ -235,6 +244,37 @@ namespace MASToolBox
             {
                 throw new Exception("無法寫入檔案：" + fileToBeWrite);
             }
+        }
+
+        public static string UploadScan(string actionUrl, string file)
+        {
+            var apiKey = MASToolBox.Properties.MobSF.Default.APIKey;
+            string fullPath = file;
+            FormUpload.FileParameter f = new FormUpload.FileParameter(File.ReadAllBytes(fullPath), "test.apk", "application/vnd.android.package-archive");
+            Dictionary<string,object> d = new Dictionary<string,object>();
+            d.Add("file", f);
+            string ua = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
+
+            var result = FormUpload.MultipartFormDataPost(actionUrl, ua, d);
+            StreamReader r = new StreamReader(result.GetResponseStream());
+            JObject json = JObject.Parse(r.ReadToEnd());
+
+            Dictionary<string, object> oj = new Dictionary<string, object>();
+            oj.Add("scan_type", json["scan_type"]);
+            oj.Add("file_name", json["file_name"]);
+            oj.Add("hash", json["hash"]);
+
+            string so = "scan_type=\"" + json["scan_type"] + "\"&file_name=\"" + json["file_name"] + "\"&hash=\"" + json["hash"]+"\"";
+            var http = new EasyHttp.Http.HttpClient();
+            http.Request.RawHeaders.Add("Authorization", apiKey);
+            http.Request.KeepAlive = true;
+            http.Request.Timeout = 3600000;
+            http.Post("http://127.0.0.1:8000/api/v1/scan", oj, null, HttpContentTypes.ApplicationJson);
+            
+            return http.Response.RawText;
+
+
+
         }
     }
 }

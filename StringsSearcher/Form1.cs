@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Management;
 using System.Web;
 using MASToolBox;
+using Microsoft.Win32;
 
 
 namespace MASToolBox
@@ -19,9 +20,9 @@ namespace MASToolBox
     public partial class Form1 : Form
     {
         Process process;
-        Process mobsf;
+        
         ProcessStartInfo startInfo = new ProcessStartInfo();
-        private static MASToolBox.Properties.MobSF MobSFSettings = MASToolBox.Properties.MobSF.Default;
+        
         public Form1()
         {
             InitializeComponent();
@@ -29,7 +30,6 @@ namespace MASToolBox
             this.textBox1.DragDrop += new DragEventHandler(txtFolderPath_DragDrop);
         }
 
-        #region decompiler
 
         public string getSHA1()
         {
@@ -59,6 +59,7 @@ namespace MASToolBox
 
         private void txtFolderPath_DragDrop(object sender, DragEventArgs e)
         {
+            Console.WriteLine("drop");
             String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
             String dir = System.IO.Path.GetDirectoryName(file[0]);
             String extension = System.IO.Path.GetExtension(file[0]).ToLower();
@@ -66,12 +67,14 @@ namespace MASToolBox
             {
                 tbOutput.AppendText("ipa無法反組譯\r\n");
                 btn_decompile.Enabled = false;
+                btn_sendToMobSF.Enabled = false;
                 this.tbOutputDir.Enabled = false;
                 this.tbOutputDir.Text = "";
             }
             else if (extension == ".apk")
             {
                 btn_decompile.Enabled = true;
+                btn_sendToMobSF.Enabled = true;
                 this.tbOutputDir.Enabled = true;
             }
             this.textBox1.Text = file[0];
@@ -82,6 +85,7 @@ namespace MASToolBox
 
         private void txtFolderPath_DragEnter(object sender, DragEventArgs e)
         {
+            Console.WriteLine("enter");
             String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
             String extension = System.IO.Path.GetExtension(file[0]);
             extension = extension.ToLower();
@@ -100,15 +104,16 @@ namespace MASToolBox
         {
             DialogResult result = openFileDialog1.ShowDialog();
             String file = openFileDialog1.FileName;
-            String extension = System.IO.Path.GetExtension(file);
+            String extension = System.IO.Path.GetExtension(file).ToLower();
             String dir = System.IO.Path.GetDirectoryName(file);
             if (result == DialogResult.OK)
             {
-                if (extension == ".apk" || extension == ".APK")
+                if (extension == ".apk")
                 {
                     this.textBox1.Text = openFileDialog1.FileName;
                     this.tbOutputDir.Text = dir;
                     btn_decompile.Enabled = true;
+                    btn_sendToMobSF.Enabled = true;
                     this.tbOutputDir.Enabled = true;
                     tbSHA1.Text = getSHA1();
                     tbMD5.Text = getMD5();
@@ -117,6 +122,7 @@ namespace MASToolBox
                 {
                     tbOutput.AppendText("ipa無法反組譯\r\n");
                     btn_decompile.Enabled = false;
+                    btn_sendToMobSF.Enabled = false;
                     this.textBox1.Text = openFileDialog1.FileName;
                     this.tbOutputDir.Enabled = false;
                     this.tbOutputDir.Text = "";
@@ -206,7 +212,9 @@ namespace MASToolBox
             this.btn_selectAPK.Enabled = false;
             this.btn_selectOutputDir.Enabled = false;
             this.btn_decompile.Enabled = false;
-            this.progressBar1.Visible = true;
+            this.lb_status.Text = "正在反組譯...";
+            this.lb_status.Visible = true;
+            this.toolStripProgressBar1.Visible = true;
             decompileWorker.RunWorkerAsync();
         }
 
@@ -215,16 +223,30 @@ namespace MASToolBox
             this.btn_selectAPK.Enabled = true;
             this.btn_selectOutputDir.Enabled = true;
             this.btn_decompile.Enabled = true;
-            this.progressBar1.Visible = false;
+            this.lb_status.Visible = false;
+            this.toolStripProgressBar1.Visible = false;
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.ToString());
             }
         }
 
-        #endregion
+        private void btn_sendToMobSF_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "")
+                return;
+            tb_APKFile.Text = textBox1.Text;
+            tabControl1.SelectedTab = tab_MobSF;
+            tb_APKFile.Focus();
+        }
 
-        
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (mobsf != null)
+                KillProcessAndChildren(mobsf.Id);
+            if (process != null)
+                KillProcessAndChildren(process.Id);
+        }
 
 
     }
