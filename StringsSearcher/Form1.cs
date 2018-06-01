@@ -1,33 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
 using System.Diagnostics;
-using System.Management;
-using System.Web;
 
 
-namespace StringsSearcher
+namespace MASToolBox
 {
     public partial class Form1 : Form
     {
         Process process;
+        
         ProcessStartInfo startInfo = new ProcessStartInfo();
+        
         public Form1()
         {
             InitializeComponent();
-            this.textBox1.DragEnter += new DragEventHandler(txtFolderPath_DragEnter);
-            this.textBox1.DragDrop += new DragEventHandler(txtFolderPath_DragDrop);
+            this.textBox1.DragEnter += new DragEventHandler(TxtFolderPath_DragEnter);
+            this.textBox1.DragDrop += new DragEventHandler(TxtFolderPath_DragDrop);
         }
 
 
-        public string getSHA1()
+        public string GetSHA1()
         {
             if (textBox1.Text == "")
                 return null;
@@ -40,7 +36,7 @@ namespace StringsSearcher
             return result;
         }
 
-        public string getMD5()
+        public string GetMD5()
         {
             if (textBox1.Text == "")
                 return null;
@@ -53,31 +49,35 @@ namespace StringsSearcher
             return result;
         }
 
-        private void txtFolderPath_DragDrop(object sender, DragEventArgs e)
+        private void TxtFolderPath_DragDrop(object sender, DragEventArgs e)
         {
+            Console.WriteLine("drop");
             String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
             String dir = System.IO.Path.GetDirectoryName(file[0]);
             String extension = System.IO.Path.GetExtension(file[0]).ToLower();
             if (extension == ".ipa")
             {
                 tbOutput.AppendText("ipa無法反組譯\r\n");
-                button4.Enabled = false;
+                btn_decompile.Enabled = false;
+                btn_sendToMobSF.Enabled = false;
                 this.tbOutputDir.Enabled = false;
                 this.tbOutputDir.Text = "";
             }
             else if (extension == ".apk")
             {
-                button4.Enabled = true;
+                btn_decompile.Enabled = true;
+                btn_sendToMobSF.Enabled = true;
                 this.tbOutputDir.Enabled = true;
             }
             this.textBox1.Text = file[0];
             this.tbOutputDir.Text = dir;
-            tbSHA1.Text = getSHA1();
-            tbMD5.Text = getMD5();
+            tbSHA1.Text = GetSHA1();
+            tbMD5.Text = GetMD5();
         }
 
-        private void txtFolderPath_DragEnter(object sender, DragEventArgs e)
+        private void TxtFolderPath_DragEnter(object sender, DragEventArgs e)
         {
+            Console.WriteLine("enter");
             String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
             String extension = System.IO.Path.GetExtension(file[0]);
             extension = extension.ToLower();
@@ -92,32 +92,34 @@ namespace StringsSearcher
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Btn_selectAPK_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
             String file = openFileDialog1.FileName;
-            String extension = System.IO.Path.GetExtension(file);
+            String extension = System.IO.Path.GetExtension(file).ToLower();
             String dir = System.IO.Path.GetDirectoryName(file);
             if (result == DialogResult.OK)
             {
-                if (extension == ".apk" || extension == ".APK")
+                if (extension == ".apk")
                 {
                     this.textBox1.Text = openFileDialog1.FileName;
                     this.tbOutputDir.Text = dir;
-                    button4.Enabled = true;
+                    btn_decompile.Enabled = true;
+                    btn_sendToMobSF.Enabled = true;
                     this.tbOutputDir.Enabled = true;
-                    tbSHA1.Text = getSHA1();
-                    tbMD5.Text = getMD5();
+                    tbSHA1.Text = GetSHA1();
+                    tbMD5.Text = GetMD5();
                 }
                 else if (extension == ".ipa")
                 {
                     tbOutput.AppendText("ipa無法反組譯\r\n");
-                    button4.Enabled = false;
+                    btn_decompile.Enabled = false;
+                    btn_sendToMobSF.Enabled = false;
                     this.textBox1.Text = openFileDialog1.FileName;
                     this.tbOutputDir.Enabled = false;
                     this.tbOutputDir.Text = "";
-                    tbSHA1.Text = getSHA1();
-                    tbMD5.Text = getMD5();
+                    tbSHA1.Text = GetSHA1();
+                    tbMD5.Text = GetMD5();
                 }
                 else 
                 {
@@ -126,7 +128,7 @@ namespace StringsSearcher
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Btn_selectOutputDir_Click(object sender, EventArgs e)
         {
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -136,11 +138,11 @@ namespace StringsSearcher
         }
 
 
-        void process_Exited(object sender, EventArgs e)
+        void Process_Exited(object sender, EventArgs e)
         {
             MessageBox.Show("輸出完畢");
         }
-        void proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             this.tbOutput.Invoke((MethodInvoker)delegate
             {
@@ -148,7 +150,7 @@ namespace StringsSearcher
             });
         }
         
-        void proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        void Proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             process.Dispose();
             process.Close();
@@ -158,7 +160,7 @@ namespace StringsSearcher
             });
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void DecompileWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             string args1 = textBox1.Text;
             string args3 = textBox1.Text + ".jar";
@@ -183,56 +185,60 @@ namespace StringsSearcher
 
 
             process.Start();
-            process.ErrorDataReceived += proc_ErrorDataReceived;
-            process.OutputDataReceived += proc_OutputDataReceived;
+            process.ErrorDataReceived += Proc_ErrorDataReceived;
+            process.OutputDataReceived += Proc_OutputDataReceived;
             process.EnableRaisingEvents = true;
-            process.Exited += new EventHandler(process_Exited);
+            process.Exited += new EventHandler(Process_Exited);
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             process.WaitForExit();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Btn_decompile_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "" || tbOutputDir.Text == "")
             {
                 MessageBox.Show("請先選擇檔案與輸出資料夾");
                 return;
             }
-            this.button1.Enabled = false;
-            this.button2.Enabled = false;
-            this.button4.Enabled = false;
-            this.progressBar1.Visible = true;
-            backgroundWorker1.RunWorkerAsync();
+            this.btn_selectAPK.Enabled = false;
+            this.btn_selectOutputDir.Enabled = false;
+            this.btn_decompile.Enabled = false;
+            this.lb_status.Text = "正在反組譯...";
+            this.lb_status.Visible = true;
+            this.toolStripProgressBar1.Visible = true;
+            decompileWorker.RunWorkerAsync();
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void DecompileWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.button1.Enabled = true;
-            this.button2.Enabled = true;
-            this.button4.Enabled = true;
-            this.progressBar1.Visible = false;
+            this.btn_selectAPK.Enabled = true;
+            this.btn_selectOutputDir.Enabled = true;
+            this.btn_decompile.Enabled = true;
+            this.lb_status.Visible = false;
+            this.toolStripProgressBar1.Visible = false;
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.ToString());
             }
         }
 
-        private void btn_encode_Click(object sender, EventArgs e)
+        private void Btn_sendToMobSF_Click(object sender, EventArgs e)
         {
-            string input = tb_converterInput.Text;
-            string output = "";
-            byte[] input_bytes = System.Text.Encoding.UTF8.GetBytes(input);
-            output = Convert.ToBase64String(input_bytes);
-            tb_converterOutput.Text = output;
+            if (textBox1.Text == "")
+                return;
+            tb_APKFile.Text = textBox1.Text;
+            tabControl1.SelectedTab = tab_MobSF;
+            btn_uploadAPK.Enabled = true;
+            tb_APKFile.Focus();
         }
 
-        private void btn_decode_Click(object sender, EventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string input = tb_converterInput.Text;
-            string output = "";
-            output = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(input));
-            tb_converterOutput.Text = output;
+            if (mobsf != null)
+                KillProcessAndChildren(mobsf.Id);
+            if (process != null)
+                KillProcessAndChildren(process.Id);
         }
 
         

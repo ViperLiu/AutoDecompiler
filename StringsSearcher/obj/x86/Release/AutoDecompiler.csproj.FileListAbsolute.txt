@@ -50,3 +50,6 @@ D:\AutoDecompiler\StringsSearcher\obj\x86\Release\AndroidDecompiler.exe.manifest
 D:\AutoDecompiler\StringsSearcher\obj\x86\Release\AndroidDecompiler.application
 D:\AutoDecompiler\StringsSearcher\obj\x86\Release\AndroidDecompiler.exe
 D:\AutoDecompiler\StringsSearcher\obj\x86\Release\AndroidDecompiler.pdb
+D:\AutoDecompiler\StringsSearcher\obj\x86\Release\AutoDecompiler.csprojResolveAssemblyReference.cache
+D:\AutoDecompiler\StringsSearcher\bin\Release\settings\程式設定值
+D:\AutoDecompiler\StringsSearcher\bin\Release\AndroidDecompiler.exe.config

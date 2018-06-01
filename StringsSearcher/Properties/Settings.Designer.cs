@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AndroidDecompiler.Properties {
+namespace MASToolBox.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
