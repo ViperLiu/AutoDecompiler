@@ -95,8 +95,8 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(284, 22);
             this.textBox1.TabIndex = 0;
-            this.textBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
-            this.textBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
+            this.textBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
+            this.textBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             // 
             // label1
             // 
@@ -116,7 +116,7 @@
             this.btn_selectAPK.TabIndex = 2;
             this.btn_selectAPK.Text = "選擇檔案";
             this.btn_selectAPK.UseVisualStyleBackColor = true;
-            this.btn_selectAPK.Click += new System.EventHandler(this.btn_selectAPK_Click);
+            this.btn_selectAPK.Click += new System.EventHandler(this.Btn_selectAPK_Click);
             // 
             // folderBrowserDialog1
             // 
@@ -131,7 +131,7 @@
             this.btn_selectOutputDir.TabIndex = 7;
             this.btn_selectOutputDir.Text = "選擇資料夾";
             this.btn_selectOutputDir.UseVisualStyleBackColor = true;
-            this.btn_selectOutputDir.Click += new System.EventHandler(this.btn_selectOutputDir_Click);
+            this.btn_selectOutputDir.Click += new System.EventHandler(this.Btn_selectOutputDir_Click);
             // 
             // label3
             // 
@@ -265,8 +265,8 @@
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbOutput.Size = new System.Drawing.Size(516, 389);
             this.tbOutput.TabIndex = 13;
-            this.tbOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
-            this.tbOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
+            this.tbOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
+            this.tbOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             // 
             // label4
             // 
@@ -280,8 +280,8 @@
             // 
             // decompileWorker
             // 
-            this.decompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.decompileWorker_DoWork);
-            this.decompileWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.decompileWorker_RunWorkerCompleted);
+            this.decompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DecompileWorker_DoWork);
+            this.decompileWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DecompileWorker_RunWorkerCompleted);
             // 
             // btn_decompile
             // 
@@ -292,7 +292,7 @@
             this.btn_decompile.TabIndex = 15;
             this.btn_decompile.Text = "輸出原始碼";
             this.btn_decompile.UseVisualStyleBackColor = true;
-            this.btn_decompile.Click += new System.EventHandler(this.btn_decompile_Click);
+            this.btn_decompile.Click += new System.EventHandler(this.Btn_decompile_Click);
             // 
             // tabControl1
             // 
@@ -306,9 +306,9 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(927, 421);
             this.tabControl1.TabIndex = 17;
-            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
-            this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
-            this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl1_Selected);
+            this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
+            this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             // 
             // tabPage1
             // 
@@ -331,8 +331,8 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Decompiler";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
-            this.tabPage1.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
+            this.tabPage1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
+            this.tabPage1.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             // 
             // btn_sendToMobSF
             // 
@@ -343,7 +343,7 @@
             this.btn_sendToMobSF.TabIndex = 16;
             this.btn_sendToMobSF.Text = "傳送到MobSF";
             this.btn_sendToMobSF.UseVisualStyleBackColor = true;
-            this.btn_sendToMobSF.Click += new System.EventHandler(this.btn_sendToMobSF_Click);
+            this.btn_sendToMobSF.Click += new System.EventHandler(this.Btn_sendToMobSF_Click);
             // 
             // tabPage2
             // 
@@ -389,7 +389,7 @@
             this.btn_decode.TabIndex = 3;
             this.btn_decode.Text = "Decode";
             this.btn_decode.UseVisualStyleBackColor = true;
-            this.btn_decode.Click += new System.EventHandler(this.btn_decode_Click);
+            this.btn_decode.Click += new System.EventHandler(this.Btn_decode_Click);
             // 
             // btn_encode
             // 
@@ -399,7 +399,7 @@
             this.btn_encode.TabIndex = 2;
             this.btn_encode.Text = "Encode";
             this.btn_encode.UseVisualStyleBackColor = true;
-            this.btn_encode.Click += new System.EventHandler(this.btn_encode_Click);
+            this.btn_encode.Click += new System.EventHandler(this.Btn_encode_Click);
             // 
             // tb_converterOutput
             // 
@@ -451,7 +451,7 @@
             this.btn_uploadAPK.TabIndex = 19;
             this.btn_uploadAPK.Text = "上傳APK";
             this.btn_uploadAPK.UseVisualStyleBackColor = true;
-            this.btn_uploadAPK.Click += new System.EventHandler(this.btn_uploadAPK_Click);
+            this.btn_uploadAPK.Click += new System.EventHandler(this.Btn_uploadAPK_Click);
             // 
             // btn_resetMobSF
             // 
@@ -461,7 +461,7 @@
             this.btn_resetMobSF.TabIndex = 18;
             this.btn_resetMobSF.Text = "清除設定檔";
             this.btn_resetMobSF.UseVisualStyleBackColor = true;
-            this.btn_resetMobSF.Click += new System.EventHandler(this.btn_resetMobSF_Click);
+            this.btn_resetMobSF.Click += new System.EventHandler(this.Btn_resetMobSF_Click);
             // 
             // btn_stopMobSF
             // 
@@ -472,7 +472,7 @@
             this.btn_stopMobSF.TabIndex = 17;
             this.btn_stopMobSF.Text = "停止MobSF";
             this.btn_stopMobSF.UseVisualStyleBackColor = true;
-            this.btn_stopMobSF.Click += new System.EventHandler(this.btn_stopMobSF_Click);
+            this.btn_stopMobSF.Click += new System.EventHandler(this.Btn_stopMobSF_Click);
             // 
             // tb_MobSFOutput
             // 
@@ -493,7 +493,7 @@
             this.btn_startMobSF.TabIndex = 15;
             this.btn_startMobSF.Text = "啟動MobSF";
             this.btn_startMobSF.UseVisualStyleBackColor = true;
-            this.btn_startMobSF.Click += new System.EventHandler(this.btn_startMobSF_Click);
+            this.btn_startMobSF.Click += new System.EventHandler(this.Btn_startMobSF_Click);
             // 
             // button3
             // 
@@ -531,7 +531,7 @@
             this.btn_MobSFPath.TabIndex = 10;
             this.btn_MobSFPath.Text = "選擇資料夾";
             this.btn_MobSFPath.UseVisualStyleBackColor = true;
-            this.btn_MobSFPath.Click += new System.EventHandler(this.btn_MobSFPath_Click);
+            this.btn_MobSFPath.Click += new System.EventHandler(this.Btn_MobSFPath_Click);
             // 
             // tb_MobSFPath
             // 
@@ -600,8 +600,8 @@
             this.Name = "Form1";
             this.Text = "AutoDecompiler";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFolderPath_DragEnter);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

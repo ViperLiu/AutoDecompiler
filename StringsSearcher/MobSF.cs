@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Threading.Tasks;
-using System.Net;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using EasyHttp;
 using EasyHttp.Http;
-
-
+using EasyHttp.Infrastructure;
 
 namespace MASToolBox
 {
@@ -248,24 +243,32 @@ namespace MASToolBox
 
         public static string UploadScan(string actionUrl, string file)
         {
-            var apiKey = MASToolBox.Properties.MobSF.Default.APIKey;
+            var apiKey = Properties.MobSF.Default.APIKey;
             string fullPath = file;
-            FormUpload.FileParameter f = new FormUpload.FileParameter(File.ReadAllBytes(fullPath), "test.apk", "application/vnd.android.package-archive");
-            Dictionary<string,object> d = new Dictionary<string,object>();
-            d.Add("file", f);
-            string ua = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
+            FileData myFile = new FileData
+            {
+                Filename = fullPath,
+                FieldName = "file",
+                ContentType = "application/vnd.android.package-archive"
+            };
+            List<FileData> fileList = new List<FileData>() { myFile };
+            var http2 = new HttpClient();
+            http2.Request.RawHeaders.Add("Authorization", apiKey);
+            http2.Request.KeepAlive = true;
+            http2.Request.Timeout = 3600000;
+            var response = http2.Post("http://127.0.0.1:8000/api/v1/upload", null, fileList, HttpContentTypes.ApplicationJson);
+            //StreamReader r = new StreamReader(result.GetResponseStream());
+            JObject json = JObject.Parse(response.RawText);
 
-            var result = FormUpload.MultipartFormDataPost(actionUrl, ua, d);
-            StreamReader r = new StreamReader(result.GetResponseStream());
-            JObject json = JObject.Parse(r.ReadToEnd());
-
-            Dictionary<string, object> oj = new Dictionary<string, object>();
-            oj.Add("scan_type", json["scan_type"]);
-            oj.Add("file_name", json["file_name"]);
-            oj.Add("hash", json["hash"]);
+            Dictionary<string, object> oj = new Dictionary<string, object>
+            {
+                { "scan_type", json["scan_type"] },
+                { "file_name", json["file_name"] },
+                { "hash", json["hash"] }
+            };
 
             string so = "scan_type=\"" + json["scan_type"] + "\"&file_name=\"" + json["file_name"] + "\"&hash=\"" + json["hash"]+"\"";
-            var http = new EasyHttp.Http.HttpClient();
+            var http = new HttpClient();
             http.Request.RawHeaders.Add("Authorization", apiKey);
             http.Request.KeepAlive = true;
             http.Request.Timeout = 3600000;

@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-using System.Security.Cryptography;
-using System.Diagnostics;
-using System.Management;
-using System.Web;
-using MASToolBox;
 
 namespace MASToolBox
 {
     public partial class Form1
     {
-        private void btn_encode_Click(object sender, EventArgs e)
+        private void Btn_encode_Click(object sender, EventArgs e)
         {
             string input = tb_converterInput.Text;
             string output = "";
@@ -33,7 +21,7 @@ namespace MASToolBox
             }
         }
 
-        private void btn_decode_Click(object sender, EventArgs e)
+        private void Btn_decode_Click(object sender, EventArgs e)
         {
             string input = tb_converterInput.Text;
             string output = "";

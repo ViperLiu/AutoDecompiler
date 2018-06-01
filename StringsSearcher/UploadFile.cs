@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
@@ -46,7 +45,7 @@ namespace MASToolBox
             using (Stream requestStream = request.GetRequestStream())
             {
                 requestStream.Write(formData, 0, formData.Length);
-                requestStream.Close();
+                //requestStream.Close();
             }
 
             return request.GetResponse() as HttpWebResponse;

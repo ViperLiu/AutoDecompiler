@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Management;
-using System.Web;
-using MASToolBox;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 
@@ -68,14 +59,14 @@ namespace MASToolBox
                 MessageBox.Show("找不到python.exe，請確定python.exe的路徑是否有加入至系統路徑中");
             }
 
-            mobsf.ErrorDataReceived += proc_mobsf_OutputDataReceived;
-            mobsf.OutputDataReceived += proc_mobsf_OutputDataReceived;
+            mobsf.ErrorDataReceived += Proc_mobsf_OutputDataReceived;
+            mobsf.OutputDataReceived += Proc_mobsf_OutputDataReceived;
             mobsf.BeginOutputReadLine();
             mobsf.BeginErrorReadLine();
             mobsf.WaitForExit();
         }
 
-        private void proc_mobsf_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        private void Proc_mobsf_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data == null)
                 return;
@@ -115,7 +106,7 @@ namespace MASToolBox
             MessageBox.Show("MobSF已關閉");
         }
 
-        private void btn_startMobSF_Click(object sender, EventArgs e)
+        private void Btn_startMobSF_Click(object sender, EventArgs e)
         {
             this.tb_MobSFOutput.Text = "";
             if (!File.Exists(MobSFSettings.MobSFPath + "\\manage.py"))
@@ -138,14 +129,14 @@ namespace MASToolBox
             MobSFWorker.RunWorkerAsync();
         }
 
-        private void btn_stopMobSF_Click(object sender, EventArgs e)
+        private void Btn_stopMobSF_Click(object sender, EventArgs e)
         {
             if (mobsf == null)
                 return;
             KillProcessAndChildren(mobsf.Id);
         }
 
-        private void btn_MobSFPath_Click(object sender, EventArgs e)
+        private void Btn_MobSFPath_Click(object sender, EventArgs e)
         {
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -156,12 +147,12 @@ namespace MASToolBox
             }
         }
 
-        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        private void TabControl1_Selected(object sender, TabControlEventArgs e)
         {
             TabControl tmp = (TabControl)sender;
             if (tmp.SelectedTab == tmp.TabPages["tab_MobSF"])
             {
-                this.loadSettings();
+                this.LoadSettings();
             }
         }
 
@@ -199,12 +190,12 @@ namespace MASToolBox
             }
         }
 
-        public void loadSettings()
+        public void LoadSettings()
         {
             this.tb_MobSFPath.Text = MobSFSettings.MobSFPath;
         }
 
-        private void btn_resetMobSF_Click(object sender, EventArgs e)
+        private void Btn_resetMobSF_Click(object sender, EventArgs e)
         {
             //從設定中取得MobSF的資料夾路徑
             string path = MobSFSettings.MobSFPath;
@@ -247,7 +238,7 @@ namespace MASToolBox
             MobSFSettings.Save();
 
             tb_MobSFOutput.AppendText("還原完畢，MobSF已經回復成預設值\r\n");
-            loadSettings();
+            LoadSettings();
         }
 
         private static void KillProcessAndChildren(int pid)
@@ -276,7 +267,7 @@ namespace MASToolBox
             }
         }
 
-        private void btn_uploadAPK_Click(object sender, EventArgs e)
+        private void Btn_uploadAPK_Click(object sender, EventArgs e)
         {
             /*var result = MobSF.UploadScan("http://127.0.0.1:8000/api/v1/upload", tb_APKFile.Text);
 

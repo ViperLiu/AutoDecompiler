@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
 using System.Diagnostics;
-using System.Management;
-using System.Web;
-using MASToolBox;
-using Microsoft.Win32;
 
 
 namespace MASToolBox
@@ -26,12 +18,12 @@ namespace MASToolBox
         public Form1()
         {
             InitializeComponent();
-            this.textBox1.DragEnter += new DragEventHandler(txtFolderPath_DragEnter);
-            this.textBox1.DragDrop += new DragEventHandler(txtFolderPath_DragDrop);
+            this.textBox1.DragEnter += new DragEventHandler(TxtFolderPath_DragEnter);
+            this.textBox1.DragDrop += new DragEventHandler(TxtFolderPath_DragDrop);
         }
 
 
-        public string getSHA1()
+        public string GetSHA1()
         {
             if (textBox1.Text == "")
                 return null;
@@ -44,7 +36,7 @@ namespace MASToolBox
             return result;
         }
 
-        public string getMD5()
+        public string GetMD5()
         {
             if (textBox1.Text == "")
                 return null;
@@ -57,7 +49,7 @@ namespace MASToolBox
             return result;
         }
 
-        private void txtFolderPath_DragDrop(object sender, DragEventArgs e)
+        private void TxtFolderPath_DragDrop(object sender, DragEventArgs e)
         {
             Console.WriteLine("drop");
             String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
@@ -79,11 +71,11 @@ namespace MASToolBox
             }
             this.textBox1.Text = file[0];
             this.tbOutputDir.Text = dir;
-            tbSHA1.Text = getSHA1();
-            tbMD5.Text = getMD5();
+            tbSHA1.Text = GetSHA1();
+            tbMD5.Text = GetMD5();
         }
 
-        private void txtFolderPath_DragEnter(object sender, DragEventArgs e)
+        private void TxtFolderPath_DragEnter(object sender, DragEventArgs e)
         {
             Console.WriteLine("enter");
             String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
@@ -100,7 +92,7 @@ namespace MASToolBox
         }
 
 
-        private void btn_selectAPK_Click(object sender, EventArgs e)
+        private void Btn_selectAPK_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
             String file = openFileDialog1.FileName;
@@ -115,8 +107,8 @@ namespace MASToolBox
                     btn_decompile.Enabled = true;
                     btn_sendToMobSF.Enabled = true;
                     this.tbOutputDir.Enabled = true;
-                    tbSHA1.Text = getSHA1();
-                    tbMD5.Text = getMD5();
+                    tbSHA1.Text = GetSHA1();
+                    tbMD5.Text = GetMD5();
                 }
                 else if (extension == ".ipa")
                 {
@@ -126,8 +118,8 @@ namespace MASToolBox
                     this.textBox1.Text = openFileDialog1.FileName;
                     this.tbOutputDir.Enabled = false;
                     this.tbOutputDir.Text = "";
-                    tbSHA1.Text = getSHA1();
-                    tbMD5.Text = getMD5();
+                    tbSHA1.Text = GetSHA1();
+                    tbMD5.Text = GetMD5();
                 }
                 else 
                 {
@@ -136,7 +128,7 @@ namespace MASToolBox
             }
         }
 
-        private void btn_selectOutputDir_Click(object sender, EventArgs e)
+        private void Btn_selectOutputDir_Click(object sender, EventArgs e)
         {
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -146,11 +138,11 @@ namespace MASToolBox
         }
 
 
-        void process_Exited(object sender, EventArgs e)
+        void Process_Exited(object sender, EventArgs e)
         {
             MessageBox.Show("輸出完畢");
         }
-        void proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             this.tbOutput.Invoke((MethodInvoker)delegate
             {
@@ -158,7 +150,7 @@ namespace MASToolBox
             });
         }
         
-        void proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        void Proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             process.Dispose();
             process.Close();
@@ -168,7 +160,7 @@ namespace MASToolBox
             });
         }
 
-        private void decompileWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void DecompileWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             string args1 = textBox1.Text;
             string args3 = textBox1.Text + ".jar";
@@ -193,16 +185,16 @@ namespace MASToolBox
 
 
             process.Start();
-            process.ErrorDataReceived += proc_ErrorDataReceived;
-            process.OutputDataReceived += proc_OutputDataReceived;
+            process.ErrorDataReceived += Proc_ErrorDataReceived;
+            process.OutputDataReceived += Proc_OutputDataReceived;
             process.EnableRaisingEvents = true;
-            process.Exited += new EventHandler(process_Exited);
+            process.Exited += new EventHandler(Process_Exited);
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             process.WaitForExit();
         }
 
-        private void btn_decompile_Click(object sender, EventArgs e)
+        private void Btn_decompile_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "" || tbOutputDir.Text == "")
             {
@@ -218,7 +210,7 @@ namespace MASToolBox
             decompileWorker.RunWorkerAsync();
         }
 
-        private void decompileWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void DecompileWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.btn_selectAPK.Enabled = true;
             this.btn_selectOutputDir.Enabled = true;
@@ -231,7 +223,7 @@ namespace MASToolBox
             }
         }
 
-        private void btn_sendToMobSF_Click(object sender, EventArgs e)
+        private void Btn_sendToMobSF_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "")
                 return;
