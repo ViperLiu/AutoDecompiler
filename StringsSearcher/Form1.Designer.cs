@@ -67,7 +67,7 @@
             this.btn_stopMobSF = new System.Windows.Forms.Button();
             this.tb_MobSFOutput = new System.Windows.Forms.TextBox();
             this.btn_startMobSF = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_selectAPK2 = new System.Windows.Forms.Button();
             this.tb_APKFile = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.btn_MobSFPath = new System.Windows.Forms.Button();
@@ -428,7 +428,7 @@
             this.tab_MobSF.Controls.Add(this.btn_stopMobSF);
             this.tab_MobSF.Controls.Add(this.tb_MobSFOutput);
             this.tab_MobSF.Controls.Add(this.btn_startMobSF);
-            this.tab_MobSF.Controls.Add(this.button3);
+            this.tab_MobSF.Controls.Add(this.btn_selectAPK2);
             this.tab_MobSF.Controls.Add(this.tb_APKFile);
             this.tab_MobSF.Controls.Add(this.label12);
             this.tab_MobSF.Controls.Add(this.btn_MobSFPath);
@@ -495,14 +495,15 @@
             this.btn_startMobSF.UseVisualStyleBackColor = true;
             this.btn_startMobSF.Click += new System.EventHandler(this.Btn_startMobSF_Click);
             // 
-            // button3
+            // btn_selectAPK2
             // 
-            this.button3.Location = new System.Drawing.Point(298, 49);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(76, 39);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "選擇APK檔";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_selectAPK2.Location = new System.Drawing.Point(298, 49);
+            this.btn_selectAPK2.Name = "btn_selectAPK2";
+            this.btn_selectAPK2.Size = new System.Drawing.Size(76, 39);
+            this.btn_selectAPK2.TabIndex = 14;
+            this.btn_selectAPK2.Text = "選擇APK檔";
+            this.btn_selectAPK2.UseVisualStyleBackColor = true;
+            this.btn_selectAPK2.Click += new System.EventHandler(this.Btn_selectAPK2_Click);
             // 
             // tb_APKFile
             // 
@@ -657,7 +658,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_selectAPK2;
         private System.Windows.Forms.TextBox tb_APKFile;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btn_startMobSF;

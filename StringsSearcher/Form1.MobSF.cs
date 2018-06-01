@@ -282,5 +282,24 @@ namespace MASToolBox
             btn_uploadAPK.Enabled = false;
             
         }
+
+        private void Btn_selectAPK2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            String file = openFileDialog1.FileName;
+            String extension = System.IO.Path.GetExtension(file).ToLower();
+            String dir = System.IO.Path.GetDirectoryName(file);
+            if (result == DialogResult.OK)
+            {
+                if (extension == ".apk")
+                {
+                    this.tb_APKFile.Text = openFileDialog1.FileName;
+                }
+                else
+                {
+                    tb_MobSFOutput.AppendText("不支援此檔案格式\r\n");
+                }
+            }
+        }
     }
 }
