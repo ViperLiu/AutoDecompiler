@@ -13,7 +13,7 @@ namespace MASToolBox
     {
         Process mobsf;
         JObject responseJson;
-        private static MASToolBox.Properties.MobSF MobSFSettings = MASToolBox.Properties.MobSF.Default;
+        private static Properties.MobSF MobSFSettings = Properties.MobSF.Default;
 
         private void RequestWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -102,6 +102,7 @@ namespace MASToolBox
             btn_resetMobSF.Enabled = true;
             btn_uploadAPK.Enabled = false;
             btn_MobSFPath.Enabled = false;
+            mobsf = null;
             tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
             MessageBox.Show("MobSF已關閉");
         }
@@ -211,8 +212,10 @@ namespace MASToolBox
 
             var result = MessageBox.Show("即將把所有MobSF相關設定及檔案還原成預設值，確定嗎？", "還原成預設值"
                 , MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            if (result == System.Windows.Forms.DialogResult.Cancel)
+            if (result == DialogResult.Cancel)
+            {
                 return;
+            }
 
             tb_MobSFOutput.Text = "";
 
@@ -260,10 +263,10 @@ namespace MASToolBox
                 Process proc = Process.GetProcessById(pid);
                 proc.Kill();
             }
-            catch (ArgumentException)
+            catch (Exception e)
             {
                 // Process already exited.
-                MessageBox.Show("停止MobSF時發生錯誤");
+                //MessageBox.Show(e.Message);
             }
         }
 
