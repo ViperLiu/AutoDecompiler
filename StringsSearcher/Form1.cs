@@ -11,7 +11,7 @@ namespace MASToolBox
 {
     public partial class Form1 : Form
     {
-        Process process;
+        Process decompiler;
         
         ProcessStartInfo startInfo = new ProcessStartInfo();
         
@@ -152,8 +152,8 @@ namespace MASToolBox
         
         void Proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            process.Dispose();
-            process.Close();
+            decompiler.Dispose();
+            decompiler.Close();
             this.tbOutput.Invoke((MethodInvoker)delegate
             {
                 tbOutput.AppendText(e.Data + "\r\n");
@@ -169,7 +169,7 @@ namespace MASToolBox
             string arg5 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest";
 
 
-            process = new Process();
+            decompiler = new Process();
 
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "tools\\decompiler.bat";
@@ -180,18 +180,18 @@ namespace MASToolBox
 
             //tbOutput.Text = startInfo.Arguments;
             startInfo.CreateNoWindow = true;
-            process.StartInfo = startInfo;
-            process.SynchronizingObject = this;
+            decompiler.StartInfo = startInfo;
+            decompiler.SynchronizingObject = this;
 
 
-            process.Start();
-            process.ErrorDataReceived += Proc_ErrorDataReceived;
-            process.OutputDataReceived += Proc_OutputDataReceived;
-            process.EnableRaisingEvents = true;
-            process.Exited += new EventHandler(Process_Exited);
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            process.WaitForExit();
+            decompiler.Start();
+            decompiler.ErrorDataReceived += Proc_ErrorDataReceived;
+            decompiler.OutputDataReceived += Proc_OutputDataReceived;
+            decompiler.EnableRaisingEvents = true;
+            decompiler.Exited += new EventHandler(Process_Exited);
+            decompiler.BeginOutputReadLine();
+            decompiler.BeginErrorReadLine();
+            decompiler.WaitForExit();
         }
 
         private void Btn_decompile_Click(object sender, EventArgs e)
@@ -217,6 +217,7 @@ namespace MASToolBox
             this.btn_decompile.Enabled = true;
             this.lb_status.Visible = false;
             this.toolStripProgressBar1.Visible = false;
+            decompiler = null;
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.ToString());
@@ -237,8 +238,8 @@ namespace MASToolBox
         {
             if (mobsf != null)
                 KillProcessAndChildren(mobsf.Id);
-            if (process != null)
-                KillProcessAndChildren(process.Id);
+            if (decompiler != null)
+                KillProcessAndChildren(decompiler.Id);
         }
 
         
