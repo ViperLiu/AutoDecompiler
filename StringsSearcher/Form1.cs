@@ -13,13 +13,13 @@ namespace MASToolBox
     {
         Process decompiler;
         
-        ProcessStartInfo startInfo = new ProcessStartInfo();
+        
         
         public Form1()
         {
             InitializeComponent();
-            this.textBox1.DragEnter += new DragEventHandler(TxtFolderPath_DragEnter);
-            this.textBox1.DragDrop += new DragEventHandler(TxtFolderPath_DragDrop);
+            //this.textBox1.DragEnter += new DragEventHandler(TxtFolderPath_DragEnter);
+            //this.textBox1.DragDrop += new DragEventHandler(TxtFolderPath_DragDrop);
         }
 
 
@@ -137,20 +137,16 @@ namespace MASToolBox
             }
         }
 
-
-        void Process_Exited(object sender, EventArgs e)
-        {
-            MessageBox.Show("輸出完畢");
-        }
-        void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        
+        private void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             this.tbOutput.Invoke((MethodInvoker)delegate
             {
                 tbOutput.AppendText(e.Data + "\r\n");
             });
         }
-        
-        void Proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+
+        private void Proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             decompiler.Dispose();
             decompiler.Close();
@@ -170,6 +166,7 @@ namespace MASToolBox
 
 
             decompiler = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
 
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "tools\\decompiler.bat";
@@ -188,10 +185,25 @@ namespace MASToolBox
             decompiler.ErrorDataReceived += Proc_ErrorDataReceived;
             decompiler.OutputDataReceived += Proc_OutputDataReceived;
             decompiler.EnableRaisingEvents = true;
-            decompiler.Exited += new EventHandler(Process_Exited);
             decompiler.BeginOutputReadLine();
             decompiler.BeginErrorReadLine();
             decompiler.WaitForExit();
+        }
+        
+        private void DecompileWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.btn_selectAPK.Enabled = true;
+            this.btn_selectOutputDir.Enabled = true;
+            this.btn_decompile.Enabled = true;
+            this.lb_status.Visible = false;
+            this.toolStripProgressBar1.Visible = false;
+            decompiler.Dispose();
+            decompiler = null;
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.ToString());
+            }
+            MessageBox.Show("輸出完畢");
         }
 
         private void Btn_decompile_Click(object sender, EventArgs e)
@@ -210,19 +222,6 @@ namespace MASToolBox
             decompileWorker.RunWorkerAsync();
         }
 
-        private void DecompileWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            this.btn_selectAPK.Enabled = true;
-            this.btn_selectOutputDir.Enabled = true;
-            this.btn_decompile.Enabled = true;
-            this.lb_status.Visible = false;
-            this.toolStripProgressBar1.Visible = false;
-            decompiler = null;
-            if (e.Error != null)
-            {
-                MessageBox.Show(e.Error.ToString());
-            }
-        }
 
         private void Btn_sendToMobSF_Click(object sender, EventArgs e)
         {

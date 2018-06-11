@@ -11,14 +11,11 @@ namespace MASToolBox
 {
     public static class MobSF
     {
-
-        //public static bool IsPatched = false;//用來判斷MobSF\utils.py是否已被修改
-        //public static string APIKey = "";
-        //public static string UploadUrl = "";
-        //public static string ScanUrl = "";
+        
         public static string[] filesToProcess = {"utils.py", "settings.py"};
-        //public static HttpClient client = new HttpClient();
+        public static Dictionary<string, object> fileInfo = new Dictionary<string, object>();
 
+        //備份檔案
         public static void BackupFile(string fileToBackup)
         {
             //從設定中取得MobSF的資料夾路徑
@@ -52,6 +49,7 @@ namespace MASToolBox
             }
         }
 
+        //從備份資料夾還原檔案
         public static bool RecoveryFileFromBackup(string fileToRecovery)
         {
             //從設定中取得MobSF的資料夾路徑
@@ -78,6 +76,7 @@ namespace MASToolBox
             return true;
         }
 
+        //修改mobsf
         public static void PatchMobSF(string fileToBePatched)
         {
             //編輯settings.py檔
@@ -93,7 +92,7 @@ namespace MASToolBox
         }
 
         //編輯utils.py檔
-        public static void PatchUtilsPy()
+        private static void PatchUtilsPy()
         {
             //從設定中取得MobSF的資料夾路徑
             string path = MASToolBox.Properties.MobSF.Default.MobSFPath;
@@ -145,7 +144,7 @@ namespace MASToolBox
         }
 
         //編輯settings.py檔
-        public static void PatchSettingsPy()
+        private static void PatchSettingsPy()
         {
             //從設定中取得MobSF的資料夾路徑
             string path = MASToolBox.Properties.MobSF.Default.MobSFPath;
@@ -208,6 +207,7 @@ namespace MASToolBox
 
         }
 
+        //讀取python檔，將每一行放入list
         private static List<string> ReadFile(string fileToBeRead)
         {
             try
@@ -223,11 +223,12 @@ namespace MASToolBox
             }
         }
 
-        private static void WriteFile(string fileToBeWrite, List<string> content)
+        //將list內容寫入至檔案
+        private static void WriteFile(string fileToWrite, List<string> content)
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(fileToBeWrite))
+                using (StreamWriter writer = new StreamWriter(fileToWrite))
                 {
                     for (int i = 0; i < content.Count; i++)
                     {
@@ -237,11 +238,12 @@ namespace MASToolBox
             }
             catch
             {
-                throw new Exception("無法寫入檔案：" + fileToBeWrite);
+                throw new Exception("無法寫入檔案：" + fileToWrite);
             }
         }
 
-        public static string UploadScan(string actionUrl, string file)
+        //上傳並掃描APK
+        public static string UploadScan(string file)
         {
             var apiKey = Properties.MobSF.Default.APIKey;
             string fullPath = file;
@@ -257,22 +259,18 @@ namespace MASToolBox
             http2.Request.KeepAlive = true;
             http2.Request.Timeout = 3600000;
             var response = http2.Post("http://127.0.0.1:8000/api/v1/upload", null, fileList, HttpContentTypes.ApplicationJson);
-            //StreamReader r = new StreamReader(result.GetResponseStream());
             JObject json = JObject.Parse(response.RawText);
 
-            Dictionary<string, object> oj = new Dictionary<string, object>
-            {
-                { "scan_type", json["scan_type"] },
-                { "file_name", json["file_name"] },
-                { "hash", json["hash"] }
-            };
-
-            string so = "scan_type=\"" + json["scan_type"] + "\"&file_name=\"" + json["file_name"] + "\"&hash=\"" + json["hash"]+"\"";
+            fileInfo.Add("scan_type", json["scan_type"]);
+            fileInfo.Add("file_name", json["file_name"]);
+            fileInfo.Add("hash", json["hash"]);
+            
+            
             var http = new HttpClient();
             http.Request.RawHeaders.Add("Authorization", apiKey);
             http.Request.KeepAlive = true;
             http.Request.Timeout = 3600000;
-            http.Post("http://127.0.0.1:8000/api/v1/scan", oj, null, HttpContentTypes.ApplicationJson);
+            http.Post("http://127.0.0.1:8000/api/v1/scan", fileInfo, null, HttpContentTypes.ApplicationJson);
             
             return http.Response.RawText;
 

@@ -15,22 +15,25 @@ namespace MASToolBox
         JObject responseJson;
         private static Properties.MobSF MobSFSettings = Properties.MobSF.Default;
 
+        //上傳與掃描APK的background worker
         private void RequestWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             
-            var response = MobSF.UploadScan("http://127.0.0.1:8000/api/v1/upload", tb_APKFile.Text);
+            var response = MobSF.UploadScan(tb_APKFile.Text);
             responseJson = JObject.Parse(response);
         }
 
+        //上傳與掃描APK的background worker
         private void RequestWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             toolStrip.Visible = false;
             toolStripProgressBar1.Visible = false;
             btn_uploadAPK.Enabled = true;
-            tb_MobSFOutput.AppendText(responseJson["manifest"][0]["title"] + "\r\n");
-            MessageBox.Show((responseJson["manifest"][0]["title"]).ToString());
+            Process.Start("http://127.0.0.1:8000/StaticAnalyzer/?name="+MobSF.fileInfo["file_name"] + 
+                "&type=apk&checksum="+ MobSF.fileInfo["hash"]);
         }
 
+        //執行mobsf的background worker
         private void MobSFWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             string args1 = MobSFSettings.MobSFPath + "\\manage.py";
@@ -38,7 +41,8 @@ namespace MASToolBox
 
             this.mobsf = new Process();
 
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.FileName = "python.exe";
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
@@ -57,6 +61,9 @@ namespace MASToolBox
             catch (FileNotFoundException)
             {
                 MessageBox.Show("找不到python.exe，請確定python.exe的路徑是否有加入至系統路徑中");
+                mobsf.Dispose();
+                mobsf = null;
+                return;
             }
 
             mobsf.ErrorDataReceived += Proc_mobsf_OutputDataReceived;
@@ -66,6 +73,7 @@ namespace MASToolBox
             mobsf.WaitForExit();
         }
 
+        //接收mobsf的輸出
         private void Proc_mobsf_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data == null)
@@ -95,6 +103,7 @@ namespace MASToolBox
             }
         }
 
+        //執行mobsf的background worker
         private void MobSFWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             btn_startMobSF.Enabled = true;
@@ -102,6 +111,8 @@ namespace MASToolBox
             btn_resetMobSF.Enabled = true;
             btn_uploadAPK.Enabled = false;
             btn_MobSFPath.Enabled = false;
+            
+            mobsf.Dispose();
             mobsf = null;
             tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
             MessageBox.Show("MobSF已關閉");
@@ -244,6 +255,7 @@ namespace MASToolBox
             LoadSettings();
         }
 
+        //關閉process
         private static void KillProcessAndChildren(int pid)
         {
             // Cannot close 'system idle process'.
@@ -263,7 +275,7 @@ namespace MASToolBox
                 Process proc = Process.GetProcessById(pid);
                 proc.Kill();
             }
-            catch (Exception e)
+            catch
             {
                 // Process already exited.
                 //MessageBox.Show(e.Message);
@@ -272,18 +284,11 @@ namespace MASToolBox
 
         private void Btn_uploadAPK_Click(object sender, EventArgs e)
         {
-            /*var result = MobSF.UploadScan("http://127.0.0.1:8000/api/v1/upload", tb_APKFile.Text);
-
-            JObject json = JObject.Parse(result);
-
-            tb_MobSFOutput.AppendText(json["manifest"][0]["title"] + "\r\n");*/
-
             RequestWorker.RunWorkerAsync();
             lb_status.Text = "掃描中...";
             lb_status.Visible = true;
             toolStripProgressBar1.Visible = true;
             btn_uploadAPK.Enabled = false;
-            
         }
 
         private void Btn_selectAPK2_Click(object sender, EventArgs e)
