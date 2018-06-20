@@ -29,8 +29,16 @@ namespace MASToolBox
             toolStrip.Visible = false;
             toolStripProgressBar1.Visible = false;
             btn_uploadAPK.Enabled = true;
-            Process.Start("http://127.0.0.1:8000/StaticAnalyzer/?name="+MobSF.fileInfo["file_name"] + 
-                "&type=apk&checksum="+ MobSF.fileInfo["hash"]);
+            var url = "http://127.0.0.1:8000/StaticAnalyzer/?name=" + MobSF.fileInfo["file_name"] +
+                    "&type=apk&checksum=" + MobSF.fileInfo["hash"];
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                tb_MobSFOutput.AppendText("Cannot open \"" + url + "\"\r\n");
+            }
         }
 
         //執行mobsf的background worker
@@ -110,7 +118,7 @@ namespace MASToolBox
             btn_stopMobSF.Enabled = false;
             btn_resetMobSF.Enabled = true;
             btn_uploadAPK.Enabled = false;
-            btn_MobSFPath.Enabled = false;
+            btn_MobSFPath.Enabled = true;
             
             mobsf.Dispose();
             mobsf = null;
@@ -302,6 +310,7 @@ namespace MASToolBox
                 if (extension == ".apk")
                 {
                     this.tb_APKFile.Text = openFileDialog1.FileName;
+                    btn_uploadAPK.Enabled = true;
                 }
                 else
                 {
