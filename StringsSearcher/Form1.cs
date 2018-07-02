@@ -240,7 +240,6 @@ namespace MASToolBox
             if (decompiler != null)
                 KillProcessAndChildren(decompiler.Id);
         }
-
         
     }
 }

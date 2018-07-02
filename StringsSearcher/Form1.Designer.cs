@@ -73,6 +73,15 @@
             this.btn_MobSFPath = new System.Windows.Forms.Button();
             this.tb_MobSFPath = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.state = new System.Windows.Forms.TextBox();
+            this.port_txt = new System.Windows.Forms.Label();
+            this.port_box = new System.Windows.Forms.TextBox();
+            this.ip_txt = new System.Windows.Forms.Label();
+            this.ip_box = new System.Windows.Forms.TextBox();
+            this.ssl_bt = new System.Windows.Forms.Button();
+            this.cer_bt = new System.Windows.Forms.Button();
+            this.result = new System.Windows.Forms.TextBox();
             this.MobSFWorker = new System.ComponentModel.BackgroundWorker();
             this.RequestWorker = new System.ComponentModel.BackgroundWorker();
             this.toolStrip = new System.Windows.Forms.StatusStrip();
@@ -84,6 +93,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tab_MobSF.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -300,6 +310,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tab_MobSF);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
@@ -553,6 +564,110 @@
             this.label9.TabIndex = 9;
             this.label9.Text = "MobSF資料夾：";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.state);
+            this.tabPage3.Controls.Add(this.port_txt);
+            this.tabPage3.Controls.Add(this.port_box);
+            this.tabPage3.Controls.Add(this.ip_txt);
+            this.tabPage3.Controls.Add(this.ip_box);
+            this.tabPage3.Controls.Add(this.ssl_bt);
+            this.tabPage3.Controls.Add(this.cer_bt);
+            this.tabPage3.Controls.Add(this.result);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(919, 395);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "Nmap";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // state
+            // 
+            this.state.BackColor = System.Drawing.Color.LightGreen;
+            this.state.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.state.Location = new System.Drawing.Point(309, 15);
+            this.state.Name = "state";
+            this.state.ReadOnly = true;
+            this.state.Size = new System.Drawing.Size(72, 27);
+            this.state.TabIndex = 12;
+            this.state.Text = "等待中";
+            this.state.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // port_txt
+            // 
+            this.port_txt.AutoSize = true;
+            this.port_txt.Location = new System.Drawing.Point(25, 57);
+            this.port_txt.Name = "port_txt";
+            this.port_txt.Size = new System.Drawing.Size(24, 12);
+            this.port_txt.TabIndex = 11;
+            this.port_txt.Text = "Port";
+            // 
+            // port_box
+            // 
+            this.port_box.BackColor = System.Drawing.Color.Ivory;
+            this.port_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.port_box.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.port_box.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.port_box.Location = new System.Drawing.Point(100, 50);
+            this.port_box.MaxLength = 5;
+            this.port_box.Name = "port_box";
+            this.port_box.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.port_box.Size = new System.Drawing.Size(190, 26);
+            this.port_box.TabIndex = 10;
+            // 
+            // ip_txt
+            // 
+            this.ip_txt.AutoSize = true;
+            this.ip_txt.Location = new System.Drawing.Point(23, 21);
+            this.ip_txt.Name = "ip_txt";
+            this.ip_txt.Size = new System.Drawing.Size(61, 12);
+            this.ip_txt.TabIndex = 9;
+            this.ip_txt.Text = "IP / Domain";
+            // 
+            // ip_box
+            // 
+            this.ip_box.BackColor = System.Drawing.Color.Ivory;
+            this.ip_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ip_box.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ip_box.Location = new System.Drawing.Point(100, 14);
+            this.ip_box.Name = "ip_box";
+            this.ip_box.Size = new System.Drawing.Size(190, 26);
+            this.ip_box.TabIndex = 8;
+            // 
+            // ssl_bt
+            // 
+            this.ssl_bt.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ssl_bt.Location = new System.Drawing.Point(193, 98);
+            this.ssl_bt.Name = "ssl_bt";
+            this.ssl_bt.Size = new System.Drawing.Size(97, 62);
+            this.ssl_bt.TabIndex = 7;
+            this.ssl_bt.Text = "SSL";
+            this.ssl_bt.UseVisualStyleBackColor = true;
+            this.ssl_bt.Click += new System.EventHandler(this.BtSSL_Click);
+            // 
+            // cer_bt
+            // 
+            this.cer_bt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.cer_bt.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cer_bt.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.cer_bt.Location = new System.Drawing.Point(27, 98);
+            this.cer_bt.Name = "cer_bt";
+            this.cer_bt.Size = new System.Drawing.Size(97, 62);
+            this.cer_bt.TabIndex = 1;
+            this.cer_bt.Text = "Cer";
+            this.cer_bt.UseVisualStyleBackColor = true;
+            this.cer_bt.Click += new System.EventHandler(this.BtCer_Click);
+            // 
+            // result
+            // 
+            this.result.Location = new System.Drawing.Point(397, 3);
+            this.result.Multiline = true;
+            this.result.Name = "result";
+            this.result.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.result.Size = new System.Drawing.Size(519, 389);
+            this.result.TabIndex = 0;
+            // 
             // MobSFWorker
             // 
             this.MobSFWorker.WorkerSupportsCancellation = true;
@@ -617,6 +732,8 @@
             this.tabPage2.PerformLayout();
             this.tab_MobSF.ResumeLayout(false);
             this.tab_MobSF.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -675,6 +792,15 @@
         private System.Windows.Forms.ToolStripStatusLabel lb_status;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Button btn_sendToMobSF;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TextBox result;
+        private System.Windows.Forms.TextBox state;
+        private System.Windows.Forms.Label port_txt;
+        private System.Windows.Forms.TextBox port_box;
+        private System.Windows.Forms.Label ip_txt;
+        private System.Windows.Forms.TextBox ip_box;
+        private System.Windows.Forms.Button ssl_bt;
+        private System.Windows.Forms.Button cer_bt;
     }
 }
 
