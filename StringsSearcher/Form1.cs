@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
 using System.Diagnostics;
-
+using System.IO.Compression;
 
 namespace MASToolBox
 {
@@ -18,10 +18,18 @@ namespace MASToolBox
         public Form1()
         {
             InitializeComponent();
-            //this.textBox1.DragEnter += new DragEventHandler(TxtFolderPath_DragEnter);
-            //this.textBox1.DragDrop += new DragEventHandler(TxtFolderPath_DragDrop);
         }
 
+        private void UnzipTools()
+        {
+            string zipPath = @"tools\tools.zip";
+            string extractPath = @"tools\";
+            
+            ZipFile.ExtractToDirectory(zipPath, extractPath);
+
+            Properties.Settings.Default.IsToolsUnzip = true;
+            Properties.Settings.Default.Save();
+        }
 
         public string GetSHA1()
         {
@@ -221,8 +229,7 @@ namespace MASToolBox
             this.toolStripProgressBar1.Visible = true;
             decompileWorker.RunWorkerAsync();
         }
-
-
+        
         private void Btn_sendToMobSF_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "")
@@ -240,6 +247,12 @@ namespace MASToolBox
             if (decompiler != null)
                 KillProcessAndChildren(decompiler.Id);
         }
-        
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.IsToolsUnzip == true)
+                return;
+            UnzipTools();
+        }
     }
 }

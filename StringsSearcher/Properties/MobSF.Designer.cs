@@ -12,7 +12,7 @@ namespace MASToolBox.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "10.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
     internal sealed partial class MobSF : global::System.Configuration.ApplicationSettingsBase {
         
         private static MobSF defaultInstance = ((MobSF)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new MobSF())));

@@ -48,11 +48,12 @@
             this.tbSHA1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbOutput = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.decompileWorker = new System.ComponentModel.BackgroundWorker();
             this.btn_decompile = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.btn_sendToMobSF = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
@@ -278,16 +279,6 @@
             this.tbOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
             this.tbOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("新細明體", 12F);
-            this.label4.Location = new System.Drawing.Point(0, 215);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(168, 16);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "ipa檔只能使用hash功能";
-            // 
             // decompileWorker
             // 
             this.decompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DecompileWorker_DoWork);
@@ -296,7 +287,7 @@
             // btn_decompile
             // 
             this.btn_decompile.Enabled = false;
-            this.btn_decompile.Location = new System.Drawing.Point(3, 234);
+            this.btn_decompile.Location = new System.Drawing.Point(6, 213);
             this.btn_decompile.Name = "btn_decompile";
             this.btn_decompile.Size = new System.Drawing.Size(76, 39);
             this.btn_decompile.TabIndex = 15;
@@ -324,6 +315,8 @@
             // tabPage1
             // 
             this.tabPage1.AllowDrop = true;
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.btn_sendToMobSF);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.textBox1);
@@ -331,7 +324,6 @@
             this.tabPage1.Controls.Add(this.btn_decompile);
             this.tabPage1.Controls.Add(this.btn_selectOutputDir);
             this.tabPage1.Controls.Add(this.tbOutputDir);
-            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.btn_selectAPK);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -345,10 +337,30 @@
             this.tabPage1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
             this.tabPage1.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             // 
+            // button2
+            // 
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(140, 294);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(112, 80);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "隱私權政策掃描";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(11, 294);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 80);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Manifest 掃描";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // btn_sendToMobSF
             // 
             this.btn_sendToMobSF.Enabled = false;
-            this.btn_sendToMobSF.Location = new System.Drawing.Point(85, 234);
+            this.btn_sendToMobSF.Location = new System.Drawing.Point(88, 213);
             this.btn_sendToMobSF.Name = "btn_sendToMobSF";
             this.btn_sendToMobSF.Size = new System.Drawing.Size(76, 39);
             this.btn_sendToMobSF.TabIndex = 16;
@@ -717,8 +729,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AutoDecompiler";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             this.groupBox1.ResumeLayout(false);
@@ -757,7 +769,6 @@
         private System.Windows.Forms.TextBox tbSHA1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbOutput;
-        private System.Windows.Forms.Label label4;
         private System.ComponentModel.BackgroundWorker decompileWorker;
         private System.Windows.Forms.Button btn_decompile;
         private System.Windows.Forms.TabControl tabControl1;
@@ -801,6 +812,8 @@
         private System.Windows.Forms.TextBox ip_box;
         private System.Windows.Forms.Button ssl_bt;
         private System.Windows.Forms.Button cer_bt;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

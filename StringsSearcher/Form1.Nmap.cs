@@ -22,7 +22,6 @@ namespace MASToolBox
                 }
                 else
                 {
-                    //result.AppendText(e.Data + "\r\n");
                     //Cer
                     if (mode == 1)
                     {
@@ -53,8 +52,7 @@ namespace MASToolBox
 
             });
         }
-
-
+        
         private void BtCer_Click(object sender, EventArgs e)
         {
             result.Focus();
@@ -94,10 +92,7 @@ namespace MASToolBox
 
             }
         }
-
-
-
-
+        
         private void BtSSL_Click(object sender, EventArgs e)
         {
             result.Focus();
