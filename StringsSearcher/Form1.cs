@@ -14,7 +14,6 @@ namespace MASToolBox
         Process decompiler;
         
         
-        
         public Form1()
         {
             InitializeComponent();
@@ -24,11 +23,16 @@ namespace MASToolBox
         {
             string zipPath = @"tools\tools.zip";
             string extractPath = @"tools\";
-            
-            ZipFile.ExtractToDirectory(zipPath, extractPath);
 
-            Properties.Settings.Default.IsToolsUnzip = true;
-            Properties.Settings.Default.Save();
+            try
+            {
+                ZipFile.ExtractToDirectory(zipPath, extractPath);
+            }
+            finally
+            {
+                Properties.Settings.Default.IsToolsUnzip = true;
+                Properties.Settings.Default.Save();
+            }
         }
 
         public string GetSHA1()
@@ -61,8 +65,8 @@ namespace MASToolBox
         {
             Console.WriteLine("drop");
             String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
-            String dir = System.IO.Path.GetDirectoryName(file[0]);
-            String extension = System.IO.Path.GetExtension(file[0]).ToLower();
+            String dir = Path.GetDirectoryName(file[0]);
+            String extension = Path.GetExtension(file[0]).ToLower();
             if (extension == ".ipa")
             {
                 tbOutput.AppendText("ipa無法反組譯\r\n");
@@ -104,8 +108,8 @@ namespace MASToolBox
         {
             DialogResult result = openFileDialog1.ShowDialog();
             String file = openFileDialog1.FileName;
-            String extension = System.IO.Path.GetExtension(file).ToLower();
-            String dir = System.IO.Path.GetDirectoryName(file);
+            String extension = Path.GetExtension(file).ToLower();
+            String dir = Path.GetDirectoryName(file);
             if (result == DialogResult.OK)
             {
                 if (extension == ".apk")
@@ -254,5 +258,7 @@ namespace MASToolBox
                 return;
             UnzipTools();
         }
+
+        
     }
 }
