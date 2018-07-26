@@ -83,11 +83,21 @@
             this.ssl_bt = new System.Windows.Forms.Button();
             this.cer_bt = new System.Windows.Forms.Button();
             this.result = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btn_startSearch = new System.Windows.Forms.Button();
+            this.rtb_searchResult = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tb_SearchTargetFolder = new System.Windows.Forms.TextBox();
+            this.btn_selectTargetFolder = new System.Windows.Forms.Button();
+            this.tb_payloadPath = new System.Windows.Forms.TextBox();
+            this.btn_selectPayload = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.MobSFWorker = new System.ComponentModel.BackgroundWorker();
             this.RequestWorker = new System.ComponentModel.BackgroundWorker();
             this.toolStrip = new System.Windows.Forms.StatusStrip();
             this.lb_status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.SearchWorker = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -95,6 +105,7 @@
             this.tabPage2.SuspendLayout();
             this.tab_MobSF.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -302,6 +313,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tab_MobSF);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
@@ -680,6 +692,101 @@
             this.result.Size = new System.Drawing.Size(519, 389);
             this.result.TabIndex = 0;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.btn_startSearch);
+            this.tabPage4.Controls.Add(this.rtb_searchResult);
+            this.tabPage4.Controls.Add(this.label2);
+            this.tabPage4.Controls.Add(this.tb_SearchTargetFolder);
+            this.tabPage4.Controls.Add(this.btn_selectTargetFolder);
+            this.tabPage4.Controls.Add(this.tb_payloadPath);
+            this.tabPage4.Controls.Add(this.btn_selectPayload);
+            this.tabPage4.Controls.Add(this.label4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(919, 395);
+            this.tabPage4.TabIndex = 4;
+            this.tabPage4.Text = "KeywordSearch";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btn_startSearch
+            // 
+            this.btn_startSearch.Location = new System.Drawing.Point(7, 94);
+            this.btn_startSearch.Name = "btn_startSearch";
+            this.btn_startSearch.Size = new System.Drawing.Size(75, 23);
+            this.btn_startSearch.TabIndex = 15;
+            this.btn_startSearch.Text = "一鍵搜尋";
+            this.btn_startSearch.UseVisualStyleBackColor = true;
+            this.btn_startSearch.Click += new System.EventHandler(this.Btn_startSearch_Click);
+            // 
+            // rtb_searchResult
+            // 
+            this.rtb_searchResult.Location = new System.Drawing.Point(374, 3);
+            this.rtb_searchResult.Name = "rtb_searchResult";
+            this.rtb_searchResult.Size = new System.Drawing.Size(542, 392);
+            this.rtb_searchResult.TabIndex = 14;
+            this.rtb_searchResult.Text = "";
+            this.rtb_searchResult.WordWrap = false;
+            this.rtb_searchResult.TextChanged += new System.EventHandler(this.Rtb_searchResult_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label2.Location = new System.Drawing.Point(6, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(152, 16);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "要搜尋的目標資料夾";
+            // 
+            // tb_SearchTargetFolder
+            // 
+            this.tb_SearchTargetFolder.AllowDrop = true;
+            this.tb_SearchTargetFolder.Location = new System.Drawing.Point(8, 22);
+            this.tb_SearchTargetFolder.Name = "tb_SearchTargetFolder";
+            this.tb_SearchTargetFolder.ReadOnly = true;
+            this.tb_SearchTargetFolder.Size = new System.Drawing.Size(283, 22);
+            this.tb_SearchTargetFolder.TabIndex = 8;
+            // 
+            // btn_selectTargetFolder
+            // 
+            this.btn_selectTargetFolder.Location = new System.Drawing.Point(297, 5);
+            this.btn_selectTargetFolder.Name = "btn_selectTargetFolder";
+            this.btn_selectTargetFolder.Size = new System.Drawing.Size(76, 39);
+            this.btn_selectTargetFolder.TabIndex = 13;
+            this.btn_selectTargetFolder.Text = "選擇資料夾";
+            this.btn_selectTargetFolder.UseVisualStyleBackColor = true;
+            this.btn_selectTargetFolder.Click += new System.EventHandler(this.Btn_selectTargetFolder_Click);
+            // 
+            // tb_payloadPath
+            // 
+            this.tb_payloadPath.AllowDrop = true;
+            this.tb_payloadPath.Location = new System.Drawing.Point(7, 66);
+            this.tb_payloadPath.Name = "tb_payloadPath";
+            this.tb_payloadPath.Size = new System.Drawing.Size(284, 22);
+            this.tb_payloadPath.TabIndex = 11;
+            // 
+            // btn_selectPayload
+            // 
+            this.btn_selectPayload.Location = new System.Drawing.Point(297, 50);
+            this.btn_selectPayload.Name = "btn_selectPayload";
+            this.btn_selectPayload.Size = new System.Drawing.Size(76, 39);
+            this.btn_selectPayload.TabIndex = 10;
+            this.btn_selectPayload.Text = "選擇檔案";
+            this.btn_selectPayload.UseVisualStyleBackColor = true;
+            this.btn_selectPayload.Click += new System.EventHandler(this.Btn_selectPayload_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label4.Location = new System.Drawing.Point(5, 47);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 16);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "字串檔(.txt)";
+            // 
             // MobSFWorker
             // 
             this.MobSFWorker.WorkerSupportsCancellation = true;
@@ -716,6 +823,11 @@
             this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.toolStripProgressBar1.Visible = false;
             // 
+            // SearchWorker
+            // 
+            this.SearchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchWorker_DoWork);
+            this.SearchWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchWorker_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -746,6 +858,8 @@
             this.tab_MobSF.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -814,6 +928,16 @@
         private System.Windows.Forms.Button cer_bt;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tb_SearchTargetFolder;
+        private System.Windows.Forms.Button btn_selectTargetFolder;
+        private System.Windows.Forms.TextBox tb_payloadPath;
+        private System.Windows.Forms.Button btn_selectPayload;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RichTextBox rtb_searchResult;
+        private System.ComponentModel.BackgroundWorker SearchWorker;
+        private System.Windows.Forms.Button btn_startSearch;
     }
 }
 
