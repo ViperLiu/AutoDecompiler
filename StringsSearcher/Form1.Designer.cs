@@ -321,8 +321,6 @@
             this.tabControl1.Size = new System.Drawing.Size(927, 421);
             this.tabControl1.TabIndex = 17;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl1_Selected);
-            this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
-            this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             // 
             // tabPage1
             // 
@@ -346,8 +344,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Decompiler";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
-            this.tabPage1.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             // 
             // button2
             // 
@@ -548,6 +544,8 @@
             this.tb_APKFile.ReadOnly = true;
             this.tb_APKFile.Size = new System.Drawing.Size(284, 22);
             this.tb_APKFile.TabIndex = 12;
+            this.tb_APKFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.Tb_APKFile_DragDrop);
+            this.tb_APKFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.Tb_APKFile_DragEnter);
             // 
             // label12
             // 
@@ -843,8 +841,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Shown += new System.EventHandler(this.Form1_Shown);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
