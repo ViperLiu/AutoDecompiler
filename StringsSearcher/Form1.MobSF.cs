@@ -15,6 +15,31 @@ namespace MASToolBox
         JObject responseJson;
         private static Properties.MobSF MobSFSettings = Properties.MobSF.Default;
 
+        private void Tb_APKFile_DragDrop(object sender, DragEventArgs e)
+        {
+            String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
+            String dir = Path.GetDirectoryName(file[0]);
+            String extension = Path.GetExtension(file[0]).ToLower();
+            if (extension == ".apk")
+            {
+                tb_APKFile.Text = file[0];
+            }
+        }
+
+        private void Tb_APKFile_DragEnter(object sender, DragEventArgs e)
+        {
+            String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
+            String extension = Path.GetExtension(file[0]).ToLower();
+            if (extension == ".apk")
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
         //上傳與掃描APK的background worker
         private void RequestWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -154,6 +179,7 @@ namespace MASToolBox
             if (mobsf == null)
                 return;
             KillProcessAndChildren(mobsf.Id);
+            btn_uploadAPK.Enabled = false;
         }
 
         private void Btn_MobSFPath_Click(object sender, EventArgs e)

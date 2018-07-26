@@ -240,7 +240,7 @@ namespace MASToolBox
                 return;
             tb_APKFile.Text = textBox1.Text;
             tabControl1.SelectedTab = tab_MobSF;
-            btn_uploadAPK.Enabled = true;
+            //btn_uploadAPK.Enabled = true;
             tb_APKFile.Focus();
         }
 
