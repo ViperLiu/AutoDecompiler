@@ -142,6 +142,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form1.KeywordSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.MobSF.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +195,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="tools\tools.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tools\keywordSearch.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -536,7 +542,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2018/7/3" BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" BuildVersion_StartDate="2018/7/3" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,1 +1,1 @@
-python tools\KeywordSearch\KeywordSearch.py "%~1" "%~2"
+@echo off & python -u tools\KeywordSearch\KeywordSearch.py "%~1" "%~2"
