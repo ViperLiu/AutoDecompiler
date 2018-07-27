@@ -75,6 +75,7 @@
             this.tb_MobSFPath = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btn_screenshot = new System.Windows.Forms.Button();
             this.state = new System.Windows.Forms.TextBox();
             this.port_txt = new System.Windows.Forms.Label();
             this.port_box = new System.Windows.Forms.TextBox();
@@ -98,6 +99,8 @@
             this.lb_status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.SearchWorker = new System.ComponentModel.BackgroundWorker();
+            this.saveScreenshotDialog = new System.Windows.Forms.SaveFileDialog();
+            this.btn_keywordScreenshot = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -588,6 +591,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btn_screenshot);
             this.tabPage3.Controls.Add(this.state);
             this.tabPage3.Controls.Add(this.port_txt);
             this.tabPage3.Controls.Add(this.port_box);
@@ -603,6 +607,19 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Nmap";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btn_screenshot
+            // 
+            this.btn_screenshot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn_screenshot.Font = new System.Drawing.Font("新細明體", 12F);
+            this.btn_screenshot.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btn_screenshot.Location = new System.Drawing.Point(284, 98);
+            this.btn_screenshot.Name = "btn_screenshot";
+            this.btn_screenshot.Size = new System.Drawing.Size(97, 62);
+            this.btn_screenshot.TabIndex = 13;
+            this.btn_screenshot.Text = "儲存截圖";
+            this.btn_screenshot.UseVisualStyleBackColor = true;
+            this.btn_screenshot.Click += new System.EventHandler(this.Btn_screenshot_Click);
             // 
             // state
             // 
@@ -660,7 +677,7 @@
             // ssl_bt
             // 
             this.ssl_bt.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ssl_bt.Location = new System.Drawing.Point(193, 98);
+            this.ssl_bt.Location = new System.Drawing.Point(154, 98);
             this.ssl_bt.Name = "ssl_bt";
             this.ssl_bt.Size = new System.Drawing.Size(97, 62);
             this.ssl_bt.TabIndex = 7;
@@ -683,6 +700,7 @@
             // 
             // result
             // 
+            this.result.Font = new System.Drawing.Font("Consolas", 10F);
             this.result.Location = new System.Drawing.Point(397, 3);
             this.result.Multiline = true;
             this.result.Name = "result";
@@ -692,6 +710,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.btn_keywordScreenshot);
             this.tabPage4.Controls.Add(this.btn_startSearch);
             this.tabPage4.Controls.Add(this.rtb_searchResult);
             this.tabPage4.Controls.Add(this.label2);
@@ -826,6 +845,21 @@
             this.SearchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchWorker_DoWork);
             this.SearchWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchWorker_RunWorkerCompleted);
             // 
+            // saveScreenshotDialog
+            // 
+            this.saveScreenshotDialog.DefaultExt = "jpg";
+            this.saveScreenshotDialog.Filter = "jpg|*.jpg";
+            // 
+            // btn_keywordScreenshot
+            // 
+            this.btn_keywordScreenshot.Location = new System.Drawing.Point(88, 94);
+            this.btn_keywordScreenshot.Name = "btn_keywordScreenshot";
+            this.btn_keywordScreenshot.Size = new System.Drawing.Size(75, 23);
+            this.btn_keywordScreenshot.TabIndex = 16;
+            this.btn_keywordScreenshot.Text = "儲存截圖";
+            this.btn_keywordScreenshot.UseVisualStyleBackColor = true;
+            this.btn_keywordScreenshot.Click += new System.EventHandler(this.Btn_keywordScreenshot_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -935,6 +969,9 @@
         private System.Windows.Forms.RichTextBox rtb_searchResult;
         private System.ComponentModel.BackgroundWorker SearchWorker;
         private System.Windows.Forms.Button btn_startSearch;
+        private System.Windows.Forms.Button btn_screenshot;
+        private System.Windows.Forms.SaveFileDialog saveScreenshotDialog;
+        private System.Windows.Forms.Button btn_keywordScreenshot;
     }
 }
 

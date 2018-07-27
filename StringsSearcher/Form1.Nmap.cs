@@ -131,6 +131,11 @@ namespace MASToolBox
 
         }
 
+        private void Btn_screenshot_Click(object sender, EventArgs e)
+        {
+            ScreenCapture.Capture(this.result, "test.jpg");
+        }
+
         private bool Check()
         {
 
