@@ -151,6 +151,12 @@
     <Compile Include="Form1.Nmap.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="InitializationProcedure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InitializationProcedure.Designer.cs">
+      <DependentUpon>InitializationProcedure.cs</DependentUpon>
+    </Compile>
     <Compile Include="MobSF.cs" />
     <Compile Include="Properties\MobSF.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -161,6 +167,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializationProcedure.resx">
+      <DependentUpon>InitializationProcedure.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -542,7 +551,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" BuildVersion_StartDate="2018/7/3" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2018/7/3" BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
