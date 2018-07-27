@@ -74,8 +74,8 @@ namespace MASToolBox
                 return;
             this.tbOutput.Invoke((MethodInvoker)delegate
             {
-                var str = e.Data.Replace("\'", "");
-                rtb_searchResult.AppendText(str + "\r\n");
+                //var str = e.Data.Replace("\'", "");
+                rtb_searchResult.AppendText(e.Data + "\r\n");
                 rtb_searchResult.ScrollToCaret();
             });
 
