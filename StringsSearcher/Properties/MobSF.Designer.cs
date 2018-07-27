@@ -70,5 +70,17 @@ namespace MASToolBox.Properties {
                 this["IsFirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsToolsUnzip {
+            get {
+                return ((bool)(this["IsToolsUnzip"]));
+            }
+            set {
+                this["IsToolsUnzip"] = value;
+            }
+        }
     }
 }
