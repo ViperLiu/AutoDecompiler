@@ -102,8 +102,7 @@ namespace MASToolBox
                 e.Effect = DragDropEffects.None;
             }
         }
-
-
+        
         private void Btn_selectAPK_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
@@ -148,7 +147,6 @@ namespace MASToolBox
                 tbOutputDir.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-
         
         private void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
