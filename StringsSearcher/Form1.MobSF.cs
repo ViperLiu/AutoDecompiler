@@ -318,6 +318,8 @@ namespace MASToolBox
 
         private void Btn_uploadAPK_Click(object sender, EventArgs e)
         {
+            if (tb_APKFile.Text == "")
+                return;
             RequestWorker.RunWorkerAsync();
             lb_status.Text = "掃描中...";
             lb_status.Visible = true;
