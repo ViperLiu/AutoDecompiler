@@ -119,7 +119,12 @@ namespace MASToolBox
 
         private void Btn_keywordScreenshot_Click(object sender, EventArgs e)
         {
-            ScreenCapture.Capture(this.rtb_searchResult, "test.jpg");
+            var result = saveScreenshotDialog.ShowDialog();
+            var fileName = saveScreenshotDialog.FileName;
+            if (result == DialogResult.OK)
+            {
+                ScreenCapture.Capture(this.rtb_searchResult, fileName);
+            }
         }
     }
 }

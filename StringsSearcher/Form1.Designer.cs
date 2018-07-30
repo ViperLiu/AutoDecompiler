@@ -85,6 +85,7 @@
             this.cer_bt = new System.Windows.Forms.Button();
             this.result = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btn_keywordScreenshot = new System.Windows.Forms.Button();
             this.btn_startSearch = new System.Windows.Forms.Button();
             this.rtb_searchResult = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -100,7 +101,6 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.SearchWorker = new System.ComponentModel.BackgroundWorker();
             this.saveScreenshotDialog = new System.Windows.Forms.SaveFileDialog();
-            this.btn_keywordScreenshot = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -727,6 +727,16 @@
             this.tabPage4.Text = "KeywordSearch";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // btn_keywordScreenshot
+            // 
+            this.btn_keywordScreenshot.Location = new System.Drawing.Point(88, 94);
+            this.btn_keywordScreenshot.Name = "btn_keywordScreenshot";
+            this.btn_keywordScreenshot.Size = new System.Drawing.Size(75, 23);
+            this.btn_keywordScreenshot.TabIndex = 16;
+            this.btn_keywordScreenshot.Text = "儲存截圖";
+            this.btn_keywordScreenshot.UseVisualStyleBackColor = true;
+            this.btn_keywordScreenshot.Click += new System.EventHandler(this.Btn_keywordScreenshot_Click);
+            // 
             // btn_startSearch
             // 
             this.btn_startSearch.Location = new System.Drawing.Point(7, 94);
@@ -849,16 +859,6 @@
             // 
             this.saveScreenshotDialog.DefaultExt = "jpg";
             this.saveScreenshotDialog.Filter = "jpg|*.jpg";
-            // 
-            // btn_keywordScreenshot
-            // 
-            this.btn_keywordScreenshot.Location = new System.Drawing.Point(88, 94);
-            this.btn_keywordScreenshot.Name = "btn_keywordScreenshot";
-            this.btn_keywordScreenshot.Size = new System.Drawing.Size(75, 23);
-            this.btn_keywordScreenshot.TabIndex = 16;
-            this.btn_keywordScreenshot.Text = "儲存截圖";
-            this.btn_keywordScreenshot.UseVisualStyleBackColor = true;
-            this.btn_keywordScreenshot.Click += new System.EventHandler(this.Btn_keywordScreenshot_Click);
             // 
             // Form1
             // 

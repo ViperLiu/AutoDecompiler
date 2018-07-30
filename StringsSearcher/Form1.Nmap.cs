@@ -133,7 +133,12 @@ namespace MASToolBox
 
         private void Btn_screenshot_Click(object sender, EventArgs e)
         {
-            ScreenCapture.Capture(this.result, "test.jpg");
+            var result = saveScreenshotDialog.ShowDialog();
+            var fileName = saveScreenshotDialog.FileName;
+            if(result == DialogResult.OK)
+            {
+                ScreenCapture.Capture(this.result, fileName);
+            }
         }
 
         private bool Check()
