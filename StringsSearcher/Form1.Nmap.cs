@@ -131,6 +131,16 @@ namespace MASToolBox
 
         }
 
+        private void Btn_screenshot_Click(object sender, EventArgs e)
+        {
+            var result = saveScreenshotDialog.ShowDialog();
+            var fileName = saveScreenshotDialog.FileName;
+            if(result == DialogResult.OK)
+            {
+                ScreenCapture.Capture(this.result, fileName);
+            }
+        }
+
         private bool Check()
         {
 

@@ -241,7 +241,7 @@ namespace MASToolBox
             InitializationProcedure InitializationProcedure = new InitializationProcedure();
             InitializationProcedure.ShowDialog();
         }
-
+        
         
     }
 }
