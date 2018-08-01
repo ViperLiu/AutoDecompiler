@@ -94,6 +94,9 @@
             this.tb_payloadPath = new System.Windows.Forms.TextBox();
             this.btn_selectPayload = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.rtb_adbOutput = new System.Windows.Forms.RichTextBox();
+            this.btn_checkADB = new System.Windows.Forms.Button();
             this.MobSFWorker = new System.ComponentModel.BackgroundWorker();
             this.RequestWorker = new System.ComponentModel.BackgroundWorker();
             this.toolStrip = new System.Windows.Forms.StatusStrip();
@@ -101,6 +104,7 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.SearchWorker = new System.ComponentModel.BackgroundWorker();
             this.saveScreenshotDialog = new System.Windows.Forms.SaveFileDialog();
+            this.adbWorker = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -109,6 +113,7 @@
             this.tab_MobSF.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -317,6 +322,7 @@
             this.tabControl1.Controls.Add(this.tab_MobSF);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
@@ -814,6 +820,37 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "字串檔(.txt)";
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.rtb_adbOutput);
+            this.tabPage5.Controls.Add(this.btn_checkADB);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(919, 395);
+            this.tabPage5.TabIndex = 5;
+            this.tabPage5.Text = "ADB";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // rtb_adbOutput
+            // 
+            this.rtb_adbOutput.Location = new System.Drawing.Point(374, 3);
+            this.rtb_adbOutput.Name = "rtb_adbOutput";
+            this.rtb_adbOutput.Size = new System.Drawing.Size(542, 392);
+            this.rtb_adbOutput.TabIndex = 15;
+            this.rtb_adbOutput.Text = "";
+            this.rtb_adbOutput.WordWrap = false;
+            // 
+            // btn_checkADB
+            // 
+            this.btn_checkADB.Location = new System.Drawing.Point(75, 53);
+            this.btn_checkADB.Name = "btn_checkADB";
+            this.btn_checkADB.Size = new System.Drawing.Size(95, 41);
+            this.btn_checkADB.TabIndex = 0;
+            this.btn_checkADB.Text = "確認ADB狀態";
+            this.btn_checkADB.UseVisualStyleBackColor = true;
+            this.btn_checkADB.Click += new System.EventHandler(this.Btn_checkADB_Click);
+            // 
             // MobSFWorker
             // 
             this.MobSFWorker.WorkerSupportsCancellation = true;
@@ -860,6 +897,11 @@
             this.saveScreenshotDialog.DefaultExt = "jpg";
             this.saveScreenshotDialog.Filter = "jpg|*.jpg";
             // 
+            // adbWorker
+            // 
+            this.adbWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.AdbWorker_DoWork);
+            this.adbWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.AdbWorker_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -891,6 +933,7 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -972,6 +1015,10 @@
         private System.Windows.Forms.Button btn_screenshot;
         private System.Windows.Forms.SaveFileDialog saveScreenshotDialog;
         private System.Windows.Forms.Button btn_keywordScreenshot;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button btn_checkADB;
+        private System.Windows.Forms.RichTextBox rtb_adbOutput;
+        private System.ComponentModel.BackgroundWorker adbWorker;
     }
 }
 
