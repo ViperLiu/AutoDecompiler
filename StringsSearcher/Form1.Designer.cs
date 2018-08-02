@@ -47,11 +47,11 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tbSHA1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tbOutput = new System.Windows.Forms.TextBox();
             this.decompileWorker = new System.ComponentModel.BackgroundWorker();
             this.btn_decompile = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tbOutput = new System.Windows.Forms.RichTextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_sendToMobSF = new System.Windows.Forms.Button();
@@ -63,10 +63,10 @@
             this.tb_converterOutput = new System.Windows.Forms.TextBox();
             this.tb_converterInput = new System.Windows.Forms.TextBox();
             this.tab_MobSF = new System.Windows.Forms.TabPage();
+            this.tb_MobSFOutput = new System.Windows.Forms.RichTextBox();
             this.btn_uploadAPK = new System.Windows.Forms.Button();
             this.btn_resetMobSF = new System.Windows.Forms.Button();
             this.btn_stopMobSF = new System.Windows.Forms.Button();
-            this.tb_MobSFOutput = new System.Windows.Forms.TextBox();
             this.btn_startMobSF = new System.Windows.Forms.Button();
             this.btn_selectAPK2 = new System.Windows.Forms.Button();
             this.tb_APKFile = new System.Windows.Forms.TextBox();
@@ -75,6 +75,7 @@
             this.tb_MobSFPath = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.rtb_nmapResult = new System.Windows.Forms.RichTextBox();
             this.btn_screenshot = new System.Windows.Forms.Button();
             this.state = new System.Windows.Forms.TextBox();
             this.port_txt = new System.Windows.Forms.Label();
@@ -83,7 +84,6 @@
             this.ip_box = new System.Windows.Forms.TextBox();
             this.ssl_bt = new System.Windows.Forms.Button();
             this.cer_bt = new System.Windows.Forms.Button();
-            this.result = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btn_keywordScreenshot = new System.Windows.Forms.Button();
             this.btn_startSearch = new System.Windows.Forms.Button();
@@ -279,25 +279,6 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "SHA1：";
             // 
-            // tbOutput
-            // 
-            this.tbOutput.AllowDrop = true;
-            this.tbOutput.Font = new System.Drawing.Font("Consolas", 12F);
-            this.tbOutput.Location = new System.Drawing.Point(397, 6);
-            this.tbOutput.Multiline = true;
-            this.tbOutput.Name = "tbOutput";
-            this.tbOutput.ReadOnly = true;
-            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOutput.Size = new System.Drawing.Size(516, 389);
-            this.tbOutput.TabIndex = 13;
-            this.tbOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
-            this.tbOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
-            // 
-            // decompileWorker
-            // 
-            this.decompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DecompileWorker_DoWork);
-            this.decompileWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DecompileWorker_RunWorkerCompleted);
-            // 
             // btn_decompile
             // 
             this.btn_decompile.Enabled = false;
@@ -328,12 +309,12 @@
             // tabPage1
             // 
             this.tabPage1.AllowDrop = true;
+            this.tabPage1.Controls.Add(this.tbOutput);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.btn_sendToMobSF);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.tbOutput);
             this.tabPage1.Controls.Add(this.btn_decompile);
             this.tabPage1.Controls.Add(this.btn_selectOutputDir);
             this.tabPage1.Controls.Add(this.tbOutputDir);
@@ -347,6 +328,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Decompiler";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tbOutput
+            // 
+            this.tbOutput.Location = new System.Drawing.Point(394, 0);
+            this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.tbOutput.Size = new System.Drawing.Size(524, 395);
+            this.tbOutput.TabIndex = 19;
+            this.tbOutput.Text = "";
             // 
             // button2
             // 
@@ -457,10 +447,10 @@
             // 
             // tab_MobSF
             // 
+            this.tab_MobSF.Controls.Add(this.tb_MobSFOutput);
             this.tab_MobSF.Controls.Add(this.btn_uploadAPK);
             this.tab_MobSF.Controls.Add(this.btn_resetMobSF);
             this.tab_MobSF.Controls.Add(this.btn_stopMobSF);
-            this.tab_MobSF.Controls.Add(this.tb_MobSFOutput);
             this.tab_MobSF.Controls.Add(this.btn_startMobSF);
             this.tab_MobSF.Controls.Add(this.btn_selectAPK2);
             this.tab_MobSF.Controls.Add(this.tb_APKFile);
@@ -475,6 +465,16 @@
             this.tab_MobSF.TabIndex = 2;
             this.tab_MobSF.Text = "MobSF";
             this.tab_MobSF.UseVisualStyleBackColor = true;
+            // 
+            // tb_MobSFOutput
+            // 
+            this.tb_MobSFOutput.Location = new System.Drawing.Point(380, 0);
+            this.tb_MobSFOutput.Name = "tb_MobSFOutput";
+            this.tb_MobSFOutput.ReadOnly = true;
+            this.tb_MobSFOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.tb_MobSFOutput.Size = new System.Drawing.Size(538, 395);
+            this.tb_MobSFOutput.TabIndex = 20;
+            this.tb_MobSFOutput.Text = "";
             // 
             // btn_uploadAPK
             // 
@@ -507,17 +507,6 @@
             this.btn_stopMobSF.Text = "停止MobSF";
             this.btn_stopMobSF.UseVisualStyleBackColor = true;
             this.btn_stopMobSF.Click += new System.EventHandler(this.Btn_stopMobSF_Click);
-            // 
-            // tb_MobSFOutput
-            // 
-            this.tb_MobSFOutput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tb_MobSFOutput.Location = new System.Drawing.Point(380, 6);
-            this.tb_MobSFOutput.Multiline = true;
-            this.tb_MobSFOutput.Name = "tb_MobSFOutput";
-            this.tb_MobSFOutput.ReadOnly = true;
-            this.tb_MobSFOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tb_MobSFOutput.Size = new System.Drawing.Size(532, 389);
-            this.tb_MobSFOutput.TabIndex = 16;
             // 
             // btn_startMobSF
             // 
@@ -591,6 +580,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.rtb_nmapResult);
             this.tabPage3.Controls.Add(this.btn_screenshot);
             this.tabPage3.Controls.Add(this.state);
             this.tabPage3.Controls.Add(this.port_txt);
@@ -599,7 +589,6 @@
             this.tabPage3.Controls.Add(this.ip_box);
             this.tabPage3.Controls.Add(this.ssl_bt);
             this.tabPage3.Controls.Add(this.cer_bt);
-            this.tabPage3.Controls.Add(this.result);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -607,6 +596,14 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Nmap";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // rtb_nmapResult
+            // 
+            this.rtb_nmapResult.Location = new System.Drawing.Point(392, 3);
+            this.rtb_nmapResult.Name = "rtb_nmapResult";
+            this.rtb_nmapResult.Size = new System.Drawing.Size(524, 389);
+            this.rtb_nmapResult.TabIndex = 14;
+            this.rtb_nmapResult.Text = "";
             // 
             // btn_screenshot
             // 
@@ -697,16 +694,6 @@
             this.cer_bt.Text = "Cer";
             this.cer_bt.UseVisualStyleBackColor = true;
             this.cer_bt.Click += new System.EventHandler(this.BtCer_Click);
-            // 
-            // result
-            // 
-            this.result.Font = new System.Drawing.Font("Consolas", 10F);
-            this.result.Location = new System.Drawing.Point(397, 3);
-            this.result.Multiline = true;
-            this.result.Name = "result";
-            this.result.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.result.Size = new System.Drawing.Size(519, 389);
-            this.result.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -913,7 +900,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tbSHA1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox tbOutput;
         private System.ComponentModel.BackgroundWorker decompileWorker;
         private System.Windows.Forms.Button btn_decompile;
         private System.Windows.Forms.TabControl tabControl1;
@@ -939,7 +925,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btn_startMobSF;
         private System.ComponentModel.BackgroundWorker MobSFWorker;
-        private System.Windows.Forms.TextBox tb_MobSFOutput;
         private System.Windows.Forms.Button btn_stopMobSF;
         private System.Windows.Forms.Button btn_resetMobSF;
         private System.Windows.Forms.Button btn_uploadAPK;
@@ -949,7 +934,6 @@
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Button btn_sendToMobSF;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TextBox result;
         private System.Windows.Forms.TextBox state;
         private System.Windows.Forms.Label port_txt;
         private System.Windows.Forms.TextBox port_box;
@@ -972,6 +956,9 @@
         private System.Windows.Forms.Button btn_screenshot;
         private System.Windows.Forms.SaveFileDialog saveScreenshotDialog;
         private System.Windows.Forms.Button btn_keywordScreenshot;
+        private System.Windows.Forms.RichTextBox rtb_nmapResult;
+        private System.Windows.Forms.RichTextBox tb_MobSFOutput;
+        private System.Windows.Forms.RichTextBox tbOutput;
     }
 }
 

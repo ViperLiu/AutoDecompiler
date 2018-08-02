@@ -157,6 +157,8 @@
     <Compile Include="InitializationProcedure.Designer.cs">
       <DependentUpon>InitializationProcedure.cs</DependentUpon>
     </Compile>
+    <Compile Include="Library.cs" />
+    <Compile Include="LibraryPath.cs" />
     <Compile Include="MobSF.cs" />
     <Compile Include="Properties\MobSF.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -552,7 +554,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" BuildVersion_StartDate="2018/7/3" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2018/7/3" BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
