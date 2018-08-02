@@ -837,11 +837,6 @@
             this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.toolStripProgressBar1.Visible = false;
             // 
-            // SearchWorker
-            // 
-            this.SearchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchWorker_DoWork);
-            this.SearchWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchWorker_RunWorkerCompleted);
-            // 
             // saveScreenshotDialog
             // 
             this.saveScreenshotDialog.DefaultExt = "jpg";

@@ -9,6 +9,8 @@ namespace MASToolBox
 {
     partial class Form1
     {
+        private Library KeywordSearcher = new Library(LibraryPath.KeywordSearch);
+
         private void Btn_selectTargetFolder_Click(object sender, EventArgs e)
         {
             var result = folderBrowserDialog1.ShowDialog();
@@ -34,54 +36,16 @@ namespace MASToolBox
 
         private void Btn_startSearch_Click(object sender, EventArgs e)
         {
-            SearchWorker.RunWorkerAsync();
-        }
-
-        private void SearchWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
             string args1 = tb_SearchTargetFolder.Text;
             string args2 = tb_payloadPath.Text;
 
-
-            Process searcher = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.FileName = "tools\\KeywordSearch.bat";
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.Arguments = string.Format("\"{0}\" \"{1}\"", args1, args2);
-
-            //tbOutput.Text = startInfo.Arguments;
-            startInfo.CreateNoWindow = true;
-            searcher.StartInfo = startInfo;
-            searcher.SynchronizingObject = this;
-
-
-            searcher.Start();
-            searcher.ErrorDataReceived += Proc_Searcher_OutputDataReceived;
-            searcher.OutputDataReceived += Proc_Searcher_OutputDataReceived;
-            searcher.EnableRaisingEvents = true;
-            searcher.BeginOutputReadLine();
-            searcher.BeginErrorReadLine();
-            searcher.WaitForExit();
+            KeywordSearcher.SetOutputBox(this.rtb_searchResult);
+            KeywordSearcher.AddParam(new string[] { args1, args2 });
+            KeywordSearcher.JobFinished += KeywordSearch_Completed;
+            KeywordSearcher.RunLibrary();
         }
 
-        private void Proc_Searcher_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data == null)
-                return;
-            this.tbOutput.Invoke((MethodInvoker)delegate
-            {
-                //var str = e.Data.Replace("\'", "");
-                rtb_searchResult.AppendText(e.Data + "\r\n");
-                rtb_searchResult.ScrollToCaret();
-            });
-
-        }
-
-        private void SearchWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void KeywordSearch_Completed(object sender, EventArgs e)
         {
             MessageBox.Show("搜尋完成");
         }
