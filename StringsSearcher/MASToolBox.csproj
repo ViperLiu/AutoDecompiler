@@ -157,9 +157,10 @@
     <Compile Include="InitializationProcedure.Designer.cs">
       <DependentUpon>InitializationProcedure.cs</DependentUpon>
     </Compile>
+    <Compile Include="LibraryWorker.cs" />
     <Compile Include="Library.cs" />
-    <Compile Include="LibraryPath.cs" />
     <Compile Include="MobSF.cs" />
+    <Compile Include="MobSFEventArgs.cs" />
     <Compile Include="Properties\MobSF.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -210,6 +211,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="tools\keywordSearch.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tools\mobsf.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

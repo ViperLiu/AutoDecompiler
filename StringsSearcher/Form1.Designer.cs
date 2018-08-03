@@ -804,8 +804,6 @@
             // MobSFWorker
             // 
             this.MobSFWorker.WorkerSupportsCancellation = true;
-            this.MobSFWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.MobSFWorker_DoWork);
-            this.MobSFWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.MobSFWorker_RunWorkerCompleted);
             // 
             // RequestWorker
             // 
