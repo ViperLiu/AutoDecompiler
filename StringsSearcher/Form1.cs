@@ -11,7 +11,7 @@ namespace MASToolBox
 {
     public partial class Form1 : Form
     {
-        private Library Decompiler = new Library(LibraryPath.Decompiler);
+        private LibraryWorker Decompiler = new LibraryWorker(Library.Decompiler);
 
         public Form1()
         {
@@ -179,8 +179,8 @@ namespace MASToolBox
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (mobsf != null)
-                KillProcessAndChildren(mobsf.Id);
+            if (Mobsf.Process != null)
+                KillProcessAndChildren(Mobsf.Process.Id);
             if (Decompiler.Process != null)
                 KillProcessAndChildren(Decompiler.Process.Id);
         }

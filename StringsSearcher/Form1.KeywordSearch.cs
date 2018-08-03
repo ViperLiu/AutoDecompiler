@@ -9,7 +9,7 @@ namespace MASToolBox
 {
     partial class Form1
     {
-        private Library KeywordSearcher = new Library(LibraryPath.KeywordSearch);
+        private LibraryWorker KeywordSearcher = new LibraryWorker(Library.KeywordSearch);
 
         private void Btn_selectTargetFolder_Click(object sender, EventArgs e)
         {

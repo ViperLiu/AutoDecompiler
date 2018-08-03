@@ -1,105 +1,63 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
-using System.Windows.Forms;
 
 namespace MASToolBox
 {
     class Library
     {
-        private readonly string LibPath = "";
+        public readonly string Path = "";
 
-        private RichTextBox OutputBox;
+        public readonly LibraryEvent DataProcessor;
 
-        private string[] Parameters;
-
-        public Process Process { get; private set;}
-
-        public Library(LibraryPath path)
+        public static readonly Library Decompiler
+            = new Library("tools\\decompiler.bat", new LibraryEvent(DecompilerDataProcessor));
+        
+        public static readonly Library KeywordSearch 
+            = new Library("tools\\KeywordSearch.bat", new LibraryEvent(KeywordSearchDataProcessor));
+        
+        public static readonly Library Nmap 
+            = new Library("tools\\nmap.bat", new LibraryEvent(NmapDataProcessor));
+        
+        public static readonly Library MobSF 
+            = new Library("tools\\mobsf.bat", new LibraryEvent(MobSFDataProcessor));
+        
+        private Library(string path, LibraryEvent d)
         {
-            this.LibPath = path.Path;
+            this.Path = path;
+            this.DataProcessor = d;
         }
 
-        public void SetOutputBox(RichTextBox outputBox)
+        private static string DecompilerDataProcessor(string data)
         {
-            this.OutputBox = outputBox;
+            return data;
         }
 
-        public void AddParam(string[] parameters)
+        private static string KeywordSearchDataProcessor(string data)
         {
-            this.Parameters = parameters;
+            return data;
         }
 
-        public void RunLibrary()
+        private static string NmapDataProcessor(string data)
         {
-            if (this.OutputBox == null)
-                throw new Exception("Please specify the output textbox with SetOutputBox method first");
-
-            BackgroundWorker LibWorker = new BackgroundWorker();
-            LibWorker.DoWork += this.LibWorker_DoWork;
-            LibWorker.RunWorkerCompleted += this.LibWorker_RunWorkerCompleted;
-
-            LibWorker.RunWorkerAsync();
+            return data;
         }
 
-        private void LibWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private static string MobSFDataProcessor(string data)
         {
-            this.Process.Dispose();
-            this.Process = null;
-
-            EventHandler jobFinishEvent = this.JobFinished;
-
-            // Check for no subscribers
-            if (jobFinishEvent == null)
-                return;
-            
-            jobFinishEvent(this, e);
-        }
-
-        private void LibWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            //parameters
-            StringBuilder sb = new StringBuilder();
-            for (var i = 0; i < this.Parameters.Length; i++)
+            //REST開頭即為APIKey
+            if (data.StartsWith("REST"))
             {
-                sb.Append("\"").Append(this.Parameters[i]).Append("\"").Append(" ");
+                Properties.MobSF.Default.APIKey = data.Split(':')[1].Trim();
+                Properties.MobSF.Default.Save();
             }
-            var argument = sb.ToString();
 
-            Process = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.FileName = this.LibPath;
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.Arguments = argument;
-            
-            startInfo.CreateNoWindow = true;
-            Process.StartInfo = startInfo;
-
-            Process.Start();
-            Process.ErrorDataReceived += Proc_OutputDataReceived;
-            Process.OutputDataReceived += Proc_OutputDataReceived;
-            Process.EnableRaisingEvents = true;
-            Process.BeginOutputReadLine();
-            Process.BeginErrorReadLine();
-            Process.WaitForExit();
-        }
-
-        private void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data == null)
-                return;
-            this.OutputBox.Invoke((MethodInvoker)delegate
+            //當MobSF輸出這些字時，代表已啟動完成
+            else if (data.StartsWith("[WARN] A new version") || data.StartsWith("[INFO] No updates available."))
             {
-                this.OutputBox.AppendText(e.Data + "\r\n");
-                this.OutputBox.ScrollToCaret();
-            });
+                data = data + "\r\nReady!!\r\n";
+            }
+            return data;
         }
 
-        public event EventHandler JobFinished;
+        public delegate string LibraryEvent(string data);
     }
 }
