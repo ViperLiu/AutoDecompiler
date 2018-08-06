@@ -160,7 +160,6 @@
     <Compile Include="LibraryWorker.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="MobSF.cs" />
-    <Compile Include="MobSFEventArgs.cs" />
     <Compile Include="Properties\MobSF.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
