@@ -9,16 +9,19 @@ namespace MASToolBox
         public readonly LibraryEvent DataProcessor;
 
         public static readonly Library Decompiler
-            = new Library("tools\\decompiler.bat", new LibraryEvent(DecompilerDataProcessor));
+            = new Library("tools\\decompiler.bat", new LibraryEvent(DefaultDataProcessor));
         
         public static readonly Library KeywordSearch 
-            = new Library("tools\\KeywordSearch.bat", new LibraryEvent(KeywordSearchDataProcessor));
+            = new Library("tools\\KeywordSearch.bat", new LibraryEvent(DefaultDataProcessor));
         
         public static readonly Library Nmap 
-            = new Library("tools\\nmap.bat", new LibraryEvent(NmapDataProcessor));
+            = new Library("tools\\nmap.bat", new LibraryEvent(DefaultDataProcessor));
         
         public static readonly Library MobSF 
             = new Library("tools\\mobsf.bat", new LibraryEvent(MobSFDataProcessor));
+
+        public static readonly Library PrivacyCheck
+            = new Library("tools\\PrivacyCheck.bat", new LibraryEvent(DefaultDataProcessor));
         
         private Library(string path, LibraryEvent d)
         {
@@ -26,7 +29,7 @@ namespace MASToolBox
             this.DataProcessor = d;
         }
 
-        private static string DecompilerDataProcessor(string data)
+        private static string DefaultDataProcessor(string data)
         {
             return data;
         }

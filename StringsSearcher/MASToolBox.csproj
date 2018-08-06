@@ -215,6 +215,9 @@
     <Content Include="tools\mobsf.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="tools\PrivacyCheck.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Android Studio.ico" />
@@ -557,7 +560,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2018/7/3" BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" BuildVersion_StartDate="2018/7/3" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

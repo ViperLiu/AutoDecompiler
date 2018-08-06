@@ -150,9 +150,10 @@ namespace MASToolBox
             string apkName = args1.Split('\\').Last<string>();
             string args3 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\source code";
             string args4 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest";
+            string args5 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest\\AndroidManifest.xml";
 
             Decompiler.SetOutputBox(tbOutput);
-            Decompiler.AddParam(new string[] { args1, args2, args3, args4 });
+            Decompiler.AddParam(new string[] { args1, args2, args3, args4, args5 });
             Decompiler.JobFinished += Decompile_Completed;
             Decompiler.RunLibrary();
         }
@@ -192,6 +193,10 @@ namespace MASToolBox
             InitializationProcedure InitializationProcedure = new InitializationProcedure();
             InitializationProcedure.ShowDialog();
         }
-        
+
+        private void Btn_privacyCheck_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
