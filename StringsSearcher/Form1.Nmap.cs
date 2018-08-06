@@ -11,7 +11,7 @@ namespace MASToolBox
         int mode = 0;
         void Proc_NmapDataReceived(object sender, DataReceivedEventArgs e)
         {
-            this.result.Invoke((MethodInvoker)delegate
+            this.rtb_nmapResult.Invoke((MethodInvoker)delegate
             {
                 if (e.Data == null)
                 {
@@ -25,27 +25,27 @@ namespace MASToolBox
                     //Cer
                     if (mode == 1)
                     {
-                        if (e.Data.StartsWith("| Issuer:")) { result.AppendText(e.Data + "\r\n"); }
-                        if (e.Data.StartsWith("| Public Key type:")) { result.AppendText(e.Data + "\r\n"); }
-                        if (e.Data.StartsWith("| Public Key bits:")) { result.AppendText(e.Data + "\r\n"); }
-                        if (e.Data.StartsWith("| Signature Algorithm:")) { result.AppendText(e.Data + "\r\n"); }
-                        if (e.Data.StartsWith("| Not valid before:")) { result.AppendText(e.Data + "\r\n"); }
-                        if (e.Data.StartsWith("| Not valid after:")) { result.AppendText(e.Data + "\r\n"); }
-                        if (e.Data.StartsWith("|_SHA-1:")) { result.AppendText(e.Data + "\r\n"); }
-                        if (e.Data.StartsWith("|_ssl-date:")) { result.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("| Issuer:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("| Public Key type:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("| Public Key bits:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("| Signature Algorithm:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("| Not valid before:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("| Not valid after:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("|_SHA-1:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("|_ssl-date:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
                     }
 
 
                     //SSL
                     if (mode == 2)
                     {
-                        if (e.Data.StartsWith("| ")) { result.AppendText(e.Data + "\r\n"); }
-                        if (e.Data.StartsWith("|_")) { result.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("| ")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
+                        if (e.Data.StartsWith("|_")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
                     }
 
 
                     //common
-                    if (e.Data.StartsWith("Nmap done:")) { result.AppendText(e.Data + "\r\n"); }
+                    if (e.Data.StartsWith("Nmap done:")) { rtb_nmapResult.AppendText(e.Data + "\r\n"); }
                 }
 
 
@@ -55,7 +55,7 @@ namespace MASToolBox
         
         private void BtCer_Click(object sender, EventArgs e)
         {
-            result.Focus();
+            rtb_nmapResult.Focus();
             mode = 1;
             if (Check())
             {
@@ -64,7 +64,7 @@ namespace MASToolBox
                 state.BackColor = Color.Coral;
                 cer_bt.Enabled = false;
                 ssl_bt.Enabled = false;
-                result.Text = "";
+                rtb_nmapResult.Text = "";
                 string str = Console.ReadLine();
 
                 process.StartInfo.FileName = "tools/nmap.bat";
@@ -95,7 +95,7 @@ namespace MASToolBox
         
         private void BtSSL_Click(object sender, EventArgs e)
         {
-            result.Focus();
+            rtb_nmapResult.Focus();
             mode = 2;
             if (Check())
             {
@@ -104,7 +104,7 @@ namespace MASToolBox
                 state.BackColor = Color.Coral;
                 cer_bt.Enabled = false;
                 ssl_bt.Enabled = false;
-                result.Text = "";
+                rtb_nmapResult.Text = "";
                 string str = Console.ReadLine();
 
                 process.StartInfo.FileName = "tools/nmap.bat";
@@ -137,7 +137,7 @@ namespace MASToolBox
             var fileName = saveScreenshotDialog.FileName;
             if(result == DialogResult.OK)
             {
-                ScreenCapture.Capture(this.result, fileName);
+                ScreenCapture.Capture(this.rtb_nmapResult, fileName);
             }
         }
 
@@ -149,7 +149,7 @@ namespace MASToolBox
             Regex domainRex = new Regex(@"^(([\w][\w\-\.]*)\.)?([\w][\w\-]+)(\.([\w][\w\.]*))?$");
             if (!(portRgx.IsMatch(port_box.Text, 0) | port_box.Text == ""))
             {
-                result.Text = "port is not correct";
+                rtb_nmapResult.Text = "port is not correct";
                 return false;
             }
             if (ipRgx.IsMatch(ip_box.Text, 0) | domainRex.IsMatch(ip_box.Text, 0))
@@ -158,7 +158,7 @@ namespace MASToolBox
             }
             else
             {
-                result.Text = "ip is not correct";
+                rtb_nmapResult.Text = "ip is not correct";
                 return false;
             }
 

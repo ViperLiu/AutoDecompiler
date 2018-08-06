@@ -11,9 +11,8 @@ namespace MASToolBox
 {
     public partial class Form1 : Form
     {
-        Process decompiler;
-        
-        
+        private LibraryWorker Decompiler = new LibraryWorker(Library.Decompiler);
+
         public Form1()
         {
             InitializeComponent();
@@ -132,74 +131,6 @@ namespace MASToolBox
             }
         }
         
-        private void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            this.tbOutput.Invoke((MethodInvoker)delegate
-            {
-                tbOutput.AppendText(e.Data + "\r\n");
-            });
-        }
-
-        private void Proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            decompiler.Dispose();
-            decompiler.Close();
-            this.tbOutput.Invoke((MethodInvoker)delegate
-            {
-                tbOutput.AppendText(e.Data + "\r\n");
-            });
-        }
-
-        private void DecompileWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            string args1 = textBox1.Text;
-            string args3 = textBox1.Text + ".jar";
-            string apkName = args1.Split('\\').Last<string>();
-            string args4 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\source code";
-            string arg5 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest";
-
-
-            decompiler = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "tools\\decompiler.bat";
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.Arguments = string.Format("\"{0}\" \"{1}\" \"{2}\" \"{3}\"", args1, args3, args4, arg5);
-
-            //tbOutput.Text = startInfo.Arguments;
-            startInfo.CreateNoWindow = true;
-            decompiler.StartInfo = startInfo;
-            decompiler.SynchronizingObject = this;
-
-
-            decompiler.Start();
-            decompiler.ErrorDataReceived += Proc_ErrorDataReceived;
-            decompiler.OutputDataReceived += Proc_OutputDataReceived;
-            decompiler.EnableRaisingEvents = true;
-            decompiler.BeginOutputReadLine();
-            decompiler.BeginErrorReadLine();
-            decompiler.WaitForExit();
-        }
-        
-        private void DecompileWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            this.btn_selectAPK.Enabled = true;
-            this.btn_selectOutputDir.Enabled = true;
-            this.btn_decompile.Enabled = true;
-            this.lb_status.Visible = false;
-            this.toolStripProgressBar1.Visible = false;
-            decompiler.Dispose();
-            decompiler = null;
-            if (e.Error != null)
-            {
-                MessageBox.Show(e.Error.ToString());
-            }
-            MessageBox.Show("輸出完畢");
-        }
-
         private void Btn_decompile_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "" || tbOutputDir.Text == "")
@@ -213,9 +144,29 @@ namespace MASToolBox
             this.lb_status.Text = "正在反組譯...";
             this.lb_status.Visible = true;
             this.toolStripProgressBar1.Visible = true;
-            decompileWorker.RunWorkerAsync();
+
+            string args1 = textBox1.Text;
+            string args2 = textBox1.Text + ".jar";
+            string apkName = args1.Split('\\').Last<string>();
+            string args3 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\source code";
+            string args4 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest";
+
+            Decompiler.SetOutputBox(tbOutput);
+            Decompiler.AddParam(new string[] { args1, args2, args3, args4 });
+            Decompiler.JobFinished += Decompile_Completed;
+            Decompiler.RunLibrary();
         }
-        
+
+        private void Decompile_Completed(object sender, EventArgs e)
+        {
+            this.btn_selectAPK.Enabled = true;
+            this.btn_selectOutputDir.Enabled = true;
+            this.btn_decompile.Enabled = true;
+            this.lb_status.Visible = false;
+            this.toolStripProgressBar1.Visible = false;
+            MessageBox.Show("輸出完畢");
+        }
+
         private void Btn_sendToMobSF_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "")
@@ -228,10 +179,10 @@ namespace MASToolBox
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (mobsf != null)
-                KillProcessAndChildren(mobsf.Id);
-            if (decompiler != null)
-                KillProcessAndChildren(decompiler.Id);
+            if (Mobsf.Process != null)
+                KillProcessAndChildren(Mobsf.Process.Id);
+            if (Decompiler.Process != null)
+                KillProcessAndChildren(Decompiler.Process.Id);
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -241,7 +192,6 @@ namespace MASToolBox
             InitializationProcedure InitializationProcedure = new InitializationProcedure();
             InitializationProcedure.ShowDialog();
         }
-        
         
     }
 }
