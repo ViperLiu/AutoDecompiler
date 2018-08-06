@@ -1,0 +1,1 @@
+"tools\GooglePlayPrivacyCheck\GooglePlayPrivacyCheck.exe" "%~1"
