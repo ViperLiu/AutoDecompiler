@@ -65,19 +65,18 @@ namespace MASToolBox
                 cer_bt.Enabled = false;
                 ssl_bt.Enabled = false;
                 rtb_nmapResult.Text = "";
-                string str = Console.ReadLine();
 
+                string str1 = "-sC";
+                string str2 = "-p";
+                string str3 = "-v";
+                
                 process.StartInfo.FileName = "tools/nmap.bat";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardInput = true;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.CreateNoWindow = true;
-
-                string str1 = "-sC";
-                string str2 = "-p";
-                string str3 = "-v";
-
+                
                 if (port_box.Text == null || port_box.Text == "")
                     port_box.Text = "443";
 
@@ -163,5 +162,9 @@ namespace MASToolBox
             }
 
         }
+
+        
+
+        public delegate string LibraryEvent(string data);
     }
 }
