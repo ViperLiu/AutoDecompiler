@@ -94,6 +94,8 @@ namespace MASToolBox
                 return;
 
             var output = this.DataProcessor(e.Data);
+            if (output == null)
+                this.Process.Close();
 
             this.OutputBox.Invoke((MethodInvoker)delegate
             {

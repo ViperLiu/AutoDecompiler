@@ -333,6 +333,7 @@
             // 
             this.tbOutput.Location = new System.Drawing.Point(394, 0);
             this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.tbOutput.Size = new System.Drawing.Size(524, 395);
             this.tbOutput.TabIndex = 19;
@@ -340,7 +341,6 @@
             // 
             // btn_privacyCheck
             // 
-            this.btn_privacyCheck.Enabled = false;
             this.btn_privacyCheck.Location = new System.Drawing.Point(140, 294);
             this.btn_privacyCheck.Name = "btn_privacyCheck";
             this.btn_privacyCheck.Size = new System.Drawing.Size(112, 80);
@@ -602,6 +602,7 @@
             // 
             this.rtb_nmapResult.Location = new System.Drawing.Point(392, 3);
             this.rtb_nmapResult.Name = "rtb_nmapResult";
+            this.rtb_nmapResult.ReadOnly = true;
             this.rtb_nmapResult.Size = new System.Drawing.Size(524, 389);
             this.rtb_nmapResult.TabIndex = 14;
             this.rtb_nmapResult.Text = "";
@@ -739,6 +740,7 @@
             // 
             this.rtb_searchResult.Location = new System.Drawing.Point(374, 3);
             this.rtb_searchResult.Name = "rtb_searchResult";
+            this.rtb_searchResult.ReadOnly = true;
             this.rtb_searchResult.Size = new System.Drawing.Size(542, 392);
             this.rtb_searchResult.TabIndex = 14;
             this.rtb_searchResult.Text = "";
