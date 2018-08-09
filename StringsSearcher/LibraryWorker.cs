@@ -12,10 +12,12 @@ namespace MASToolBox
         private string[] Parameters = new string[] { };
         public Process Process { get; private set;}
         private readonly Library Library;
+        public Processor DataProcessor;
 
         public LibraryWorker(Library lib)
         {
             this.Library = lib;
+            this.DataProcessor += DefaultDataProcessor;
         }
 
         public void SetOutputBox(RichTextBox outputBox)
@@ -36,7 +38,7 @@ namespace MASToolBox
             BackgroundWorker LibWorker = new BackgroundWorker();
             LibWorker.DoWork += this.LibWorker_DoWork;
             LibWorker.RunWorkerCompleted += this.LibWorker_RunWorkerCompleted;
-
+            
             LibWorker.RunWorkerAsync();
         }
 
@@ -91,7 +93,7 @@ namespace MASToolBox
             if (e.Data == null)
                 return;
 
-            var output = this.Library.DataProcessor(e.Data);
+            var output = this.DataProcessor(e.Data);
 
             this.OutputBox.Invoke((MethodInvoker)delegate
             {
@@ -100,6 +102,12 @@ namespace MASToolBox
             });
         }
 
+        private string DefaultDataProcessor(string data)
+        {
+            return data;
+        }
+
         public event EventHandler JobFinished;
+        public delegate string Processor(string data);
     }
 }

@@ -6,58 +6,21 @@ namespace MASToolBox
     {
         public readonly string Path = "";
 
-        public readonly LibraryEvent DataProcessor;
-
         public static readonly Library Decompiler
-            = new Library("tools\\decompiler.bat", new LibraryEvent(DecompilerDataProcessor));
+            = new Library("tools\\decompiler.bat");
         
         public static readonly Library KeywordSearch 
-            = new Library("tools\\KeywordSearch.bat", new LibraryEvent(KeywordSearchDataProcessor));
+            = new Library("tools\\KeywordSearch.bat");
         
         public static readonly Library Nmap 
-            = new Library("tools\\nmap.bat", new LibraryEvent(NmapDataProcessor));
+            = new Library("tools\\nmap.bat");
         
         public static readonly Library MobSF 
-            = new Library("tools\\mobsf.bat", new LibraryEvent(MobSFDataProcessor));
+            = new Library("tools\\mobsf.bat");
         
-        private Library(string path, LibraryEvent d)
+        private Library(string path)
         {
             this.Path = path;
-            this.DataProcessor = d;
         }
-
-        private static string DecompilerDataProcessor(string data)
-        {
-            return data;
-        }
-
-        private static string KeywordSearchDataProcessor(string data)
-        {
-            return data;
-        }
-
-        private static string NmapDataProcessor(string data)
-        {
-            return data;
-        }
-
-        private static string MobSFDataProcessor(string data)
-        {
-            //REST開頭即為APIKey
-            if (data.StartsWith("REST"))
-            {
-                Properties.MobSF.Default.APIKey = data.Split(':')[1].Trim();
-                Properties.MobSF.Default.Save();
-            }
-
-            //當MobSF輸出這些字時，代表已啟動完成
-            else if (data.StartsWith("[WARN] A new version") || data.StartsWith("[INFO] No updates available."))
-            {
-                data = data + "\r\nReady!!\r\n";
-            }
-            return data;
-        }
-
-        public delegate string LibraryEvent(string data);
     }
 }
