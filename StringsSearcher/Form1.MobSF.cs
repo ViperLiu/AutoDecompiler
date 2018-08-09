@@ -93,6 +93,7 @@ namespace MASToolBox
             this.Mobsf.SetOutputBox(this.tb_MobSFOutput);
             this.Mobsf.AddParam(new string[] { args1 });
             this.Mobsf.JobFinished += Mobsf_Completed;
+            this.Mobsf.DataProcessor = MobSFDataProcessor;
             this.Mobsf.RunLibrary();
 
         }
@@ -281,6 +282,23 @@ namespace MASToolBox
                 }
             }
             openFileDialog1.Dispose();
+        }
+
+        private static string MobSFDataProcessor(string data)
+        {
+            //REST開頭即為APIKey
+            if (data.StartsWith("REST"))
+            {
+                Properties.MobSF.Default.APIKey = data.Split(':')[1].Trim();
+                Properties.MobSF.Default.Save();
+            }
+
+            //當MobSF輸出這些字時，代表已啟動完成
+            else if (data.StartsWith("[WARN] A new version") || data.StartsWith("[INFO] No updates available."))
+            {
+                data = data + "\r\nReady!!\r\n";
+            }
+            return data;
         }
     }
 }
