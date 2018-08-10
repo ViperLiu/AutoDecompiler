@@ -398,7 +398,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MASToolBox"
         "ProductCode" = "8:{E6130ACB-1B3B-47C2-AD26-CA23489D916F}"
-        "PackageCode" = "8:{8D12CD60-A62D-4826-B8EB-FC5302C63BA3}"
+        "PackageCode" = "8:{715A6FCE-CF32-4361-882A-D5B6B6B04131}"
         "UpgradeCode" = "8:{5665F0BA-1022-4481-B547-3584A47D84FA}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -422,7 +422,7 @@
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
-        "RunPostBuildEvent" = "3:0"
+        "RunPostBuildEvent" = "3:1"
         }
         "Registry"
         {
@@ -919,7 +919,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_696D8DAE943D443EBBCDC18BEB70722E"
             {
-            "SourcePath" = "8:..\\StringsSearcher\\obj\\x86\\Release\\MASToolBox.exe"
+            "SourcePath" = "8:..\\StringsSearcher\\obj\\x86\\Debug\\MASToolBox.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_993E1A756D6B49E0A3CAB360A6FF92BA"
