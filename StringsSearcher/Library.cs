@@ -17,10 +17,18 @@ namespace MASToolBox
         
         public static readonly Library MobSF 
             = new Library("tools\\mobsf.bat");
-        
+
+        public static readonly Library PrivacyCheck
+            = new Library("tools\\PrivacyCheck.bat");
+
         private Library(string path)
         {
             this.Path = path;
+        }
+
+        private static string DefaultDataProcessor(string data)
+        {
+            return data;
         }
     }
 }

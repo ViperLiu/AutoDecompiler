@@ -52,7 +52,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tbOutput = new System.Windows.Forms.RichTextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_privacyCheck = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_sendToMobSF = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -310,7 +310,7 @@
             // 
             this.tabPage1.AllowDrop = true;
             this.tabPage1.Controls.Add(this.tbOutput);
-            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.btn_privacyCheck);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.btn_sendToMobSF);
             this.tabPage1.Controls.Add(this.label1);
@@ -333,20 +333,21 @@
             // 
             this.tbOutput.Location = new System.Drawing.Point(394, 0);
             this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.tbOutput.Size = new System.Drawing.Size(524, 395);
             this.tbOutput.TabIndex = 19;
             this.tbOutput.Text = "";
             // 
-            // button2
+            // btn_privacyCheck
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(140, 294);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 80);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "隱私權政策掃描";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_privacyCheck.Location = new System.Drawing.Point(140, 294);
+            this.btn_privacyCheck.Name = "btn_privacyCheck";
+            this.btn_privacyCheck.Size = new System.Drawing.Size(112, 80);
+            this.btn_privacyCheck.TabIndex = 18;
+            this.btn_privacyCheck.Text = "隱私權政策掃描";
+            this.btn_privacyCheck.UseVisualStyleBackColor = true;
+            this.btn_privacyCheck.Click += new System.EventHandler(this.Btn_privacyCheck_Click);
             // 
             // button1
             // 
@@ -601,6 +602,7 @@
             // 
             this.rtb_nmapResult.Location = new System.Drawing.Point(392, 3);
             this.rtb_nmapResult.Name = "rtb_nmapResult";
+            this.rtb_nmapResult.ReadOnly = true;
             this.rtb_nmapResult.Size = new System.Drawing.Size(524, 389);
             this.rtb_nmapResult.TabIndex = 14;
             this.rtb_nmapResult.Text = "";
@@ -738,6 +740,7 @@
             // 
             this.rtb_searchResult.Location = new System.Drawing.Point(374, 3);
             this.rtb_searchResult.Name = "rtb_searchResult";
+            this.rtb_searchResult.ReadOnly = true;
             this.rtb_searchResult.Size = new System.Drawing.Size(542, 392);
             this.rtb_searchResult.TabIndex = 14;
             this.rtb_searchResult.Text = "";
@@ -934,7 +937,7 @@
         private System.Windows.Forms.TextBox ip_box;
         private System.Windows.Forms.Button ssl_bt;
         private System.Windows.Forms.Button cer_bt;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_privacyCheck;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label2;

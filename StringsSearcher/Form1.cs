@@ -89,11 +89,11 @@ namespace MASToolBox
         private void Btn_selectAPK_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
-            String file = openFileDialog1.FileName;
-            String extension = Path.GetExtension(file).ToLower();
-            String dir = Path.GetDirectoryName(file);
             if (result == DialogResult.OK)
             {
+                String file = openFileDialog1.FileName;
+                String extension = Path.GetExtension(file).ToLower();
+                String dir = Path.GetDirectoryName(file);
                 if (extension == ".apk")
                 {
                     this.textBox1.Text = openFileDialog1.FileName;
@@ -150,9 +150,10 @@ namespace MASToolBox
             string apkName = args1.Split('\\').Last<string>();
             string args3 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\source code";
             string args4 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest";
+            string args5 = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest\\AndroidManifest.xml";
 
             Decompiler.SetOutputBox(tbOutput);
-            Decompiler.AddParam(new string[] { args1, args2, args3, args4 });
+            Decompiler.AddParam(new string[] { args1, args2, args3, args4, args5 });
             Decompiler.JobFinished += Decompile_Completed;
             Decompiler.RunLibrary();
         }
@@ -192,6 +193,31 @@ namespace MASToolBox
             InitializationProcedure InitializationProcedure = new InitializationProcedure();
             InitializationProcedure.ShowDialog();
         }
-        
+
+        private void Btn_privacyCheck_Click(object sender, EventArgs e)
+        {
+            string apkName = textBox1.Text.Split('\\').Last<string>();
+            string args = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest\\AndroidManifest.xml";
+
+            LibraryWorker PrivacyCheck = new LibraryWorker(Library.PrivacyCheck);
+            PrivacyCheck.AddParam(new string[] { args });
+            PrivacyCheck.SetOutputBox(this.tbOutput);
+            PrivacyCheck.DataProcessor = PrivackyDataProcessor;
+            PrivacyCheck.JobFinished += PrivacyCheck_Completed;
+            PrivacyCheck.RunLibrary();
+        }
+
+        private void PrivacyCheck_Completed(object sender, EventArgs e)
+        {
+            MessageBox.Show("掃描完成");
+        }
+
+        private string PrivackyDataProcessor(string data)
+        {
+            if (data.StartsWith("APP唯一識別："))
+                return null;
+
+            return data;
+        }
     }
 }
