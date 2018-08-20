@@ -1,1 +1,0 @@
-@echo off & tools\apktool-2.3.0\apktool.bat d -o "%~4" "%~1" & tools\dex2jar-2.0\d2j-dex2jar.bat "%~1" -o "%~2" & java -jar tools\jd-cli-0.9.2-dist\jd-cli.jar "%~2" -od "%~3" & del "%~2"

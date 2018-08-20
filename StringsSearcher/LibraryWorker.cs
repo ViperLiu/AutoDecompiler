@@ -94,6 +94,8 @@ namespace MASToolBox
                 return;
 
             var output = this.DataProcessor(e.Data);
+            if (output == "")
+                return;
             if (output == null)
                 this.Process.Close();
 
