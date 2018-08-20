@@ -21,6 +21,9 @@ namespace MASToolBox
         public static readonly Library PrivacyCheck
             = new Library("tools\\PrivacyCheck.bat");
 
+        public static readonly Library WhiteSource
+            = new Library("tools\\WhiteSource.bat");
+
         private Library(string path)
         {
             this.Path = path;

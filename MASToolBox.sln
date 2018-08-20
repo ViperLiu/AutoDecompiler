@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MASToolBox", "StringsSearcher\MASToolBox.csproj", "{F8243F00-5A6C-4A86-83D5-31E812DEA8AB}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup1\Setup1.vdproj", "{B543D51C-EDDE-4EC9-AE71-3D96FF6AFC90}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -17,9 +15,6 @@ Global
 		{F8243F00-5A6C-4A86-83D5-31E812DEA8AB}.Debug|x86.Build.0 = Debug|x86
 		{F8243F00-5A6C-4A86-83D5-31E812DEA8AB}.Release|x86.ActiveCfg = Release|x86
 		{F8243F00-5A6C-4A86-83D5-31E812DEA8AB}.Release|x86.Build.0 = Release|x86
-		{B543D51C-EDDE-4EC9-AE71-3D96FF6AFC90}.Debug|x86.ActiveCfg = Debug
-		{B543D51C-EDDE-4EC9-AE71-3D96FF6AFC90}.Release|x86.ActiveCfg = Release
-		{B543D51C-EDDE-4EC9-AE71-3D96FF6AFC90}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

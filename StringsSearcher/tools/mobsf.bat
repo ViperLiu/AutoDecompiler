@@ -1,1 +1,0 @@
-@echo off & python -u "%~1" runserver

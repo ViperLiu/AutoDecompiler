@@ -51,6 +51,7 @@
             this.btn_decompile = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_whiteSource = new System.Windows.Forms.Button();
             this.tbOutput = new System.Windows.Forms.RichTextBox();
             this.btn_privacyCheck = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -94,6 +95,15 @@
             this.tb_payloadPath = new System.Windows.Forms.TextBox();
             this.btn_selectPayload = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.tab_WhiteSource = new System.Windows.Forms.TabPage();
+            this.btn_WSScan = new System.Windows.Forms.Button();
+            this.cb_OAInternet = new System.Windows.Forms.CheckBox();
+            this.tb_WSProjectName = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btn_WSSelectFolder = new System.Windows.Forms.Button();
+            this.tb_WSTargetFolder = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.rtb_WhiteSource = new System.Windows.Forms.RichTextBox();
             this.MobSFWorker = new System.ComponentModel.BackgroundWorker();
             this.RequestWorker = new System.ComponentModel.BackgroundWorker();
             this.toolStrip = new System.Windows.Forms.StatusStrip();
@@ -109,6 +119,7 @@
             this.tab_MobSF.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tab_WhiteSource.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -298,6 +309,7 @@
             this.tabControl1.Controls.Add(this.tab_MobSF);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tab_WhiteSource);
             this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
@@ -309,6 +321,7 @@
             // tabPage1
             // 
             this.tabPage1.AllowDrop = true;
+            this.tabPage1.Controls.Add(this.btn_whiteSource);
             this.tabPage1.Controls.Add(this.tbOutput);
             this.tabPage1.Controls.Add(this.btn_privacyCheck);
             this.tabPage1.Controls.Add(this.button1);
@@ -328,6 +341,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Decompiler";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btn_whiteSource
+            // 
+            this.btn_whiteSource.Location = new System.Drawing.Point(273, 294);
+            this.btn_whiteSource.Name = "btn_whiteSource";
+            this.btn_whiteSource.Size = new System.Drawing.Size(112, 80);
+            this.btn_whiteSource.TabIndex = 20;
+            this.btn_whiteSource.Text = "WhiteSource掃描";
+            this.btn_whiteSource.UseVisualStyleBackColor = true;
+            this.btn_whiteSource.Click += new System.EventHandler(this.Btn_whiteSource_Click);
             // 
             // tbOutput
             // 
@@ -804,6 +827,103 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "字串檔(.txt)";
             // 
+            // tab_WhiteSource
+            // 
+            this.tab_WhiteSource.Controls.Add(this.btn_WSScan);
+            this.tab_WhiteSource.Controls.Add(this.cb_OAInternet);
+            this.tab_WhiteSource.Controls.Add(this.tb_WSProjectName);
+            this.tab_WhiteSource.Controls.Add(this.label14);
+            this.tab_WhiteSource.Controls.Add(this.btn_WSSelectFolder);
+            this.tab_WhiteSource.Controls.Add(this.tb_WSTargetFolder);
+            this.tab_WhiteSource.Controls.Add(this.label13);
+            this.tab_WhiteSource.Controls.Add(this.rtb_WhiteSource);
+            this.tab_WhiteSource.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tab_WhiteSource.Location = new System.Drawing.Point(4, 22);
+            this.tab_WhiteSource.Name = "tab_WhiteSource";
+            this.tab_WhiteSource.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_WhiteSource.Size = new System.Drawing.Size(919, 395);
+            this.tab_WhiteSource.TabIndex = 5;
+            this.tab_WhiteSource.Text = "WhiteSource";
+            this.tab_WhiteSource.UseVisualStyleBackColor = true;
+            // 
+            // btn_WSScan
+            // 
+            this.btn_WSScan.Location = new System.Drawing.Point(6, 151);
+            this.btn_WSScan.Name = "btn_WSScan";
+            this.btn_WSScan.Size = new System.Drawing.Size(107, 62);
+            this.btn_WSScan.TabIndex = 27;
+            this.btn_WSScan.Text = "WhiteSource掃描";
+            this.btn_WSScan.UseVisualStyleBackColor = true;
+            this.btn_WSScan.Click += new System.EventHandler(this.Btn_WSScan_Click);
+            // 
+            // cb_OAInternet
+            // 
+            this.cb_OAInternet.AutoSize = true;
+            this.cb_OAInternet.Location = new System.Drawing.Point(8, 120);
+            this.cb_OAInternet.Name = "cb_OAInternet";
+            this.cb_OAInternet.Size = new System.Drawing.Size(108, 16);
+            this.cb_OAInternet.TabIndex = 26;
+            this.cb_OAInternet.Text = "公司內網請勾選";
+            this.cb_OAInternet.UseVisualStyleBackColor = true;
+            // 
+            // tb_WSProjectName
+            // 
+            this.tb_WSProjectName.AllowDrop = true;
+            this.tb_WSProjectName.Location = new System.Drawing.Point(8, 80);
+            this.tb_WSProjectName.Name = "tb_WSProjectName";
+            this.tb_WSProjectName.Size = new System.Drawing.Size(284, 22);
+            this.tb_WSProjectName.TabIndex = 24;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label14.Location = new System.Drawing.Point(6, 61);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(108, 16);
+            this.label14.TabIndex = 25;
+            this.label14.Text = "Project Name：";
+            // 
+            // btn_WSSelectFolder
+            // 
+            this.btn_WSSelectFolder.Location = new System.Drawing.Point(298, 6);
+            this.btn_WSSelectFolder.Name = "btn_WSSelectFolder";
+            this.btn_WSSelectFolder.Size = new System.Drawing.Size(91, 38);
+            this.btn_WSSelectFolder.TabIndex = 23;
+            this.btn_WSSelectFolder.Text = "選擇資料夾";
+            this.btn_WSSelectFolder.UseVisualStyleBackColor = true;
+            this.btn_WSSelectFolder.Click += new System.EventHandler(this.Btn_WSSelectFolder_Click);
+            // 
+            // tb_WSTargetFolder
+            // 
+            this.tb_WSTargetFolder.AllowDrop = true;
+            this.tb_WSTargetFolder.Location = new System.Drawing.Point(8, 22);
+            this.tb_WSTargetFolder.Name = "tb_WSTargetFolder";
+            this.tb_WSTargetFolder.ReadOnly = true;
+            this.tb_WSTargetFolder.Size = new System.Drawing.Size(284, 22);
+            this.tb_WSTargetFolder.TabIndex = 21;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label13.Location = new System.Drawing.Point(6, 3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(108, 16);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "Target Folder：";
+            // 
+            // rtb_WhiteSource
+            // 
+            this.rtb_WhiteSource.Location = new System.Drawing.Point(395, 0);
+            this.rtb_WhiteSource.Name = "rtb_WhiteSource";
+            this.rtb_WhiteSource.ReadOnly = true;
+            this.rtb_WhiteSource.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtb_WhiteSource.Size = new System.Drawing.Size(524, 395);
+            this.rtb_WhiteSource.TabIndex = 20;
+            this.rtb_WhiteSource.Text = "";
+            this.rtb_WhiteSource.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.Rtb_WhiteSource_LinkClicked);
+            // 
             // MobSFWorker
             // 
             this.MobSFWorker.WorkerSupportsCancellation = true;
@@ -874,6 +994,8 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tab_WhiteSource.ResumeLayout(false);
+            this.tab_WhiteSource.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -955,6 +1077,16 @@
         private System.Windows.Forms.RichTextBox rtb_nmapResult;
         private System.Windows.Forms.RichTextBox tb_MobSFOutput;
         private System.Windows.Forms.RichTextBox tbOutput;
+        private System.Windows.Forms.Button btn_whiteSource;
+        private System.Windows.Forms.TabPage tab_WhiteSource;
+        private System.Windows.Forms.Button btn_WSScan;
+        private System.Windows.Forms.CheckBox cb_OAInternet;
+        private System.Windows.Forms.TextBox tb_WSProjectName;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btn_WSSelectFolder;
+        private System.Windows.Forms.TextBox tb_WSTargetFolder;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.RichTextBox rtb_WhiteSource;
     }
 }
 

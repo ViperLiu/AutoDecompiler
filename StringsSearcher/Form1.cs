@@ -219,5 +219,16 @@ namespace MASToolBox
 
             return data;
         }
+
+        private void Btn_whiteSource_Click(object sender, EventArgs e)
+        {
+            string apkName = textBox1.Text.Split('\\').Last<string>();
+            string targetFolder = tbOutputDir.Text + "\\" + apkName + ".exctracted";
+            tb_WSTargetFolder.Text = targetFolder;
+            tabControl1.SelectedTab = tab_WhiteSource;
+            tb_WSTargetFolder.Focus();
+        }
+
+        
     }
 }
