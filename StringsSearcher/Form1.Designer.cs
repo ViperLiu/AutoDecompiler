@@ -54,7 +54,7 @@
             this.btn_whiteSource = new System.Windows.Forms.Button();
             this.tbOutput = new System.Windows.Forms.RichTextBox();
             this.btn_privacyCheck = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_ManifestCheck = new System.Windows.Forms.Button();
             this.btn_sendToMobSF = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
@@ -324,7 +324,7 @@
             this.tabPage1.Controls.Add(this.btn_whiteSource);
             this.tabPage1.Controls.Add(this.tbOutput);
             this.tabPage1.Controls.Add(this.btn_privacyCheck);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.btn_ManifestCheck);
             this.tabPage1.Controls.Add(this.btn_sendToMobSF);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.textBox1);
@@ -372,15 +372,15 @@
             this.btn_privacyCheck.UseVisualStyleBackColor = true;
             this.btn_privacyCheck.Click += new System.EventHandler(this.Btn_privacyCheck_Click);
             // 
-            // button1
+            // btn_ManifestCheck
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(11, 294);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 80);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Manifest 掃描";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_ManifestCheck.Location = new System.Drawing.Point(11, 294);
+            this.btn_ManifestCheck.Name = "btn_ManifestCheck";
+            this.btn_ManifestCheck.Size = new System.Drawing.Size(112, 80);
+            this.btn_ManifestCheck.TabIndex = 17;
+            this.btn_ManifestCheck.Text = "Manifest 掃描";
+            this.btn_ManifestCheck.UseVisualStyleBackColor = true;
+            this.btn_ManifestCheck.Click += new System.EventHandler(this.Btn_ManifestCheck_Click);
             // 
             // btn_sendToMobSF
             // 
@@ -1060,7 +1060,7 @@
         private System.Windows.Forms.Button ssl_bt;
         private System.Windows.Forms.Button cer_bt;
         private System.Windows.Forms.Button btn_privacyCheck;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_ManifestCheck;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tb_SearchTargetFolder;
