@@ -229,6 +229,17 @@ namespace MASToolBox
             tb_WSTargetFolder.Focus();
         }
 
-        
+        private void Btn_ManifestCheck_Click(object sender, EventArgs e)
+        {
+            string apkName = textBox1.Text.Split('\\').Last<string>();
+            string args = tbOutputDir.Text + "\\" + apkName + ".exctracted\\manifest\\AndroidManifest.xml";
+
+            LibraryWorker ManifestCheck = new LibraryWorker(Library.ManifestCheck);
+            ManifestCheck.AddParam(new string[] { args });
+            ManifestCheck.SetOutputBox(this.tbOutput);
+            //ManifestCheck.DataProcessor = PrivackyDataProcessor;
+            //ManifestCheck.JobFinished += PrivacyCheck_Completed;
+            ManifestCheck.RunLibrary();
+        }
     }
 }

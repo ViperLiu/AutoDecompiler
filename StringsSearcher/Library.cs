@@ -24,6 +24,9 @@ namespace MASToolBox
         public static readonly Library WhiteSource
             = new Library("tools\\WhiteSource.bat");
 
+        public static readonly Library ManifestCheck
+            = new Library("tools\\ManifestCheck.bat");
+
         private Library(string path)
         {
             this.Path = path;
