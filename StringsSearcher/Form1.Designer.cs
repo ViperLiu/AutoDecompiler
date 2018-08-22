@@ -47,13 +47,14 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tbSHA1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tbOutput = new System.Windows.Forms.TextBox();
             this.decompileWorker = new System.ComponentModel.BackgroundWorker();
             this.btn_decompile = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_whiteSource = new System.Windows.Forms.Button();
+            this.tbOutput = new System.Windows.Forms.RichTextBox();
+            this.btn_privacyCheck = new System.Windows.Forms.Button();
+            this.btn_ManifestCheck = new System.Windows.Forms.Button();
             this.btn_sendToMobSF = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
@@ -63,10 +64,10 @@
             this.tb_converterOutput = new System.Windows.Forms.TextBox();
             this.tb_converterInput = new System.Windows.Forms.TextBox();
             this.tab_MobSF = new System.Windows.Forms.TabPage();
+            this.tb_MobSFOutput = new System.Windows.Forms.RichTextBox();
             this.btn_uploadAPK = new System.Windows.Forms.Button();
             this.btn_resetMobSF = new System.Windows.Forms.Button();
             this.btn_stopMobSF = new System.Windows.Forms.Button();
-            this.tb_MobSFOutput = new System.Windows.Forms.TextBox();
             this.btn_startMobSF = new System.Windows.Forms.Button();
             this.btn_selectAPK2 = new System.Windows.Forms.Button();
             this.tb_APKFile = new System.Windows.Forms.TextBox();
@@ -75,6 +76,7 @@
             this.tb_MobSFPath = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.rtb_nmapResult = new System.Windows.Forms.RichTextBox();
             this.btn_screenshot = new System.Windows.Forms.Button();
             this.state = new System.Windows.Forms.TextBox();
             this.port_txt = new System.Windows.Forms.Label();
@@ -83,7 +85,6 @@
             this.ip_box = new System.Windows.Forms.TextBox();
             this.ssl_bt = new System.Windows.Forms.Button();
             this.cer_bt = new System.Windows.Forms.Button();
-            this.result = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btn_keywordScreenshot = new System.Windows.Forms.Button();
             this.btn_startSearch = new System.Windows.Forms.Button();
@@ -97,6 +98,15 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.rtb_adbOutput = new System.Windows.Forms.RichTextBox();
             this.btn_checkADB = new System.Windows.Forms.Button();
+            this.tab_WhiteSource = new System.Windows.Forms.TabPage();
+            this.btn_WSScan = new System.Windows.Forms.Button();
+            this.cb_OAInternet = new System.Windows.Forms.CheckBox();
+            this.tb_WSProjectName = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btn_WSSelectFolder = new System.Windows.Forms.Button();
+            this.tb_WSTargetFolder = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.rtb_WhiteSource = new System.Windows.Forms.RichTextBox();
             this.MobSFWorker = new System.ComponentModel.BackgroundWorker();
             this.RequestWorker = new System.ComponentModel.BackgroundWorker();
             this.toolStrip = new System.Windows.Forms.StatusStrip();
@@ -114,6 +124,7 @@
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tab_WhiteSource.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -284,25 +295,6 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "SHA1：";
             // 
-            // tbOutput
-            // 
-            this.tbOutput.AllowDrop = true;
-            this.tbOutput.Font = new System.Drawing.Font("Consolas", 12F);
-            this.tbOutput.Location = new System.Drawing.Point(397, 6);
-            this.tbOutput.Multiline = true;
-            this.tbOutput.Name = "tbOutput";
-            this.tbOutput.ReadOnly = true;
-            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOutput.Size = new System.Drawing.Size(516, 389);
-            this.tbOutput.TabIndex = 13;
-            this.tbOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragDrop);
-            this.tbOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtFolderPath_DragEnter);
-            // 
-            // decompileWorker
-            // 
-            this.decompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DecompileWorker_DoWork);
-            this.decompileWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DecompileWorker_RunWorkerCompleted);
-            // 
             // btn_decompile
             // 
             this.btn_decompile.Enabled = false;
@@ -323,6 +315,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tab_WhiteSource);
             this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
@@ -334,12 +327,13 @@
             // tabPage1
             // 
             this.tabPage1.AllowDrop = true;
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.btn_whiteSource);
+            this.tabPage1.Controls.Add(this.tbOutput);
+            this.tabPage1.Controls.Add(this.btn_privacyCheck);
+            this.tabPage1.Controls.Add(this.btn_ManifestCheck);
             this.tabPage1.Controls.Add(this.btn_sendToMobSF);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.tbOutput);
             this.tabPage1.Controls.Add(this.btn_decompile);
             this.tabPage1.Controls.Add(this.btn_selectOutputDir);
             this.tabPage1.Controls.Add(this.tbOutputDir);
@@ -354,25 +348,45 @@
             this.tabPage1.Text = "Decompiler";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btn_whiteSource
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(140, 294);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 80);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "隱私權政策掃描";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_whiteSource.Location = new System.Drawing.Point(273, 294);
+            this.btn_whiteSource.Name = "btn_whiteSource";
+            this.btn_whiteSource.Size = new System.Drawing.Size(112, 80);
+            this.btn_whiteSource.TabIndex = 20;
+            this.btn_whiteSource.Text = "WhiteSource掃描";
+            this.btn_whiteSource.UseVisualStyleBackColor = true;
+            this.btn_whiteSource.Click += new System.EventHandler(this.Btn_whiteSource_Click);
             // 
-            // button1
+            // tbOutput
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(11, 294);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 80);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Manifest 掃描";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tbOutput.Location = new System.Drawing.Point(394, 0);
+            this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ReadOnly = true;
+            this.tbOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.tbOutput.Size = new System.Drawing.Size(524, 395);
+            this.tbOutput.TabIndex = 19;
+            this.tbOutput.Text = "";
+            // 
+            // btn_privacyCheck
+            // 
+            this.btn_privacyCheck.Location = new System.Drawing.Point(140, 294);
+            this.btn_privacyCheck.Name = "btn_privacyCheck";
+            this.btn_privacyCheck.Size = new System.Drawing.Size(112, 80);
+            this.btn_privacyCheck.TabIndex = 18;
+            this.btn_privacyCheck.Text = "隱私權政策掃描";
+            this.btn_privacyCheck.UseVisualStyleBackColor = true;
+            this.btn_privacyCheck.Click += new System.EventHandler(this.Btn_privacyCheck_Click);
+            // 
+            // btn_ManifestCheck
+            // 
+            this.btn_ManifestCheck.Location = new System.Drawing.Point(11, 294);
+            this.btn_ManifestCheck.Name = "btn_ManifestCheck";
+            this.btn_ManifestCheck.Size = new System.Drawing.Size(112, 80);
+            this.btn_ManifestCheck.TabIndex = 17;
+            this.btn_ManifestCheck.Text = "Manifest 掃描";
+            this.btn_ManifestCheck.UseVisualStyleBackColor = true;
+            this.btn_ManifestCheck.Click += new System.EventHandler(this.Btn_ManifestCheck_Click);
             // 
             // btn_sendToMobSF
             // 
@@ -463,10 +477,10 @@
             // 
             // tab_MobSF
             // 
+            this.tab_MobSF.Controls.Add(this.tb_MobSFOutput);
             this.tab_MobSF.Controls.Add(this.btn_uploadAPK);
             this.tab_MobSF.Controls.Add(this.btn_resetMobSF);
             this.tab_MobSF.Controls.Add(this.btn_stopMobSF);
-            this.tab_MobSF.Controls.Add(this.tb_MobSFOutput);
             this.tab_MobSF.Controls.Add(this.btn_startMobSF);
             this.tab_MobSF.Controls.Add(this.btn_selectAPK2);
             this.tab_MobSF.Controls.Add(this.tb_APKFile);
@@ -481,6 +495,16 @@
             this.tab_MobSF.TabIndex = 2;
             this.tab_MobSF.Text = "MobSF";
             this.tab_MobSF.UseVisualStyleBackColor = true;
+            // 
+            // tb_MobSFOutput
+            // 
+            this.tb_MobSFOutput.Location = new System.Drawing.Point(380, 0);
+            this.tb_MobSFOutput.Name = "tb_MobSFOutput";
+            this.tb_MobSFOutput.ReadOnly = true;
+            this.tb_MobSFOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.tb_MobSFOutput.Size = new System.Drawing.Size(538, 395);
+            this.tb_MobSFOutput.TabIndex = 20;
+            this.tb_MobSFOutput.Text = "";
             // 
             // btn_uploadAPK
             // 
@@ -513,17 +537,6 @@
             this.btn_stopMobSF.Text = "停止MobSF";
             this.btn_stopMobSF.UseVisualStyleBackColor = true;
             this.btn_stopMobSF.Click += new System.EventHandler(this.Btn_stopMobSF_Click);
-            // 
-            // tb_MobSFOutput
-            // 
-            this.tb_MobSFOutput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tb_MobSFOutput.Location = new System.Drawing.Point(380, 6);
-            this.tb_MobSFOutput.Multiline = true;
-            this.tb_MobSFOutput.Name = "tb_MobSFOutput";
-            this.tb_MobSFOutput.ReadOnly = true;
-            this.tb_MobSFOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tb_MobSFOutput.Size = new System.Drawing.Size(532, 389);
-            this.tb_MobSFOutput.TabIndex = 16;
             // 
             // btn_startMobSF
             // 
@@ -597,6 +610,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.rtb_nmapResult);
             this.tabPage3.Controls.Add(this.btn_screenshot);
             this.tabPage3.Controls.Add(this.state);
             this.tabPage3.Controls.Add(this.port_txt);
@@ -605,7 +619,6 @@
             this.tabPage3.Controls.Add(this.ip_box);
             this.tabPage3.Controls.Add(this.ssl_bt);
             this.tabPage3.Controls.Add(this.cer_bt);
-            this.tabPage3.Controls.Add(this.result);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -613,6 +626,15 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Nmap";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // rtb_nmapResult
+            // 
+            this.rtb_nmapResult.Location = new System.Drawing.Point(392, 3);
+            this.rtb_nmapResult.Name = "rtb_nmapResult";
+            this.rtb_nmapResult.ReadOnly = true;
+            this.rtb_nmapResult.Size = new System.Drawing.Size(524, 389);
+            this.rtb_nmapResult.TabIndex = 14;
+            this.rtb_nmapResult.Text = "";
             // 
             // btn_screenshot
             // 
@@ -704,16 +726,6 @@
             this.cer_bt.UseVisualStyleBackColor = true;
             this.cer_bt.Click += new System.EventHandler(this.BtCer_Click);
             // 
-            // result
-            // 
-            this.result.Font = new System.Drawing.Font("Consolas", 10F);
-            this.result.Location = new System.Drawing.Point(397, 3);
-            this.result.Multiline = true;
-            this.result.Name = "result";
-            this.result.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.result.Size = new System.Drawing.Size(519, 389);
-            this.result.TabIndex = 0;
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.btn_keywordScreenshot);
@@ -757,6 +769,7 @@
             // 
             this.rtb_searchResult.Location = new System.Drawing.Point(374, 3);
             this.rtb_searchResult.Name = "rtb_searchResult";
+            this.rtb_searchResult.ReadOnly = true;
             this.rtb_searchResult.Size = new System.Drawing.Size(542, 392);
             this.rtb_searchResult.TabIndex = 14;
             this.rtb_searchResult.Text = "";
@@ -851,11 +864,106 @@
             this.btn_checkADB.UseVisualStyleBackColor = true;
             this.btn_checkADB.Click += new System.EventHandler(this.Btn_checkADB_Click);
             // 
+            // tab_WhiteSource
+            // 
+            this.tab_WhiteSource.Controls.Add(this.btn_WSScan);
+            this.tab_WhiteSource.Controls.Add(this.cb_OAInternet);
+            this.tab_WhiteSource.Controls.Add(this.tb_WSProjectName);
+            this.tab_WhiteSource.Controls.Add(this.label14);
+            this.tab_WhiteSource.Controls.Add(this.btn_WSSelectFolder);
+            this.tab_WhiteSource.Controls.Add(this.tb_WSTargetFolder);
+            this.tab_WhiteSource.Controls.Add(this.label13);
+            this.tab_WhiteSource.Controls.Add(this.rtb_WhiteSource);
+            this.tab_WhiteSource.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tab_WhiteSource.Location = new System.Drawing.Point(4, 22);
+            this.tab_WhiteSource.Name = "tab_WhiteSource";
+            this.tab_WhiteSource.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_WhiteSource.Size = new System.Drawing.Size(919, 395);
+            this.tab_WhiteSource.TabIndex = 5;
+            this.tab_WhiteSource.Text = "WhiteSource";
+            this.tab_WhiteSource.UseVisualStyleBackColor = true;
+            // 
+            // btn_WSScan
+            // 
+            this.btn_WSScan.Location = new System.Drawing.Point(6, 151);
+            this.btn_WSScan.Name = "btn_WSScan";
+            this.btn_WSScan.Size = new System.Drawing.Size(107, 62);
+            this.btn_WSScan.TabIndex = 27;
+            this.btn_WSScan.Text = "WhiteSource掃描";
+            this.btn_WSScan.UseVisualStyleBackColor = true;
+            this.btn_WSScan.Click += new System.EventHandler(this.Btn_WSScan_Click);
+            // 
+            // cb_OAInternet
+            // 
+            this.cb_OAInternet.AutoSize = true;
+            this.cb_OAInternet.Location = new System.Drawing.Point(8, 120);
+            this.cb_OAInternet.Name = "cb_OAInternet";
+            this.cb_OAInternet.Size = new System.Drawing.Size(108, 16);
+            this.cb_OAInternet.TabIndex = 26;
+            this.cb_OAInternet.Text = "公司內網請勾選";
+            this.cb_OAInternet.UseVisualStyleBackColor = true;
+            // 
+            // tb_WSProjectName
+            // 
+            this.tb_WSProjectName.AllowDrop = true;
+            this.tb_WSProjectName.Location = new System.Drawing.Point(8, 80);
+            this.tb_WSProjectName.Name = "tb_WSProjectName";
+            this.tb_WSProjectName.Size = new System.Drawing.Size(284, 22);
+            this.tb_WSProjectName.TabIndex = 24;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label14.Location = new System.Drawing.Point(6, 61);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(108, 16);
+            this.label14.TabIndex = 25;
+            this.label14.Text = "Project Name：";
+            // 
+            // btn_WSSelectFolder
+            // 
+            this.btn_WSSelectFolder.Location = new System.Drawing.Point(298, 6);
+            this.btn_WSSelectFolder.Name = "btn_WSSelectFolder";
+            this.btn_WSSelectFolder.Size = new System.Drawing.Size(91, 38);
+            this.btn_WSSelectFolder.TabIndex = 23;
+            this.btn_WSSelectFolder.Text = "選擇資料夾";
+            this.btn_WSSelectFolder.UseVisualStyleBackColor = true;
+            this.btn_WSSelectFolder.Click += new System.EventHandler(this.Btn_WSSelectFolder_Click);
+            // 
+            // tb_WSTargetFolder
+            // 
+            this.tb_WSTargetFolder.AllowDrop = true;
+            this.tb_WSTargetFolder.Location = new System.Drawing.Point(8, 22);
+            this.tb_WSTargetFolder.Name = "tb_WSTargetFolder";
+            this.tb_WSTargetFolder.ReadOnly = true;
+            this.tb_WSTargetFolder.Size = new System.Drawing.Size(284, 22);
+            this.tb_WSTargetFolder.TabIndex = 21;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label13.Location = new System.Drawing.Point(6, 3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(108, 16);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "Target Folder：";
+            // 
+            // rtb_WhiteSource
+            // 
+            this.rtb_WhiteSource.Location = new System.Drawing.Point(395, 0);
+            this.rtb_WhiteSource.Name = "rtb_WhiteSource";
+            this.rtb_WhiteSource.ReadOnly = true;
+            this.rtb_WhiteSource.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtb_WhiteSource.Size = new System.Drawing.Size(524, 395);
+            this.rtb_WhiteSource.TabIndex = 20;
+            this.rtb_WhiteSource.Text = "";
+            this.rtb_WhiteSource.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.Rtb_WhiteSource_LinkClicked);
+            // 
             // MobSFWorker
             // 
             this.MobSFWorker.WorkerSupportsCancellation = true;
-            this.MobSFWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.MobSFWorker_DoWork);
-            this.MobSFWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.MobSFWorker_RunWorkerCompleted);
             // 
             // RequestWorker
             // 
@@ -886,11 +994,6 @@
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.toolStripProgressBar1.Visible = false;
-            // 
-            // SearchWorker
-            // 
-            this.SearchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchWorker_DoWork);
-            this.SearchWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchWorker_RunWorkerCompleted);
             // 
             // saveScreenshotDialog
             // 
@@ -934,6 +1037,8 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.tab_WhiteSource.ResumeLayout(false);
+            this.tab_WhiteSource.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -956,7 +1061,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tbSHA1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox tbOutput;
         private System.ComponentModel.BackgroundWorker decompileWorker;
         private System.Windows.Forms.Button btn_decompile;
         private System.Windows.Forms.TabControl tabControl1;
@@ -982,7 +1086,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btn_startMobSF;
         private System.ComponentModel.BackgroundWorker MobSFWorker;
-        private System.Windows.Forms.TextBox tb_MobSFOutput;
         private System.Windows.Forms.Button btn_stopMobSF;
         private System.Windows.Forms.Button btn_resetMobSF;
         private System.Windows.Forms.Button btn_uploadAPK;
@@ -992,7 +1095,6 @@
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Button btn_sendToMobSF;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TextBox result;
         private System.Windows.Forms.TextBox state;
         private System.Windows.Forms.Label port_txt;
         private System.Windows.Forms.TextBox port_box;
@@ -1000,8 +1102,8 @@
         private System.Windows.Forms.TextBox ip_box;
         private System.Windows.Forms.Button ssl_bt;
         private System.Windows.Forms.Button cer_bt;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_privacyCheck;
+        private System.Windows.Forms.Button btn_ManifestCheck;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tb_SearchTargetFolder;
@@ -1015,10 +1117,26 @@
         private System.Windows.Forms.Button btn_screenshot;
         private System.Windows.Forms.SaveFileDialog saveScreenshotDialog;
         private System.Windows.Forms.Button btn_keywordScreenshot;
+
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button btn_checkADB;
         private System.Windows.Forms.RichTextBox rtb_adbOutput;
         private System.ComponentModel.BackgroundWorker adbWorker;
+
+        private System.Windows.Forms.RichTextBox rtb_nmapResult;
+        private System.Windows.Forms.RichTextBox tb_MobSFOutput;
+        private System.Windows.Forms.RichTextBox tbOutput;
+        private System.Windows.Forms.Button btn_whiteSource;
+        private System.Windows.Forms.TabPage tab_WhiteSource;
+        private System.Windows.Forms.Button btn_WSScan;
+        private System.Windows.Forms.CheckBox cb_OAInternet;
+        private System.Windows.Forms.TextBox tb_WSProjectName;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btn_WSSelectFolder;
+        private System.Windows.Forms.TextBox tb_WSTargetFolder;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.RichTextBox rtb_WhiteSource;
+
     }
 }
 

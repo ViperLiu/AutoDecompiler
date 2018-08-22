@@ -82,6 +82,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EasyHttp, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EasyHttp.1.7.0\lib\net40\EasyHttp.dll</HintPath>
@@ -154,12 +157,17 @@
     <Compile Include="Form1.Nmap.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form1.WhiteSource.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="InitializationProcedure.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InitializationProcedure.Designer.cs">
       <DependentUpon>InitializationProcedure.cs</DependentUpon>
     </Compile>
+    <Compile Include="LibraryWorker.cs" />
+    <Compile Include="Library.cs" />
     <Compile Include="MobSF.cs" />
     <Compile Include="Properties\MobSF.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -201,18 +209,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="tools\decompiler.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\nmap.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\tools.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\keywordSearch.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Android Studio.ico" />
@@ -271,16 +267,6 @@
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="tools\apktool-2.3.0\apktool.jar">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="tools\decompiler.bat">
       <Visible>False</Visible>
       <Group>
       </Group>
@@ -551,13 +537,18 @@
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="tools\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2018/7/3" BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>7z x "$(ProjectDir)tools\tools.zip" -o"$(TargetDir)tools" -y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

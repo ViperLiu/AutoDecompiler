@@ -11,8 +11,9 @@ namespace MASToolBox
 {
     public partial class Form1
     {
-        Process mobsf;
         JObject responseJson;
+        private LibraryWorker Mobsf = new LibraryWorker(Library.MobSF);
+
         private static Properties.MobSF MobSFSettings = Properties.MobSF.Default;
 
         private void Tb_APKFile_DragDrop(object sender, DragEventArgs e)
@@ -65,92 +66,7 @@ namespace MASToolBox
                 tb_MobSFOutput.AppendText("Cannot open \"" + url + "\"\r\n");
             }
         }
-
-        //執行mobsf的background worker
-        private void MobSFWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            string args1 = MobSFSettings.MobSFPath + "\\manage.py";
-            string args2 = "runserver";
-
-            this.mobsf = new Process();
-
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.FileName = "python.exe";
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.Arguments = string.Format("\"{0}\" \"{1}\"", args1, args2);
-            startInfo.CreateNoWindow = true;
-
-            mobsf.StartInfo = startInfo;
-            mobsf.SynchronizingObject = this;
-
-            //執行python.exe
-            try
-            {
-                mobsf.Start();
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("找不到python.exe，請確定python.exe的路徑是否有加入至系統路徑中");
-                mobsf.Dispose();
-                mobsf = null;
-                return;
-            }
-
-            mobsf.ErrorDataReceived += Proc_mobsf_OutputDataReceived;
-            mobsf.OutputDataReceived += Proc_mobsf_OutputDataReceived;
-            mobsf.BeginOutputReadLine();
-            mobsf.BeginErrorReadLine();
-            mobsf.WaitForExit();
-        }
-
-        //接收mobsf的輸出
-        private void Proc_mobsf_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data == null)
-                return;
-
-            //在textbox上輸出MobSF狀態
-            this.tbOutput.Invoke((MethodInvoker)delegate
-            {
-                tb_MobSFOutput.AppendText(e.Data + "\r\n");
-            });
-
-            //REST開頭即為APIKey
-            if (e.Data.StartsWith("REST"))
-            {
-                MobSFSettings.APIKey = e.Data.Split(':')[1].Trim();
-                MobSFSettings.Save();
-            }
-
-            //當MobSF輸出這些字時，代表已啟動完成
-            if (e.Data.StartsWith("[WARN] A new version") || e.Data.StartsWith("[INFO] No updates available."))
-            {
-                btn_uploadAPK.Enabled = true;
-                this.tbOutput.Invoke((MethodInvoker)delegate
-                {
-                    tb_MobSFOutput.AppendText("Ready!!\r\n");
-                });
-            }
-        }
-
-        //執行mobsf的background worker
-        private void MobSFWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            btn_startMobSF.Enabled = true;
-            btn_stopMobSF.Enabled = false;
-            btn_resetMobSF.Enabled = true;
-            btn_uploadAPK.Enabled = false;
-            btn_MobSFPath.Enabled = true;
-            
-            mobsf.Dispose();
-            mobsf = null;
-            tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
-            MessageBox.Show("MobSF已關閉");
-        }
-
+        
         private void Btn_startMobSF_Click(object sender, EventArgs e)
         {
             this.tb_MobSFOutput.Text = "";
@@ -171,14 +87,34 @@ namespace MASToolBox
             btn_resetMobSF.Enabled = false;
             btn_MobSFPath.Enabled = false;
 
-            MobSFWorker.RunWorkerAsync();
+            //MobSFWorker.RunWorkerAsync();
+            string args1 = MobSFSettings.MobSFPath + "\\manage.py";
+
+            this.Mobsf.SetOutputBox(this.tb_MobSFOutput);
+            this.Mobsf.AddParam(new string[] { args1 });
+            this.Mobsf.JobFinished += Mobsf_Completed;
+            this.Mobsf.DataProcessor = MobSFDataProcessor;
+            this.Mobsf.RunLibrary();
+
+        }
+
+        private void Mobsf_Completed(object sender, EventArgs e)
+        {
+            btn_startMobSF.Enabled = true;
+            btn_stopMobSF.Enabled = false;
+            btn_resetMobSF.Enabled = true;
+            btn_uploadAPK.Enabled = false;
+            btn_MobSFPath.Enabled = true;
+            
+            tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
+            MessageBox.Show("MobSF已關閉");
         }
 
         private void Btn_stopMobSF_Click(object sender, EventArgs e)
         {
-            if (mobsf == null)
+            if (Mobsf.Process == null)
                 return;
-            KillProcessAndChildren(mobsf.Id);
+            KillProcessAndChildren(Mobsf.Process.Id);
             btn_uploadAPK.Enabled = false;
         }
 
@@ -345,6 +281,24 @@ namespace MASToolBox
                     tb_MobSFOutput.AppendText("不支援此檔案格式\r\n");
                 }
             }
+            openFileDialog1.Dispose();
+        }
+
+        private static string MobSFDataProcessor(string data)
+        {
+            //REST開頭即為APIKey
+            if (data.StartsWith("REST"))
+            {
+                Properties.MobSF.Default.APIKey = data.Split(':')[1].Trim();
+                Properties.MobSF.Default.Save();
+            }
+
+            //當MobSF輸出這些字時，代表已啟動完成
+            else if (data.StartsWith("[WARN] A new version") || data.StartsWith("[INFO] No updates available."))
+            {
+                data = data + "\r\nReady!!\r\n";
+            }
+            return data;
         }
     }
 }
