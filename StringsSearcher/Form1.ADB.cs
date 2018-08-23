@@ -11,55 +11,40 @@ namespace MASToolBox
 {
     partial class Form1
     {
-        private Process adb;
+        string PhoneBrand = "";
+        string PhoneModel = "";
 
         private void Btn_checkADB_Click(object sender, EventArgs e)
         {
-            adbWorker.RunWorkerAsync();
+            LibraryWorker adb = new LibraryWorker(Library.ADB);
+            adb.AddParam(new string[] { "shell", "\"getprop\"" });
+            adb.SetOutputBox(rtb_adbOutput);
+            adb.DataProcessor = AdbGetPhoneBrandModel;
+            adb.JobFinished += PhoneFound;
+            adb.RunLibrary();
         }
 
-        private void AdbWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void PhoneFound(object sender, EventArgs e)
         {
-            string args1 = "shell";
-            //string args2 = "-c";
-            string args3 = "su -c \"ls /data/data\"";
-
-            adb = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.FileName = "tools\\adb\\adb.exe";
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.Arguments = string.Format("\"{0}\" \"{1}\"", args1, args3);
-
-            //tbOutput.Text = startInfo.Arguments;
-            startInfo.CreateNoWindow = true;
-            adb.StartInfo = startInfo;
-            adb.SynchronizingObject = this;
-            
-            adb.Start();
-            adb.ErrorDataReceived += Proc_AdbDataReceived;
-            adb.OutputDataReceived += Proc_AdbDataReceived;
-            adb.EnableRaisingEvents = true;
-            adb.BeginOutputReadLine();
-            adb.BeginErrorReadLine();
-            adb.WaitForExit();
+            MessageBox.Show("Found Phone : " + PhoneBrand + " " + PhoneModel);
         }
 
-        private void Proc_AdbDataReceived(object sender, DataReceivedEventArgs e)
+        private string AdbGetPhoneBrandModel(string data)
         {
-            this.rtb_adbOutput.Invoke((MethodInvoker)delegate
+            var tmp = data.Replace("[", "").Replace("]", "");
+            if (tmp.StartsWith("ro.product.brand"))
             {
-                rtb_adbOutput.AppendText(e.Data + "\r\n");
-                rtb_adbOutput.ScrollToCaret();
-            });
-        }
-
-        private void AdbWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            MessageBox.Show("");
+                var brand = tmp.Split(':')[1].Trim();
+                PhoneBrand = brand.ToUpper();
+                return "Brand : " + brand;
+            }
+            if(tmp.StartsWith("ro.product.model"))
+            {
+                var model = tmp.Split(':')[1].Trim();
+                PhoneModel = model.ToUpper();
+                return "Model : " + model;
+            }
+            return "";
         }
     }
 }

@@ -27,6 +27,9 @@ namespace MASToolBox
         public static readonly Library ManifestCheck
             = new Library("tools\\ManifestCheck.bat");
 
+        public static readonly Library ADB
+            = new Library("tools\\adb\\adb.exe");
+
         private Library(string path)
         {
             this.Path = path;

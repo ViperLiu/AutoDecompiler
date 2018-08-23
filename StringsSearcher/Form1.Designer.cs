@@ -114,7 +114,6 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.SearchWorker = new System.ComponentModel.BackgroundWorker();
             this.saveScreenshotDialog = new System.Windows.Forms.SaveFileDialog();
-            this.adbWorker = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1000,11 +999,6 @@
             this.saveScreenshotDialog.DefaultExt = "jpg";
             this.saveScreenshotDialog.Filter = "jpg|*.jpg";
             // 
-            // adbWorker
-            // 
-            this.adbWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.AdbWorker_DoWork);
-            this.adbWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.AdbWorker_RunWorkerCompleted);
-            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -1121,7 +1115,6 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button btn_checkADB;
         private System.Windows.Forms.RichTextBox rtb_adbOutput;
-        private System.ComponentModel.BackgroundWorker adbWorker;
 
         private System.Windows.Forms.RichTextBox rtb_nmapResult;
         private System.Windows.Forms.RichTextBox tb_MobSFOutput;

@@ -29,7 +29,7 @@ namespace MASToolBox
         {
             this.Parameters = parameters;
         }
-
+        
         public void RunLibrary()
         {
             if (this.OutputBox == null)
