@@ -53,5 +53,29 @@ namespace MASToolBox
             }
             return "";
         }
+
+        private void Btn_InstallAPK_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "apk檔|*.apk";
+            var result = openFileDialog1.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                var file = openFileDialog1.FileName;
+
+                LibraryWorker adbInstall = new LibraryWorker(Library.ADB);
+                adbInstall.AddParam(new string[] { "-d", "install", file });
+                adbInstall.SetOutputBox(rtb_adbOutput);
+                adbInstall.JobFinished += APKInstallCompleted;
+                adbInstall.RunLibrary();
+            }
+
+            openFileDialog1.Filter = "";
+        }
+
+        private void APKInstallCompleted(object sender, EventArgs e)
+        {
+            MessageBox.Show("Install completed");
+        }
     }
 }
