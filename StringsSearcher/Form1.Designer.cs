@@ -95,7 +95,7 @@
             this.tb_payloadPath = new System.Windows.Forms.TextBox();
             this.btn_selectPayload = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tab_ADB = new System.Windows.Forms.TabPage();
             this.rtb_adbOutput = new System.Windows.Forms.RichTextBox();
             this.btn_checkADB = new System.Windows.Forms.Button();
             this.tab_WhiteSource = new System.Windows.Forms.TabPage();
@@ -122,7 +122,7 @@
             this.tab_MobSF.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tab_ADB.SuspendLayout();
             this.tab_WhiteSource.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -313,8 +313,8 @@
             this.tabControl1.Controls.Add(this.tab_MobSF);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tab_WhiteSource);
+            this.tabControl1.Controls.Add(this.tab_ADB);
             this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
@@ -832,17 +832,17 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "字串檔(.txt)";
             // 
-            // tabPage5
+            // tab_ADB
             // 
-            this.tabPage5.Controls.Add(this.rtb_adbOutput);
-            this.tabPage5.Controls.Add(this.btn_checkADB);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(919, 395);
-            this.tabPage5.TabIndex = 5;
-            this.tabPage5.Text = "ADB";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tab_ADB.Controls.Add(this.rtb_adbOutput);
+            this.tab_ADB.Controls.Add(this.btn_checkADB);
+            this.tab_ADB.Location = new System.Drawing.Point(4, 22);
+            this.tab_ADB.Name = "tab_ADB";
+            this.tab_ADB.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_ADB.Size = new System.Drawing.Size(919, 395);
+            this.tab_ADB.TabIndex = 5;
+            this.tab_ADB.Text = "ADB";
+            this.tab_ADB.UseVisualStyleBackColor = true;
             // 
             // rtb_adbOutput
             // 
@@ -1030,7 +1030,7 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
+            this.tab_ADB.ResumeLayout(false);
             this.tab_WhiteSource.ResumeLayout(false);
             this.tab_WhiteSource.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -1112,7 +1112,7 @@
         private System.Windows.Forms.SaveFileDialog saveScreenshotDialog;
         private System.Windows.Forms.Button btn_keywordScreenshot;
 
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tab_ADB;
         private System.Windows.Forms.Button btn_checkADB;
         private System.Windows.Forms.RichTextBox rtb_adbOutput;
 

@@ -180,10 +180,11 @@ namespace MASToolBox
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Mobsf.Process != null)
-                KillProcessAndChildren(Mobsf.Process.Id);
+            ProcessManager.TerminateAllProcess();
+            /*if (Mobsf.Process != null)
+                ProcessManager.KillProcess(Mobsf.Process.Id);
             if (Decompiler.Process != null)
-                KillProcessAndChildren(Decompiler.Process.Id);
+                ProcessManager.KillProcess(Decompiler.Process.Id);*/
         }
 
         private void Form1_Shown(object sender, EventArgs e)

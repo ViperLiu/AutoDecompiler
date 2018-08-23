@@ -44,7 +44,8 @@ namespace MASToolBox
 
         private void LibWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.Process.Dispose();
+            //this.Process.Dispose();
+            ProcessManager.KillProcess(this.Process.Id);
             this.Process = null;
 
             EventHandler jobFinishEvent = this.JobFinished;
@@ -67,6 +68,7 @@ namespace MASToolBox
             var argument = sb.ToString();
 
             Process = new Process();
+            ProcessManager.ProcessList.Add(this.Process);
             ProcessStartInfo startInfo = new ProcessStartInfo();
 
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;

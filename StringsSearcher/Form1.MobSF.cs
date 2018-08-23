@@ -106,7 +106,7 @@ namespace MASToolBox
             btn_uploadAPK.Enabled = false;
             btn_MobSFPath.Enabled = true;
             
-            tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
+            //tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
             MessageBox.Show("MobSF已關閉");
         }
 
