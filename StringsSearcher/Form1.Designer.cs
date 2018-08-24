@@ -105,6 +105,10 @@
             this.label13 = new System.Windows.Forms.Label();
             this.rtb_WhiteSource = new System.Windows.Forms.RichTextBox();
             this.tab_ADB = new System.Windows.Forms.TabPage();
+            this.btn_LoadPackageList = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label_PhoneStatus = new System.Windows.Forms.Label();
             this.btn_InstallAPK = new System.Windows.Forms.Button();
             this.rtb_adbOutput = new System.Windows.Forms.RichTextBox();
             this.btn_checkADB = new System.Windows.Forms.Button();
@@ -115,7 +119,6 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.SearchWorker = new System.ComponentModel.BackgroundWorker();
             this.saveScreenshotDialog = new System.Windows.Forms.SaveFileDialog();
-            this.label_PhoneStatus = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -933,6 +936,8 @@
             // 
             // tab_ADB
             // 
+            this.tab_ADB.Controls.Add(this.btn_LoadPackageList);
+            this.tab_ADB.Controls.Add(this.listView1);
             this.tab_ADB.Controls.Add(this.label_PhoneStatus);
             this.tab_ADB.Controls.Add(this.btn_InstallAPK);
             this.tab_ADB.Controls.Add(this.rtb_adbOutput);
@@ -945,9 +950,49 @@
             this.tab_ADB.Text = "ADB";
             this.tab_ADB.UseVisualStyleBackColor = true;
             // 
+            // btn_LoadPackageList
+            // 
+            this.btn_LoadPackageList.Location = new System.Drawing.Point(107, 66);
+            this.btn_LoadPackageList.Name = "btn_LoadPackageList";
+            this.btn_LoadPackageList.Size = new System.Drawing.Size(95, 41);
+            this.btn_LoadPackageList.TabIndex = 19;
+            this.btn_LoadPackageList.Text = "載入已安裝的APK";
+            this.btn_LoadPackageList.UseVisualStyleBackColor = true;
+            this.btn_LoadPackageList.Click += new System.EventHandler(this.Btn_LoadPackageList_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.Location = new System.Drawing.Point(415, 0);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(503, 394);
+            this.listView1.TabIndex = 18;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Package List";
+            this.columnHeader1.Width = 450;
+            // 
+            // label_PhoneStatus
+            // 
+            this.label_PhoneStatus.AutoSize = true;
+            this.label_PhoneStatus.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_PhoneStatus.Location = new System.Drawing.Point(74, 15);
+            this.label_PhoneStatus.Name = "label_PhoneStatus";
+            this.label_PhoneStatus.Size = new System.Drawing.Size(122, 21);
+            this.label_PhoneStatus.TabIndex = 17;
+            this.label_PhoneStatus.Text = "正在檢查裝置 ...";
+            // 
             // btn_InstallAPK
             // 
-            this.btn_InstallAPK.Location = new System.Drawing.Point(134, 148);
+            this.btn_InstallAPK.Location = new System.Drawing.Point(6, 66);
             this.btn_InstallAPK.Name = "btn_InstallAPK";
             this.btn_InstallAPK.Size = new System.Drawing.Size(95, 41);
             this.btn_InstallAPK.TabIndex = 16;
@@ -957,20 +1002,21 @@
             // 
             // rtb_adbOutput
             // 
-            this.rtb_adbOutput.Location = new System.Drawing.Point(374, 3);
+            this.rtb_adbOutput.Location = new System.Drawing.Point(6, 154);
             this.rtb_adbOutput.Name = "rtb_adbOutput";
-            this.rtb_adbOutput.Size = new System.Drawing.Size(542, 392);
+            this.rtb_adbOutput.ReadOnly = true;
+            this.rtb_adbOutput.Size = new System.Drawing.Size(403, 235);
             this.rtb_adbOutput.TabIndex = 15;
             this.rtb_adbOutput.Text = "";
             this.rtb_adbOutput.WordWrap = false;
             // 
             // btn_checkADB
             // 
-            this.btn_checkADB.Location = new System.Drawing.Point(10, 148);
+            this.btn_checkADB.Location = new System.Drawing.Point(6, 6);
             this.btn_checkADB.Name = "btn_checkADB";
-            this.btn_checkADB.Size = new System.Drawing.Size(95, 41);
+            this.btn_checkADB.Size = new System.Drawing.Size(62, 43);
             this.btn_checkADB.TabIndex = 0;
-            this.btn_checkADB.Text = "確認ADB狀態";
+            this.btn_checkADB.Text = "重新整理";
             this.btn_checkADB.UseVisualStyleBackColor = true;
             this.btn_checkADB.Click += new System.EventHandler(this.Btn_checkADB_Click);
             // 
@@ -1012,16 +1058,6 @@
             // 
             this.saveScreenshotDialog.DefaultExt = "jpg";
             this.saveScreenshotDialog.Filter = "jpg|*.jpg";
-            // 
-            // label_PhoneStatus
-            // 
-            this.label_PhoneStatus.AutoSize = true;
-            this.label_PhoneStatus.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_PhoneStatus.Location = new System.Drawing.Point(15, 17);
-            this.label_PhoneStatus.Name = "label_PhoneStatus";
-            this.label_PhoneStatus.Size = new System.Drawing.Size(122, 21);
-            this.label_PhoneStatus.TabIndex = 17;
-            this.label_PhoneStatus.Text = "正在檢查裝置 ...";
             // 
             // Form1
             // 
@@ -1156,6 +1192,9 @@
         private System.Windows.Forms.RichTextBox rtb_WhiteSource;
         private System.Windows.Forms.Button btn_InstallAPK;
         private System.Windows.Forms.Label label_PhoneStatus;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.Button btn_LoadPackageList;
     }
 }
 

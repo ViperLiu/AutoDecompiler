@@ -113,5 +113,27 @@ namespace MASToolBox
             MessageBox.Show("Install completed");
         }
         #endregion
+
+        private void Btn_LoadPackageList_Click(object sender, EventArgs e)
+        {
+            LibraryWorker pkgListLoader = new LibraryWorker(Library.ADB);
+            pkgListLoader.SetOutputBox(rtb_adbOutput);
+            pkgListLoader.AddParam(new string[] { "shell", "pm", "list", "packages", "-3" });
+            pkgListLoader.DataProcessor = PkgDataProcessor;
+            pkgListLoader.RunLibrary();
+        }
+
+        private string PkgDataProcessor(string data)
+        {
+            if (data.StartsWith("package"))
+            {
+                ListViewItem pkg = new ListViewItem(data.Split(':')[1]);
+                this.listView1.Invoke((MethodInvoker)delegate
+                {
+                    listView1.Items.Add(pkg);
+                });
+            }
+            return "";
+        }
     }
 }
