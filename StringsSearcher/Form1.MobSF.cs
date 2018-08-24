@@ -129,15 +129,6 @@ namespace MASToolBox
             }
         }
 
-        private void TabControl1_Selected(object sender, TabControlEventArgs e)
-        {
-            TabControl tmp = (TabControl)sender;
-            if (tmp.SelectedTab == tmp.TabPages["tab_MobSF"])
-            {
-                this.LoadSettings();
-            }
-        }
-
         //初次啟動MobSF時會執行
         private void FirstRunProcedure()
         {
@@ -172,7 +163,7 @@ namespace MASToolBox
             }
         }
 
-        public void LoadSettings()
+        public void LoadMobSFSettings()
         {
             this.tb_MobSFPath.Text = MobSFSettings.MobSFPath;
         }
@@ -222,7 +213,7 @@ namespace MASToolBox
             MobSFSettings.Save();
 
             tb_MobSFOutput.AppendText("還原完畢，MobSF已經回復成預設值\r\n");
-            LoadSettings();
+            LoadMobSFSettings();
         }
 
         //關閉process
