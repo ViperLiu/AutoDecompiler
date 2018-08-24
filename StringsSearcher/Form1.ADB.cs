@@ -9,10 +9,16 @@ namespace MASToolBox
         string PhoneBrand = "";
         string PhoneModel = "";
         bool IsInstallSuccess = false;
+        bool FirstFoundPhone = false;
         List<string> RecievedData = new List<string>();
 
         #region ADB Check
         private void Btn_checkADB_Click(object sender, EventArgs e)
+        {
+            ADBCheckPhone();
+        }
+
+        private void ADBCheckPhone()
         {
             LibraryWorker adb = new LibraryWorker(Library.ADB);
             adb.AddParam(new string[] { "-d", "shell", "getprop" });
@@ -25,9 +31,15 @@ namespace MASToolBox
         private void PhoneFound(object sender, EventArgs e)
         {
             if (PhoneBrand == null)
+            {
+                label_PhoneStatus.Text = "找不到可用的裝置";
                 MessageBox.Show("找不到可用的裝置", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
-                MessageBox.Show("Found Phone : " + PhoneBrand + " " + PhoneModel);
+            {
+                label_PhoneStatus.Text = "找到裝置 : " + PhoneBrand + " " + PhoneModel;
+                FirstFoundPhone = true;
+            }
         }
 
         private string AdbGetPhoneBrandModel(string data)
@@ -41,13 +53,11 @@ namespace MASToolBox
             {
                 var brand = tmp.Split(':')[1].Trim();
                 PhoneBrand = brand.ToUpper();
-                return "Brand : " + PhoneBrand;
             }
             if(tmp.StartsWith("ro.product.model"))
             {
                 var model = tmp.Split(':')[1].Trim();
                 PhoneModel = model.ToUpper();
-                return "Model : " + PhoneModel;
             }
             return "";
         }
