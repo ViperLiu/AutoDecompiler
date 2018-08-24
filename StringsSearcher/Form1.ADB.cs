@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MASToolBox
@@ -13,7 +8,10 @@ namespace MASToolBox
     {
         string PhoneBrand = "";
         string PhoneModel = "";
+        bool IsInstallSuccess = false;
+        List<string> RecievedData = new List<string>();
 
+        #region ADB Check
         private void Btn_checkADB_Click(object sender, EventArgs e)
         {
             LibraryWorker adb = new LibraryWorker(Library.ADB);
@@ -53,7 +51,9 @@ namespace MASToolBox
             }
             return "";
         }
+        #endregion
 
+        #region Install APK
         private void Btn_InstallAPK_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "apk檔|*.apk";
@@ -62,20 +62,45 @@ namespace MASToolBox
             if (result == DialogResult.OK)
             {
                 var file = openFileDialog1.FileName;
+                rtb_adbOutput.AppendText("正在安裝APK...\r\n");
 
                 LibraryWorker adbInstall = new LibraryWorker(Library.ADB);
                 adbInstall.AddParam(new string[] { "-d", "install", file });
                 adbInstall.SetOutputBox(rtb_adbOutput);
                 adbInstall.JobFinished += APKInstallCompleted;
+                adbInstall.DataProcessor = InstallDataProcessor;
                 adbInstall.RunLibrary();
             }
 
             openFileDialog1.Filter = "";
         }
 
+        private string InstallDataProcessor(string data)
+        {
+            RecievedData.Add(data);
+            if(data.StartsWith("Success"))
+            {
+                IsInstallSuccess = true;
+                return "安裝成功";
+            }
+            return "";
+        }
+
         private void APKInstallCompleted(object sender, EventArgs e)
         {
+            if(!IsInstallSuccess)
+            {
+                rtb_adbOutput.AppendText("安裝失敗：\r\n");
+                foreach (var d in RecievedData)
+                {
+                    rtb_adbOutput.AppendText(d + "\r\n");
+                    rtb_adbOutput.ScrollToCaret();
+                }
+            }
+            RecievedData.Clear();
+            IsInstallSuccess = false;
             MessageBox.Show("Install completed");
         }
+        #endregion
     }
 }
