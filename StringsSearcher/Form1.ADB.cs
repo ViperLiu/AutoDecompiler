@@ -20,6 +20,7 @@ namespace MASToolBox
 
         private void ADBCheckPhone()
         {
+            label_PhoneStatus.Text = "正在檢查裝置 ...";
             LibraryWorker adb = new LibraryWorker(Library.ADB);
             adb.AddParam(new string[] { "-d", "shell", "getprop" });
             adb.SetOutputBox(rtb_adbOutput);
