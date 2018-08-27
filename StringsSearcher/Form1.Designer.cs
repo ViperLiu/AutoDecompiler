@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -119,6 +120,8 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.SearchWorker = new System.ComponentModel.BackgroundWorker();
             this.saveScreenshotDialog = new System.Windows.Forms.SaveFileDialog();
+            this.contextMenu_ADB = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuItem_PullData = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -130,6 +133,7 @@
             this.tab_WhiteSource.SuspendLayout();
             this.tab_ADB.SuspendLayout();
             this.toolStrip.SuspendLayout();
+            this.contextMenu_ADB.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -974,6 +978,7 @@
             this.listView1.TabIndex = 18;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView1_MouseClick);
             // 
             // columnHeader1
             // 
@@ -1059,6 +1064,20 @@
             this.saveScreenshotDialog.DefaultExt = "jpg";
             this.saveScreenshotDialog.Filter = "jpg|*.jpg";
             // 
+            // contextMenu_ADB
+            // 
+            this.contextMenu_ADB.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItem_PullData});
+            this.contextMenu_ADB.Name = "contextMenu_ADB";
+            this.contextMenu_ADB.Size = new System.Drawing.Size(187, 48);
+            this.contextMenu_ADB.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenu_ADB_ItemClicked);
+            // 
+            // menuItem_PullData
+            // 
+            this.menuItem_PullData.Name = "menuItem_PullData";
+            this.menuItem_PullData.Size = new System.Drawing.Size(186, 22);
+            this.menuItem_PullData.Text = "複製app data到電腦";
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -1097,6 +1116,7 @@
             this.tab_ADB.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.contextMenu_ADB.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1196,6 +1216,8 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button btn_LoadPackageList;
+        private System.Windows.Forms.ContextMenuStrip contextMenu_ADB;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_PullData;
     }
 }
 

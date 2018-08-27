@@ -30,6 +30,9 @@ namespace MASToolBox
         public static readonly Library ADB
             = new Library("tools\\adb\\adb.exe");
 
+        public static readonly Library ADBPull
+            = new Library("tools\\adb_pull.bat");
+
         private Library(string path)
         {
             this.Path = path;

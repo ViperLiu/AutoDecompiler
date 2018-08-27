@@ -128,12 +128,48 @@ namespace MASToolBox
             if (data.StartsWith("package"))
             {
                 ListViewItem pkg = new ListViewItem(data.Split(':')[1]);
+                
                 this.listView1.Invoke((MethodInvoker)delegate
                 {
                     listView1.Items.Add(pkg);
                 });
             }
             return "";
+        }
+
+        private void ListView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (listView1.FocusedItem.Bounds.Contains(e.Location))
+                {
+                    menuItem_PullData.Tag = listView1.FocusedItem.Text;
+                    contextMenu_ADB.Show(Cursor.Position);
+                }
+            }
+        }
+
+        private void ContextMenu_ADB_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            contextMenu_ADB.Hide();
+            var result = folderBrowserDialog1.ShowDialog();
+            if (result != DialogResult.OK)
+                return;
+            var pkgName = e.ClickedItem.Tag as string;
+            var dataFolder = "/data/data/" + pkgName;
+            var sdcardFolder = "/sdcard/" + pkgName;
+            var outputFolder = folderBrowserDialog1.SelectedPath + "\\" + pkgName;
+            LibraryWorker cp = new LibraryWorker(Library.ADBPull);
+            cp.AddParam(new string[] { dataFolder, sdcardFolder, outputFolder });
+            cp.SetOutputBox(rtb_adbOutput);
+            cp.JobFinished += Cp_Completed;
+            cp.RunLibrary();
+            
+        }
+
+        private void Cp_Completed(object sender, EventArgs e)
+        {
+            MessageBox.Show("複製完成");
         }
     }
 }
