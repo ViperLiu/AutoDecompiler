@@ -244,7 +244,5 @@ namespace MASToolBox
             //ManifestCheck.JobFinished += PrivacyCheck_Completed;
             ManifestCheck.RunLibrary();
         }
-
-        
     }
 }

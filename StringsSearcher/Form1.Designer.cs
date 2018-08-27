@@ -122,6 +122,7 @@
             this.saveScreenshotDialog = new System.Windows.Forms.SaveFileDialog();
             this.contextMenu_ADB = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuItem_PullData = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_ADBDriver = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -940,6 +941,7 @@
             // 
             // tab_ADB
             // 
+            this.tab_ADB.Controls.Add(this.btn_ADBDriver);
             this.tab_ADB.Controls.Add(this.btn_LoadPackageList);
             this.tab_ADB.Controls.Add(this.listView1);
             this.tab_ADB.Controls.Add(this.label_PhoneStatus);
@@ -956,7 +958,7 @@
             // 
             // btn_LoadPackageList
             // 
-            this.btn_LoadPackageList.Location = new System.Drawing.Point(107, 66);
+            this.btn_LoadPackageList.Location = new System.Drawing.Point(107, 107);
             this.btn_LoadPackageList.Name = "btn_LoadPackageList";
             this.btn_LoadPackageList.Size = new System.Drawing.Size(95, 41);
             this.btn_LoadPackageList.TabIndex = 19;
@@ -989,7 +991,7 @@
             // 
             this.label_PhoneStatus.AutoSize = true;
             this.label_PhoneStatus.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_PhoneStatus.Location = new System.Drawing.Point(74, 15);
+            this.label_PhoneStatus.Location = new System.Drawing.Point(80, 15);
             this.label_PhoneStatus.Name = "label_PhoneStatus";
             this.label_PhoneStatus.Size = new System.Drawing.Size(122, 21);
             this.label_PhoneStatus.TabIndex = 17;
@@ -997,7 +999,7 @@
             // 
             // btn_InstallAPK
             // 
-            this.btn_InstallAPK.Location = new System.Drawing.Point(6, 66);
+            this.btn_InstallAPK.Location = new System.Drawing.Point(6, 107);
             this.btn_InstallAPK.Name = "btn_InstallAPK";
             this.btn_InstallAPK.Size = new System.Drawing.Size(95, 41);
             this.btn_InstallAPK.TabIndex = 16;
@@ -1069,7 +1071,7 @@
             this.contextMenu_ADB.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItem_PullData});
             this.contextMenu_ADB.Name = "contextMenu_ADB";
-            this.contextMenu_ADB.Size = new System.Drawing.Size(187, 48);
+            this.contextMenu_ADB.Size = new System.Drawing.Size(187, 26);
             this.contextMenu_ADB.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenu_ADB_ItemClicked);
             // 
             // menuItem_PullData
@@ -1077,6 +1079,16 @@
             this.menuItem_PullData.Name = "menuItem_PullData";
             this.menuItem_PullData.Size = new System.Drawing.Size(186, 22);
             this.menuItem_PullData.Text = "複製app data到電腦";
+            // 
+            // btn_ADBDriver
+            // 
+            this.btn_ADBDriver.Location = new System.Drawing.Point(6, 55);
+            this.btn_ADBDriver.Name = "btn_ADBDriver";
+            this.btn_ADBDriver.Size = new System.Drawing.Size(95, 42);
+            this.btn_ADBDriver.TabIndex = 20;
+            this.btn_ADBDriver.Text = "安裝ADB Driver";
+            this.btn_ADBDriver.UseVisualStyleBackColor = true;
+            this.btn_ADBDriver.Click += new System.EventHandler(this.Btn_ADBDriver_Click);
             // 
             // Form1
             // 
@@ -1218,6 +1230,7 @@
         private System.Windows.Forms.Button btn_LoadPackageList;
         private System.Windows.Forms.ContextMenuStrip contextMenu_ADB;
         private System.Windows.Forms.ToolStripMenuItem menuItem_PullData;
+        private System.Windows.Forms.Button btn_ADBDriver;
     }
 }
 
