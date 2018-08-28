@@ -106,7 +106,7 @@ namespace MASToolBox
             btn_uploadAPK.Enabled = false;
             btn_MobSFPath.Enabled = true;
             
-            tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
+            //tb_MobSFOutput.AppendText("MobSF已關閉\r\n");
             MessageBox.Show("MobSF已關閉");
         }
 
@@ -126,15 +126,6 @@ namespace MASToolBox
                 tb_MobSFPath.Text = folderBrowserDialog1.SelectedPath;
                 MobSFSettings.MobSFPath = folderBrowserDialog1.SelectedPath;
                 MobSFSettings.Save();
-            }
-        }
-
-        private void TabControl1_Selected(object sender, TabControlEventArgs e)
-        {
-            TabControl tmp = (TabControl)sender;
-            if (tmp.SelectedTab == tmp.TabPages["tab_MobSF"])
-            {
-                this.LoadSettings();
             }
         }
 
@@ -172,7 +163,7 @@ namespace MASToolBox
             }
         }
 
-        public void LoadSettings()
+        public void LoadMobSFSettings()
         {
             this.tb_MobSFPath.Text = MobSFSettings.MobSFPath;
         }
@@ -222,7 +213,7 @@ namespace MASToolBox
             MobSFSettings.Save();
 
             tb_MobSFOutput.AppendText("還原完畢，MobSF已經回復成預設值\r\n");
-            LoadSettings();
+            LoadMobSFSettings();
         }
 
         //關閉process

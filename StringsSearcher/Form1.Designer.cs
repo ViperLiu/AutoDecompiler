@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -104,6 +105,14 @@
             this.tb_WSTargetFolder = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.rtb_WhiteSource = new System.Windows.Forms.RichTextBox();
+            this.tab_ADB = new System.Windows.Forms.TabPage();
+            this.btn_LoadPackageList = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label_PhoneStatus = new System.Windows.Forms.Label();
+            this.btn_InstallAPK = new System.Windows.Forms.Button();
+            this.rtb_adbOutput = new System.Windows.Forms.RichTextBox();
+            this.btn_checkADB = new System.Windows.Forms.Button();
             this.MobSFWorker = new System.ComponentModel.BackgroundWorker();
             this.RequestWorker = new System.ComponentModel.BackgroundWorker();
             this.toolStrip = new System.Windows.Forms.StatusStrip();
@@ -111,6 +120,9 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.SearchWorker = new System.ComponentModel.BackgroundWorker();
             this.saveScreenshotDialog = new System.Windows.Forms.SaveFileDialog();
+            this.contextMenu_ADB = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuItem_PullData = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_ADBDriver = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -120,7 +132,9 @@
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tab_WhiteSource.SuspendLayout();
+            this.tab_ADB.SuspendLayout();
             this.toolStrip.SuspendLayout();
+            this.contextMenu_ADB.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -310,6 +324,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tab_WhiteSource);
+            this.tabControl1.Controls.Add(this.tab_ADB);
             this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
@@ -924,6 +939,94 @@
             this.rtb_WhiteSource.Text = "";
             this.rtb_WhiteSource.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.Rtb_WhiteSource_LinkClicked);
             // 
+            // tab_ADB
+            // 
+            this.tab_ADB.Controls.Add(this.btn_ADBDriver);
+            this.tab_ADB.Controls.Add(this.btn_LoadPackageList);
+            this.tab_ADB.Controls.Add(this.listView1);
+            this.tab_ADB.Controls.Add(this.label_PhoneStatus);
+            this.tab_ADB.Controls.Add(this.btn_InstallAPK);
+            this.tab_ADB.Controls.Add(this.rtb_adbOutput);
+            this.tab_ADB.Controls.Add(this.btn_checkADB);
+            this.tab_ADB.Location = new System.Drawing.Point(4, 22);
+            this.tab_ADB.Name = "tab_ADB";
+            this.tab_ADB.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_ADB.Size = new System.Drawing.Size(919, 395);
+            this.tab_ADB.TabIndex = 5;
+            this.tab_ADB.Text = "ADB";
+            this.tab_ADB.UseVisualStyleBackColor = true;
+            // 
+            // btn_LoadPackageList
+            // 
+            this.btn_LoadPackageList.Location = new System.Drawing.Point(107, 107);
+            this.btn_LoadPackageList.Name = "btn_LoadPackageList";
+            this.btn_LoadPackageList.Size = new System.Drawing.Size(95, 41);
+            this.btn_LoadPackageList.TabIndex = 19;
+            this.btn_LoadPackageList.Text = "載入已安裝的APK";
+            this.btn_LoadPackageList.UseVisualStyleBackColor = true;
+            this.btn_LoadPackageList.Click += new System.EventHandler(this.Btn_LoadPackageList_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.Location = new System.Drawing.Point(415, 0);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(503, 394);
+            this.listView1.TabIndex = 18;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView1_MouseClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Package List";
+            this.columnHeader1.Width = 450;
+            // 
+            // label_PhoneStatus
+            // 
+            this.label_PhoneStatus.AutoSize = true;
+            this.label_PhoneStatus.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_PhoneStatus.Location = new System.Drawing.Point(80, 15);
+            this.label_PhoneStatus.Name = "label_PhoneStatus";
+            this.label_PhoneStatus.Size = new System.Drawing.Size(122, 21);
+            this.label_PhoneStatus.TabIndex = 17;
+            this.label_PhoneStatus.Text = "正在檢查裝置 ...";
+            // 
+            // btn_InstallAPK
+            // 
+            this.btn_InstallAPK.Location = new System.Drawing.Point(6, 107);
+            this.btn_InstallAPK.Name = "btn_InstallAPK";
+            this.btn_InstallAPK.Size = new System.Drawing.Size(95, 41);
+            this.btn_InstallAPK.TabIndex = 16;
+            this.btn_InstallAPK.Text = "安裝APK";
+            this.btn_InstallAPK.UseVisualStyleBackColor = true;
+            this.btn_InstallAPK.Click += new System.EventHandler(this.Btn_InstallAPK_Click);
+            // 
+            // rtb_adbOutput
+            // 
+            this.rtb_adbOutput.Location = new System.Drawing.Point(6, 154);
+            this.rtb_adbOutput.Name = "rtb_adbOutput";
+            this.rtb_adbOutput.ReadOnly = true;
+            this.rtb_adbOutput.Size = new System.Drawing.Size(403, 235);
+            this.rtb_adbOutput.TabIndex = 15;
+            this.rtb_adbOutput.Text = "";
+            this.rtb_adbOutput.WordWrap = false;
+            // 
+            // btn_checkADB
+            // 
+            this.btn_checkADB.Location = new System.Drawing.Point(6, 6);
+            this.btn_checkADB.Name = "btn_checkADB";
+            this.btn_checkADB.Size = new System.Drawing.Size(62, 43);
+            this.btn_checkADB.TabIndex = 0;
+            this.btn_checkADB.Text = "重新整理";
+            this.btn_checkADB.UseVisualStyleBackColor = true;
+            this.btn_checkADB.Click += new System.EventHandler(this.Btn_checkADB_Click);
+            // 
             // MobSFWorker
             // 
             this.MobSFWorker.WorkerSupportsCancellation = true;
@@ -963,6 +1066,30 @@
             this.saveScreenshotDialog.DefaultExt = "jpg";
             this.saveScreenshotDialog.Filter = "jpg|*.jpg";
             // 
+            // contextMenu_ADB
+            // 
+            this.contextMenu_ADB.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItem_PullData});
+            this.contextMenu_ADB.Name = "contextMenu_ADB";
+            this.contextMenu_ADB.Size = new System.Drawing.Size(187, 26);
+            this.contextMenu_ADB.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenu_ADB_ItemClicked);
+            // 
+            // menuItem_PullData
+            // 
+            this.menuItem_PullData.Name = "menuItem_PullData";
+            this.menuItem_PullData.Size = new System.Drawing.Size(186, 22);
+            this.menuItem_PullData.Text = "複製app data到電腦";
+            // 
+            // btn_ADBDriver
+            // 
+            this.btn_ADBDriver.Location = new System.Drawing.Point(6, 55);
+            this.btn_ADBDriver.Name = "btn_ADBDriver";
+            this.btn_ADBDriver.Size = new System.Drawing.Size(95, 42);
+            this.btn_ADBDriver.TabIndex = 20;
+            this.btn_ADBDriver.Text = "安裝ADB Driver";
+            this.btn_ADBDriver.UseVisualStyleBackColor = true;
+            this.btn_ADBDriver.Click += new System.EventHandler(this.Btn_ADBDriver_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -974,6 +1101,7 @@
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MASToolBox";
@@ -996,8 +1124,11 @@
             this.tabPage4.PerformLayout();
             this.tab_WhiteSource.ResumeLayout(false);
             this.tab_WhiteSource.PerformLayout();
+            this.tab_ADB.ResumeLayout(false);
+            this.tab_ADB.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.contextMenu_ADB.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1074,6 +1205,11 @@
         private System.Windows.Forms.Button btn_screenshot;
         private System.Windows.Forms.SaveFileDialog saveScreenshotDialog;
         private System.Windows.Forms.Button btn_keywordScreenshot;
+
+        private System.Windows.Forms.TabPage tab_ADB;
+        private System.Windows.Forms.Button btn_checkADB;
+        private System.Windows.Forms.RichTextBox rtb_adbOutput;
+
         private System.Windows.Forms.RichTextBox rtb_nmapResult;
         private System.Windows.Forms.RichTextBox tb_MobSFOutput;
         private System.Windows.Forms.RichTextBox tbOutput;
@@ -1087,6 +1223,14 @@
         private System.Windows.Forms.TextBox tb_WSTargetFolder;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.RichTextBox rtb_WhiteSource;
+        private System.Windows.Forms.Button btn_InstallAPK;
+        private System.Windows.Forms.Label label_PhoneStatus;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.Button btn_LoadPackageList;
+        private System.Windows.Forms.ContextMenuStrip contextMenu_ADB;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_PullData;
+        private System.Windows.Forms.Button btn_ADBDriver;
     }
 }
 

@@ -136,6 +136,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form1.ADB.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.Base64Converter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +157,9 @@
     <Compile Include="Form1.Nmap.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form1.TabControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.WhiteSource.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,7 @@
     <Compile Include="LibraryWorker.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="MobSF.cs" />
+    <Compile Include="ProcessManager.cs" />
     <Compile Include="Properties\MobSF.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -538,7 +545,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2018/7/3" BuildVersion_BuildVersioningStyle="YearMonthStamp.DayStamp.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="YearStamp.MonthStamp.DayStamp.Increment" BuildVersion_StartDate="2018/7/3" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

@@ -16,6 +16,8 @@ namespace MASToolBox
         public Form1()
         {
             InitializeComponent();
+            var version = Application.ProductVersion;
+            this.Text += string.Format(" - v{0}", version);
         }
         
         public string GetSHA1()
@@ -47,9 +49,9 @@ namespace MASToolBox
         private void TxtFolderPath_DragDrop(object sender, DragEventArgs e)
         {
             Console.WriteLine("drop");
-            String[] file = (String[])e.Data.GetData(DataFormats.FileDrop);
-            String dir = Path.GetDirectoryName(file[0]);
-            String extension = Path.GetExtension(file[0]).ToLower();
+            string[] file = (string[])e.Data.GetData(DataFormats.FileDrop);
+            string dir = Path.GetDirectoryName(file[0]);
+            string extension = Path.GetExtension(file[0]).ToLower();
             if (extension == ".ipa")
             {
                 tbOutput.AppendText("ipa無法反組譯\r\n");
@@ -91,9 +93,9 @@ namespace MASToolBox
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                String file = openFileDialog1.FileName;
-                String extension = Path.GetExtension(file).ToLower();
-                String dir = Path.GetDirectoryName(file);
+                string file = openFileDialog1.FileName;
+                string extension = Path.GetExtension(file).ToLower();
+                string dir = Path.GetDirectoryName(file);
                 if (extension == ".apk")
                 {
                     this.textBox1.Text = openFileDialog1.FileName;
@@ -180,10 +182,11 @@ namespace MASToolBox
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Mobsf.Process != null)
-                KillProcessAndChildren(Mobsf.Process.Id);
+            ProcessManager.TerminateAllProcess();
+            /*if (Mobsf.Process != null)
+                ProcessManager.KillProcess(Mobsf.Process.Id);
             if (Decompiler.Process != null)
-                KillProcessAndChildren(Decompiler.Process.Id);
+                ProcessManager.KillProcess(Decompiler.Process.Id);*/
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -193,7 +196,7 @@ namespace MASToolBox
             InitializationProcedure InitializationProcedure = new InitializationProcedure();
             InitializationProcedure.ShowDialog();
         }
-
+        
         private void Btn_privacyCheck_Click(object sender, EventArgs e)
         {
             string apkName = textBox1.Text.Split('\\').Last<string>();
